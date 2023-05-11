@@ -1,0 +1,10 @@
+@import "global.css";
+
+.bg-gray {
+    background-color: #eee;
+}
+
+.image {
+    width: 105%;
+    height: 100%;
+}

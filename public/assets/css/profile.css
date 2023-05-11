@@ -1,0 +1,6 @@
+@import "global.css";
+
+.read_only_input {
+    background: #efefef;
+    pointer-events: none;
+}

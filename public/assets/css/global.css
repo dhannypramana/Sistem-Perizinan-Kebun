@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+sup {
+    color: red;
+}
+.divider {
+    width: 15%;
+    text-align: left;
+    margin-left: 0;
+
+    position: relative;
+    border: none;
+    height: 3px;
+    background: black;
+    margin-bottom: 25px;
+}
