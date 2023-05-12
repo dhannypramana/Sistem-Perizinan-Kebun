@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
@@ -106,6 +107,9 @@ Route::middleware(['auth', 'user'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
+
+        Route::post('/accept', [ConfirmationController::class, 'accept'])->name('accept');
+        Route::post('/reject', [ConfirmationController::class, 'reject'])->name('reject');
 
         Route::prefix('/research')->group(function () {
             Route::prefix('/check')->group(function () {

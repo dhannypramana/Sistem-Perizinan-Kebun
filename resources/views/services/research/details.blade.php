@@ -5,7 +5,7 @@
         <div class="card-header justify-content-between d-flex pt-4 px-4">
             <div class="items">
                 <h5>No. Izin</h5>
-                <p>{{ $research->license_number }}</p>
+                <p id="license_number">{{ $research->license_number }}</p>
             </div>
             <div class="items">
                 <h5>Tanggal Pengajuan</h5>
@@ -96,6 +96,25 @@
                     </tr>
                 </table>
             </div>
+
+            @if (auth()->user()->is_admin == 1)
+                <div class="btn-group mt-3">
+                    @if (!$research->is_reviewed)
+                        <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
+                            @csrf
+                            <input type="hidden" name="license_number" value="{{ $research->license_number }}">
+                            <button type="submit" class="btn btn-primary">Setujui</button>
+                        </form>
+
+                        <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
+                            action="{{ route('reject') }}">
+                            @csrf
+                            <input type="hidden" name="license_number" value="{{ $research->license_number }}">
+                            <button type="submit" class="btn btn-danger">Tolak</button>
+                        </form>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 
@@ -103,4 +122,97 @@
         <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
         <span>Kembali</span>
     </a>
+@endsection
+
+@section('script')
+    <script>
+        const reject = (e) => {
+            e.preventDefault();
+
+            let license_number = $('input[name=license_number]').val();
+
+            Swal.fire({
+                title: 'Alasan Penolakan',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonText: 'Tolak',
+                preConfirm: (admin_message) => {
+                    $.ajax({
+                        url: "{{ route('reject') }}",
+                        type: "POST",
+                        data: {
+                            license_number: license_number,
+                            admin_message: admin_message
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = '/admin/research/check';
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: xhr.responseJSON.message,
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+        };
+
+        const accept = (e) => {
+            e.preventDefault();
+
+            let license_number = $('input[name=license_number]').val();
+
+            Swal.fire({
+                title: 'Setujui Ajuan?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Setujui Sekarang!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('accept') }}",
+                        type: "POST",
+                        data: {
+                            license_number: license_number,
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = '/admin/research/check';
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: xhr.responseJSON.message,
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                    });
+                }
+            });
+        };
+    </script>
 @endsection
