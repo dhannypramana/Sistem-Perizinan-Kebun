@@ -93,11 +93,11 @@
                 confirmButtonText: 'Yes, Submit Sekarang!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let form = $('#dataForm')[0];
+                    let form = $('#dataRequestForm')[0];
                     let data = new FormData(form);
 
                     $.ajax({
-                        url: "/data/proposal",
+                        url: "/data",
                         type: "POST",
                         enctype: 'multipart/form-data',
                         data: data,
@@ -121,7 +121,7 @@
                                     });
                                 });
                             } else {
-                                $('#dataForm')[0].reset();
+                                $('#dataRequestForm')[0].reset();
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success!',

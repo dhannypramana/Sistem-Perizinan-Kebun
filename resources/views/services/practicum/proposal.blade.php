@@ -236,7 +236,7 @@
                     let data = new FormData(form);
 
                     $.ajax({
-                        url: "/practicum/proposal",
+                        url: "/practicum",
                         type: "POST",
                         enctype: 'multipart/form-data',
                         data: data,

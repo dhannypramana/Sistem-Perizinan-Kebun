@@ -147,7 +147,7 @@
                     let data = new FormData(form);
 
                     $.ajax({
-                        url: "/loan/proposal",
+                        url: "/loan",
                         type: "POST",
                         enctype: 'multipart/form-data',
                         data: data,

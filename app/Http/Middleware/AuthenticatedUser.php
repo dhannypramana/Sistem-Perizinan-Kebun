@@ -31,7 +31,7 @@ class AuthenticatedUser
         } else if ($service == "PS") {
             $data = Loan::where('license_number', $request->license_number)->first();
         } else if ($service == "PK") {
-            $data = Practicum::where('no_izin', $request->license_number)->first();
+            $data = Practicum::where('license_number', $request->license_number)->first();
         } else {
             return;
         }

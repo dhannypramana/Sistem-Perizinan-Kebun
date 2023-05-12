@@ -12,22 +12,30 @@ class PdfController extends Controller
 {
     public function index(Request $request)
     {
-        $service = substr($request->license_number, 3, 2);
+        $service_type = substr($request->license_number, 3, 2);
 
-        if ($service == "PL") {
-            $research = Research::where('license_number', $request->license_number)->first();
-            return redirect()->intended('storage/document/research/' . $research->agency_license);
-        } else if ($service == "PD") {
-            $data_request = DataRequest::where('license_number', $request->license_number)->first();
-            return redirect()->intended('storage/document/data_request/' . $data_request->agency_license);
-        } else if ($service == "PS") {
-            $loan = Loan::where('license_number', $request->license_number)->first();
-            return redirect()->intended('storage/document/loan/' . $loan->agency_license);
-        } else if ($service == "PK") {
-            $practicum = Practicum::where('license_number', $request->license_number)->first();
-            return redirect()->intended('storage/document/practicum/' . $practicum->agency_license);
+        $service = null;
+        $path = null;
+
+        if ($service_type == "PL") {
+            $service = Research::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/research/' . $service->agency_license;
+        } else if ($service_type == "PD") {
+            $service = DataRequest::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/data_request/' . $service->agency_license;
+        } else if ($service_type == "PS") {
+            $service = Loan::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/loan/' . $service->agency_license;
+        } else if ($service_type == "PK") {
+            $service = Practicum::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/practicum/' . $service->agency_license;
         } else {
             return;
         }
+
+        return view('pdf', [
+            'path' => $path,
+            'service' => $service,
+        ]);
     }
 }

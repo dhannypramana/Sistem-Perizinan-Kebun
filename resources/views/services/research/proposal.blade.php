@@ -171,15 +171,8 @@
                     let form = $('#researchForm')[0];
                     let data = new FormData(form);
 
-                    for (var p of data) {
-                        let name = p[0];
-                        let value = p[1];
-
-                        console.log(name, value)
-                    }
-
                     $.ajax({
-                        url: "/research/proposal",
+                        url: "/research",
                         type: "POST",
                         enctype: 'multipart/form-data',
                         data: data,
@@ -203,8 +196,7 @@
                                     });
                                 });
                             } else {
-                                console.log(data.data);
-                                $('#penelitianForm')[0].reset();
+                                $('#researchForm')[0].reset();
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success!',

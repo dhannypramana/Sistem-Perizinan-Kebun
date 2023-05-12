@@ -72,7 +72,7 @@ class UserDataRequestController extends Controller
             $extension      = $request->file('agency_license')->extension();
             $fileName        = $license_number . '.'  . $extension;
 
-            Storage::putFileAs('public/document/dataRequest', $request->file('agency_license'), $fileName);
+            Storage::putFileAs('public/document/data_request', $request->file('agency_license'), $fileName);
         }
 
         $data->update([

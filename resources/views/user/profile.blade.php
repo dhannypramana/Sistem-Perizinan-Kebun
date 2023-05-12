@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('services.layouts.index')
 
 @section('title')
     Profile

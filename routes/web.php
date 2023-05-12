@@ -11,6 +11,7 @@ use App\Http\Controllers\Practicum\UserPracticumController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,10 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Testing Routes
-Route::get('/test', function () {
-    return view('test');
-});
-//
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -58,10 +56,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::middleware('complete_profile')->group(function () {
         Route::prefix('/research')->group(function () {
-            Route::prefix('/proposal')->group(function () {
-                route::get('/', [UserResearchController::class, 'proposal'])->name('research_proposal');
-                route::post('/', [UserResearchController::class, 'store']);
-            });
+            route::get('/', [UserResearchController::class, 'proposal'])->name('research_proposal');
+            route::post('/', [UserResearchController::class, 'store']);
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserResearchController::class, 'check'])->name('research_check');
@@ -70,10 +66,8 @@ Route::middleware(['auth', 'user'])->group(function () {
         });
 
         Route::prefix('/data')->group(function () {
-            Route::prefix('proposal')->group(function () {
-                route::get('/', [UserDataRequestController::class, 'proposal'])->name('data_request_proposal');
-                route::post('/', [UserDataRequestController::class, 'store']);
-            });
+            route::get('/', [UserDataRequestController::class, 'proposal'])->name('data_request_proposal');
+            route::post('/', [UserDataRequestController::class, 'store']);
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserDataRequestController::class, 'check'])->name('data_request_check');
@@ -82,10 +76,8 @@ Route::middleware(['auth', 'user'])->group(function () {
         });
 
         Route::prefix('/loan')->group(function () {
-            Route::prefix('proposal')->group(function () {
-                route::get('/', [UserLoanController::class, 'proposal'])->name('loan_proposal');
-                route::post('/', [UserLoanController::class, 'store']);
-            });
+            route::get('/', [UserLoanController::class, 'proposal'])->name('loan_proposal');
+            route::post('/', [UserLoanController::class, 'store']);
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserLoanController::class, 'check'])->name('loan_check');
@@ -94,10 +86,8 @@ Route::middleware(['auth', 'user'])->group(function () {
         });
 
         Route::prefix('/practicum')->group(function () {
-            Route::prefix('proposal')->group(function () {
-                route::get('/', [UserPracticumController::class, 'proposal'])->name('practicum_proposal');
-                route::post('/', [UserPracticumController::class, 'store']);
-            });
+            route::get('/', [UserPracticumController::class, 'proposal'])->name('practicum_proposal');
+            route::post('/', [UserPracticumController::class, 'store']);
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserPracticumController::class, 'check'])->name('practicum_check');
@@ -106,7 +96,7 @@ Route::middleware(['auth', 'user'])->group(function () {
         });
 
         Route::middleware('authenticated_user')->group(function () {
-            Route::get('/agency_license/{license_number}', [PdfController::class, 'index'])->name('agency_license');
+            Route::get('/{license_number}', [PdfController::class, 'index'])->name('agency_license');
         });
     });
 });
