@@ -53,8 +53,7 @@
                     </li>
                 @endif
 
-                <li class="nav-item
-                    @if ($active == 'research_check') active @endif">
+                <li class="nav-item @if ($active == 'research_check') active @endif">
                     @if (auth()->user()->is_admin == 1)
                         <a class="nav-link" href="{{ route('admin_research_check') }}">
                             <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
@@ -83,10 +82,17 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'data_request_check') active @endif">
-                    <a class="nav-link" href="{{ route('data_request_check') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
-                        <span class="ml-2">Cek Ajuan Data</span>
-                    </a>
+                    @if (auth()->user()->is_admin == 1)
+                        <a class="nav-link" href="{{ route('admin_data_request_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
+                            <span class="ml-2">Cek Ajuan Data</span>
+                        </a>
+                    @else
+                        <a class="nav-link" href="{{ route('data_request_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
+                            <span class="ml-2">Cek Ajuan Data</span>
+                        </a>
+                    @endif
                 </li>
             </div>
 
@@ -104,10 +110,17 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'loan_check') active @endif">
-                    <a class="nav-link" href={{ route('loan_check') }}>
-                        <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
-                        <span class="ml-2">Cek Ajuan Peminjaman</span>
-                    </a>
+                    @if (auth()->user()->is_admin == 1)
+                        <a class="nav-link" href={{ route('admin_loan_check') }}>
+                            <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
+                            <span class="ml-2">Cek Ajuan Peminjaman</span>
+                        </a>
+                    @else
+                        <a class="nav-link" href={{ route('loan_check') }}>
+                            <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
+                            <span class="ml-2">Cek Ajuan Peminjaman</span>
+                        </a>
+                    @endif
                 </li>
             </div>
 
@@ -125,10 +138,17 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'practicum_check') active @endif">
-                    <a class="nav-link" href="{{ route('practicum_check') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
-                        <span class="ml-1">Cek Ajuan Praktikum</span>
-                    </a>
+                    @if (auth()->user()->is_admin == 1)
+                        <a class="nav-link" href="{{ route('admin_practicum_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
+                            <span class="ml-1">Cek Ajuan Praktikum</span>
+                        </a>
+                    @else
+                        <a class="nav-link" href="{{ route('practicum_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
+                            <span class="ml-1">Cek Ajuan Praktikum</span>
+                        </a>
+                    @endif
                 </li>
             </div>
         </ul>

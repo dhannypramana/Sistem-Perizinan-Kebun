@@ -41,8 +41,13 @@
                         <div class="value p-1 width-status">{{ $l->status }}</div>
                     </div>
                     <div class="details p-3">
-                        <a href="{{ route('loan_details', ['license_number' => $l->license_number]) }}"
-                            class="btn btn-primary">Details</a>
+                        @if (auth()->user()->is_admin == 1)
+                            <a href="{{ route('admin_loan_details', ['license_number' => $l->license_number]) }}"
+                                class="btn btn-primary">Details</a>
+                        @else
+                            <a href="{{ route('loan_details', ['license_number' => $l->license_number]) }}"
+                                class="btn btn-primary">Details</a>
+                        @endif
                     </div>
                 </div>
             @endforeach

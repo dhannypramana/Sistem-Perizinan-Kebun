@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="p-5">
-        <h3 class="fw-bolder text-dark">Daftar Pengajuan Permintaan Data</h3>
+        <h3 class="fw-bolder text-dark">Daftar Pengajuan Praktikum</h3>
         <hr class="divider rounded">
         <div class="list container-fluid mt-4">
             <?php
@@ -33,8 +33,13 @@
                         <div class="value p-1">{{ $p->license_number }}</div>
                     </div>
                     <div class="details p-3">
-                        <a href="{{ route('practicum_details', ['license_number' => $p->license_number]) }}"
-                            class="btn btn-primary">Details</a>
+                        @if (auth()->user()->is_admin == 1)
+                            <a href="{{ route('admin_practicum_details', ['license_number' => $p->license_number]) }}"
+                                class="btn btn-primary">Details</a>
+                        @else
+                            <a href="{{ route('practicum_details', ['license_number' => $p->license_number]) }}"
+                                class="btn btn-primary">Details</a>
+                        @endif
                     </div>
                 </div>
             @endforeach

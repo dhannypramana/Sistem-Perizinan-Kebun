@@ -32,8 +32,6 @@ class PdfController extends Controller
             $path = 'storage/document/practicum/' . $data->agency_license;
         }
 
-        // return $path;
-
         if ($data) {
             if (Auth::user()->is_admin == 0) {
                 if ($data->user_id == Auth::user()->id) {

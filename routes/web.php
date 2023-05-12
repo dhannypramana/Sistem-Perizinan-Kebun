@@ -4,10 +4,13 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
 use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
@@ -110,6 +113,26 @@ Route::middleware(['auth', 'admin'])->group(function () {
                 route::get('/{license_number}', [AdminResearchController::class, 'details'])->name('admin_research_details');
             });
         });
+
+        Route::prefix('/data')->group(function () {
+            Route::prefix('/check')->group(function () {
+                Route::get('/', [AdminDataRequestController::class, 'check'])->name('admin_data_request_check');
+                route::get('/{license_number}', [AdminDataRequestController::class, 'details'])->name('admin_data_request_details');
+            });
+        });
+
+        Route::prefix('/loan')->group(function () {
+            Route::prefix('/check')->group(function () {
+                Route::get('/', [AdminLoanController::class, 'check'])->name('admin_loan_check');
+                route::get('/{license_number}', [AdminLoanController::class, 'details'])->name('admin_loan_details');
+            });
+        });
+
+        Route::prefix('/practicum')->group(function () {
+            Route::prefix('/check')->group(function () {
+                Route::get('/', [AdminPracticumController::class, 'check'])->name('admin_practicum_check');
+                route::get('/{license_number}', [AdminPracticumController::class, 'details'])->name('admin_practicum_details');
+            });
+        });
     });
-    // Route::get('/{license_number}', [PdfController::class, 'index'])->name('admin_agency_license');
 });
