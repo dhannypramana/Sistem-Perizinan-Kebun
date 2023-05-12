@@ -31,7 +31,7 @@
             </div>
 
             <div class="dashboard">
-                <li class="nav-item">
+                <li class="nav-item @if ($active == 'dashboard') active @endif">
                     <a class="nav-link" href="{{ route('user_dashboard') }}">
                         <img src="{{ asset('assets/images/svg/undraw_dashboard.svg') }}">
                         <span class="ml-2">Dashboard</span>
@@ -43,20 +43,29 @@
                 <p class="text-white text-bold mx-3 my-2">Penelitian</p>
                 <hr class="sidebar-divider">
 
-                <li class="nav-item
+                @if (auth()->user()->is_admin == 0)
+                    <li class="nav-item
                     @if ($active == 'research_proposal') active @endif">
-                    <a class="nav-link" href="{{ route('research_proposal') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
-                        <span class="ml-2">Ajuan Penelitian</span>
-                    </a>
-                </li>
+                        <a class="nav-link" href="{{ route('research_proposal') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
+                            <span class="ml-2">Ajuan Penelitian</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item
                     @if ($active == 'research_check') active @endif">
-                    <a class="nav-link" href="{{ route('research_check') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
-                        <span class="ml-2">Cek Penelitian</span>
-                    </a>
+                    @if (auth()->user()->is_admin == 1)
+                        <a class="nav-link" href="{{ route('admin_research_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
+                            <span class="ml-2">Cek Penelitian</span>
+                        </a>
+                    @else
+                        <a class="nav-link" href="{{ route('research_check') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
+                            <span class="ml-2">Cek Penelitian</span>
+                        </a>
+                    @endif
                 </li>
             </div>
 
@@ -64,12 +73,14 @@
                 <p class="nav-item text-white text-bold mx-3 my-2">Permintaan Data</p>
                 <hr class="sidebar-divider">
 
-                <li class="nav-item @if ($active == 'data_request_proposal') active @endif">
-                    <a class="nav-link" href="{{ route('data_request_proposal') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
-                        <span class="ml-2">Ajuan Data</span>
-                    </a>
-                </li>
+                @if (auth()->user()->is_admin == 0)
+                    <li class="nav-item @if ($active == 'data_request_proposal') active @endif">
+                        <a class="nav-link" href="{{ route('data_request_proposal') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
+                            <span class="ml-2">Ajuan Data</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item @if ($active == 'data_request_check') active @endif">
                     <a class="nav-link" href="{{ route('data_request_check') }}">
@@ -83,12 +94,14 @@
                 <p class="nav-item text-white text-bold mx-3 my-2">Peminjaman</p>
                 <hr class="sidebar-divider">
 
-                <li class="nav-item @if ($active == 'loan_proposal') active @endif">
-                    <a class="nav-link" href={{ route('loan_proposal') }}>
-                        <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
-                        <span class="ml-2">Ajuan Peminjaman</span>
-                    </a>
-                </li>
+                @if (auth()->user()->is_admin == 0)
+                    <li class="nav-item @if ($active == 'loan_proposal') active @endif">
+                        <a class="nav-link" href={{ route('loan_proposal') }}>
+                            <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
+                            <span class="ml-2">Ajuan Peminjaman</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item @if ($active == 'loan_check') active @endif">
                     <a class="nav-link" href={{ route('loan_check') }}>
@@ -102,12 +115,14 @@
                 <p class="nav-item text-white text-bold mx-3 my-2">Praktikum</p>
                 <hr class="sidebar-divider">
 
-                <li class="nav-item @if ($active == 'practicum_proposal') active @endif">
-                    <a class="nav-link" href="{{ route('practicum_proposal') }}">
-                        <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
-                        <span class="ml-1">Ajuan Praktikum</span>
-                    </a>
-                </li>
+                @if (auth()->user()->is_admin == 0)
+                    <li class="nav-item @if ($active == 'practicum_proposal') active @endif">
+                        <a class="nav-link" href="{{ route('practicum_proposal') }}">
+                            <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
+                            <span class="ml-1">Ajuan Praktikum</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item @if ($active == 'practicum_check') active @endif">
                     <a class="nav-link" href="{{ route('practicum_check') }}">
@@ -134,7 +149,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/profile">
+                                <a class="dropdown-item" href="{{ route('profile') }}">
                                     <img src="{{ asset('assets/images/svg/undraw_account.svg') }}" class="mr-1">
                                     <span>Account</span>
                                 </a>

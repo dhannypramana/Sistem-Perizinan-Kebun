@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Loan\UserLoanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\UserPracticumController;
+use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
@@ -29,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agency_license');
 
 Route::middleware('guest')->group(function () {
     Route::prefix('/login')->group(function () {
@@ -94,9 +97,19 @@ Route::middleware(['auth', 'user'])->group(function () {
                 route::get('/{license_number}', [UserPracticumController::class, 'details'])->name('practicum_details');
             });
         });
+    });
+});
 
-        Route::middleware('authenticated_user')->group(function () {
-            Route::get('/{license_number}', [PdfController::class, 'index'])->name('agency_license');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::prefix('/admin')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
+
+        Route::prefix('/research')->group(function () {
+            Route::prefix('/check')->group(function () {
+                Route::get('/', [AdminResearchController::class, 'check'])->name('admin_research_check');
+                route::get('/{license_number}', [AdminResearchController::class, 'details'])->name('admin_research_details');
+            });
         });
     });
+    // Route::get('/{license_number}', [PdfController::class, 'index'])->name('admin_agency_license');
 });

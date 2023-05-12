@@ -8,6 +8,7 @@ use App\Models\Practicum;
 use App\Models\Research;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedUser
 {
@@ -32,12 +33,14 @@ class AuthenticatedUser
             $data = Loan::where('license_number', $request->license_number)->first();
         } else if ($service == "PK") {
             $data = Practicum::where('license_number', $request->license_number)->first();
-        } else {
-            return;
         }
 
         if ($data) {
-            if ($data->user_id == auth()->user()->id) {
+            if (Auth::user()->is_admin == 0) {
+                if ($data->user_id == Auth::user()->id) {
+                    return $next($request);
+                }
+            } else {
                 return $next($request);
             }
         }

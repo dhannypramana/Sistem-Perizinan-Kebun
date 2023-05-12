@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class UserMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,11 +18,10 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (auth()->user()->is_admin == 0) {
+        if (auth()->user()->is_admin == 1) {
             return $next($request);
         } else {
-            return redirect()->route('admin_dashboard');
+            return redirect()->route('user_dashboard');
         }
     }
 }

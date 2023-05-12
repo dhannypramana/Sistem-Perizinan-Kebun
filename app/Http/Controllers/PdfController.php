@@ -7,6 +7,7 @@ use App\Models\Loan;
 use App\Models\Practicum;
 use App\Models\Research;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PdfController extends Controller
 {
@@ -14,28 +15,43 @@ class PdfController extends Controller
     {
         $service_type = substr($request->license_number, 3, 2);
 
-        $service = null;
+        $data = null;
         $path = null;
 
         if ($service_type == "PL") {
-            $service = Research::where('license_number', $request->license_number)->first();
-            $path = 'storage/document/research/' . $service->agency_license;
+            $data = Research::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/research/' . $data->agency_license;
         } else if ($service_type == "PD") {
-            $service = DataRequest::where('license_number', $request->license_number)->first();
-            $path = 'storage/document/data_request/' . $service->agency_license;
+            $data = DataRequest::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/data_request/' . $data->agency_license;
         } else if ($service_type == "PS") {
-            $service = Loan::where('license_number', $request->license_number)->first();
-            $path = 'storage/document/loan/' . $service->agency_license;
+            $data = Loan::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/loan/' . $data->agency_license;
         } else if ($service_type == "PK") {
-            $service = Practicum::where('license_number', $request->license_number)->first();
-            $path = 'storage/document/practicum/' . $service->agency_license;
-        } else {
-            return;
+            $data = Practicum::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/practicum/' . $data->agency_license;
         }
 
-        return view('pdf', [
-            'path' => $path,
-            'service' => $service,
-        ]);
+        // return $path;
+
+        if ($data) {
+            if (Auth::user()->is_admin == 0) {
+                if ($data->user_id == Auth::user()->id) {
+                    return view('pdf', [
+                        'path' => $path,
+                        'service' => $data->license_number,
+                    ]);
+                } else {
+                    return view('errors.404');
+                }
+            } else {
+                return view('pdf', [
+                    'path' => $path,
+                    'service' => $data->license_number,
+                ]);
+            }
+        } else {
+            return view('errors.404');
+        }
     }
 }

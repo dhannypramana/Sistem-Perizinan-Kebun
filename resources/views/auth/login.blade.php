@@ -75,7 +75,11 @@
                             text: data.success,
                             confirmButtonText: 'OK'
                         }).then(() => {
-                            window.location.href = '/dashboard';
+                            if (data.user == 1) {
+                                window.location.href = '/admin/dashboard';
+                            } else {
+                                window.location.href = '/dashboard';
+                            }
                         });
                     }
                 },

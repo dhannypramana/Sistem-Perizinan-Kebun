@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $service->license_number }}</title>
+    <title>{{ $service }}</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <iframe class="pdf" src="{{ $path }}" frameborder="0"></iframe>
+    <iframe class="pdf" src="{{ asset($path) }}" frameborder="0"></iframe>
 </body>
 
 </html>

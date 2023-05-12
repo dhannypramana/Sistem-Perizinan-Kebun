@@ -35,7 +35,7 @@
                                     </div>
                                 @else
                                     <p>Welcome Back, {{ auth()->user()->name }}</p>
-                                    <div class="pt-5">
+                                    <div class="pt-4">
                                         <a href="{{ route('user_dashboard') }}" class="btn btn-primary">Dashboard</a>
                                     </div>
                                 @endguest
