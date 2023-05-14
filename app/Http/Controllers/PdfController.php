@@ -48,8 +48,8 @@ class PdfController extends Controller
                     'service' => $data->license_number,
                 ]);
             }
-        } else {
-            return view('errors.404');
         }
+
+        return view('errors.404');
     }
 }

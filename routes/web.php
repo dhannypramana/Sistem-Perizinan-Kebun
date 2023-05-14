@@ -31,11 +31,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Testing Routes
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agency_license');
+
+/**
+ * Auth Routes
+ */
 
 Route::middleware('guest')->group(function () {
     Route::prefix('/login')->group(function () {
@@ -53,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
+/**
+ * User Routes
+ */
+
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('user_dashboard');
 
@@ -61,14 +66,14 @@ Route::middleware(['auth', 'user'])->group(function () {
         Route::post('/', [ProfileController::class, 'edit']);
     });
 
-    Route::middleware('complete_profile')->group(function () {
+    Route::middleware(['complete_profile', 'ownership'])->group(function () {
         Route::prefix('/research')->group(function () {
             route::get('/', [UserResearchController::class, 'proposal'])->name('research_proposal');
             route::post('/', [UserResearchController::class, 'store']);
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserResearchController::class, 'check'])->name('research_check');
-                route::get('/{license_number}', [UserResearchController::class, 'details'])->name('research_details');
+                route::get('/{license_number}', [UserResearchController::class, 'details'])->name('research_details')->middleware('authenticated_user');
             });
         });
 
@@ -78,7 +83,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserDataRequestController::class, 'check'])->name('data_request_check');
-                route::get('/{license_number}', [UserDataRequestController::class, 'details'])->name('data_request_details');
+                route::get('/{license_number}', [UserDataRequestController::class, 'details'])->name('data_request_details')->middleware('authenticated_user');;
             });
         });
 
@@ -88,7 +93,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserLoanController::class, 'check'])->name('loan_check');
-                route::get('/{license_number}', [UserLoanController::class, 'details'])->name('loan_details');
+                route::get('/{license_number}', [UserLoanController::class, 'details'])->name('loan_details')->middleware('authenticated_user');;
             });
         });
 
@@ -98,11 +103,15 @@ Route::middleware(['auth', 'user'])->group(function () {
 
             Route::prefix('/check')->group(function () {
                 route::get('/', [UserPracticumController::class, 'check'])->name('practicum_check');
-                route::get('/{license_number}', [UserPracticumController::class, 'details'])->name('practicum_details');
+                route::get('/{license_number}', [UserPracticumController::class, 'details'])->name('practicum_details')->middleware('authenticated_user');;
             });
         });
     });
 });
+
+/**
+ * Admin Routes
+ */
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {

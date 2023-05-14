@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'complete_profile' => \App\Http\Middleware\CompleteProfile::class,
         'authenticated_user' => \App\Http\Middleware\AuthenticatedUser::class,
+        'ownership' => \App\Http\Middleware\OwnershipMiddleware::class,
     ];
 }

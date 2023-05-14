@@ -39,6 +39,8 @@ class AuthenticatedUser
             if (Auth::user()->is_admin == 0) {
                 if ($data->user_id == Auth::user()->id) {
                     return $next($request);
+                } else {
+                    return response()->view('errors.404');
                 }
             } else {
                 return $next($request);
