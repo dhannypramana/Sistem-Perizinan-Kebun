@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Practicum;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificationController;
 use App\Models\Practicum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -111,6 +112,10 @@ class UserPracticumController extends Controller
                 'license_number' => $license_number,
                 'agency_license' => $fileName
             ]);
+
+            if ($i == $request->count) {
+                NotificationController::sendWhatsapp($practicum);
+            }
         }
 
         return response()->json([

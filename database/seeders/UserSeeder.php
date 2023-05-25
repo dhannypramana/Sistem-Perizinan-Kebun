@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
 
             'student_number' => '118140182',
             'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',
-            'phone_number' => '083191831403',
+            'phone_number' => '83191831403',
             'academic_program' => 'Teknik Informatika',
         ]);
 

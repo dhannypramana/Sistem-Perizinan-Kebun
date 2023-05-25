@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Research;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificationController;
 use App\Models\Research;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -90,6 +91,13 @@ class UserResearchController extends Controller
             'license_number' => $license_number,
             'agency_license' => $fileName
         ]);
+
+        /**
+         * If Success create research proposal
+         * send notification through whatsapp to admin
+         */
+
+        NotificationController::sendWhatsapp($research);
 
         return response()->json([
             'success' => 'Terima Kasih Atas Feedback Kamu, Pengajuan Kamu Akan Segera di Review',

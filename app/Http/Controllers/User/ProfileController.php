@@ -45,7 +45,7 @@ class ProfileController extends Controller
                 'address' => $request->address,
                 'academic_program' => $request->academic_program,
                 'student_number' => $request->student_number,
-                'phone_number' => $request->phone_number
+                'phone_number' => substr($request->phone_number, 1)
             ]);
         } catch (QueryException $ex) {
             $errorCode = $ex->errorInfo[1];

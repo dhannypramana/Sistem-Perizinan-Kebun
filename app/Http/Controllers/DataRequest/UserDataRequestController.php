@@ -4,6 +4,7 @@ namespace App\Http\Controllers\DataRequest;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificationController;
 use App\Models\DataRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -79,6 +80,8 @@ class UserDataRequestController extends Controller
             'license_number' => $license_number,
             'agency_license' => $fileName
         ]);
+
+        NotificationController::sendWhatsapp($data);
 
         return response()->json([
             'success' => 'Terima Kasih Atas Feedback Kamu, Pengajuan Kamu Akan Segera di Review',

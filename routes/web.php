@@ -10,6 +10,7 @@ use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
@@ -17,8 +18,11 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Route;
+
+use NotificationChannels\WhatsApp\Component;
+use NotificationChannels\WhatsApp\WhatsAppChannel;
+use NotificationChannels\WhatsApp\WhatsAppTemplate;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +34,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/**
+ * Test Routes
+ */
+
+/**
+ * Main Routes
+ */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agency_license');
