@@ -8,9 +8,9 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LicenseGenerator;
 use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
@@ -20,9 +20,9 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-use NotificationChannels\WhatsApp\Component;
-use NotificationChannels\WhatsApp\WhatsAppChannel;
-use NotificationChannels\WhatsApp\WhatsAppTemplate;
+// use NotificationChannels\WhatsApp\Component;
+// use NotificationChannels\WhatsApp\WhatsAppChannel;
+// use NotificationChannels\WhatsApp\WhatsAppTemplate;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,6 +131,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::post('/accept', [ConfirmationController::class, 'accept'])->name('accept');
         Route::post('/reject', [ConfirmationController::class, 'reject'])->name('reject');
+
+        Route::prefix('/template')->group(function () {
+            Route::get('/', [LicenseGenerator::class, 'show'])->name('template');
+            Route::post('/', [LicenseGenerator::class, 'store'])->name('create_format');
+            Route::post('/delete', [LicenseGenerator::class, 'destroy'])->name('delete_format');
+            Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_format');
+
+            // Route::get('/research', [LicenseGenerator::class, 'research'])->name('research_template');
+            // Route::get('/data', [LicenseGenerator::class, 'data'])->name('data_template');
+            // Route::get('/loan', [LicenseGenerator::class, 'loan'])->name('loan_template');
+            // Route::get('/practicum', [LicenseGenerator::class, 'practicum'])->name('practicum_template');
+        });
 
         Route::prefix('/research')->group(function () {
             Route::prefix('/check')->group(function () {

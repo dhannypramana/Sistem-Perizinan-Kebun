@@ -14,6 +14,7 @@
 
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -151,6 +152,20 @@
                     @endif
                 </li>
             </div>
+
+            @if (auth()->user()->is_admin == 1)
+                <div class="license_generator">
+                    <p class="nav-item text-white text-bold mx-3 my-2">Surat</p>
+                    <hr class="sidebar-divider">
+
+                    <li class="nav-item @if ($active == 'template') active @endif">
+                        <a class="nav-link" href="{{ route('template') }}">
+                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                            <span class="ml-1">Buat Template Surat</span>
+                        </a>
+                    </li>
+                </div>
+            @endif
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -209,7 +224,7 @@
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
