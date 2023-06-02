@@ -134,14 +134,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::prefix('/template')->group(function () {
             Route::get('/', [LicenseGenerator::class, 'show'])->name('template');
-            Route::post('/', [LicenseGenerator::class, 'store'])->name('create_format');
-            Route::post('/delete', [LicenseGenerator::class, 'destroy'])->name('delete_format');
-            Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_format');
-
-            // Route::get('/research', [LicenseGenerator::class, 'research'])->name('research_template');
-            // Route::get('/data', [LicenseGenerator::class, 'data'])->name('data_template');
-            // Route::get('/loan', [LicenseGenerator::class, 'loan'])->name('loan_template');
-            // Route::get('/practicum', [LicenseGenerator::class, 'practicum'])->name('practicum_template');
+            Route::post('/tolol', [LicenseGenerator::class, 'tolol'])->name('insertTolol');
+            Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
         });
 
         Route::prefix('/research')->group(function () {

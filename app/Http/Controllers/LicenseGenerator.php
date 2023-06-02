@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LicenseFormat;
+use App\Models\LicenseFormatDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -10,71 +11,66 @@ class LicenseGenerator extends Controller
 {
     public static function show()
     {
-        $formats = LicenseFormat::get();
+        $license_formats = LicenseFormat::get();
 
         return view('services.license.option_format', [
             'active' => 'template',
-            'formats' => $formats
+            'license_formats' => $license_formats
         ]);
     }
 
-    public static function store(Request $request)
+    public static function details($id)
     {
-        $license = LicenseFormat::create([
-            'id' => Str::uuid(),
-            'format_title' => $request->format_title
-        ]);
+        $data = LicenseFormat::find($id);
 
-        return response()->json([
-            'status' => 'Success',
-        ]);
-    }
-
-    public static function update(Request $request)
-    {
-        $license = LicenseFormat::find($request->id);
-        $license->update($request->all());
-
-        return response()->json([
-            'status' => 'Success',
-            'license' => $license,
-        ]);
-    }
-
-    public static function destroy(Request $request)
-    {
-        $format = LicenseFormat::find($request->id);
-        $format->delete();
-
-        return response()->json([
-            'status' => 0,
-            'success' => 'Berhasil Menghapus Format'
-        ]);
-    }
-
-    public static function research()
-    {
-        return view('services.license.format_research', [
+        return view('services.license.details_format', [
             'active' => 'template',
+            'data' => $data
         ]);
     }
 
-    public static function data()
+    public function tolol(Request $tolol)
     {
-        return view('services.license.format_data', [
-            'active' => 'template',
-        ]);
+        // return LicenseFormatDetail::create([
+        //     'id' => Str::uuid(),
+        //     'type' => $tolol->type,
+        //     'license_format_id' => $tolol->license_format_id
+        // ]);
+
+        for ($i = 0; $i < count($tolol->type); $i++) {
+            LicenseFormatDetail::create([
+                'id' => Str::uuid(),
+                'type' => $tolol->type[$i],
+                'license_format_id' => $tolol->license_format_id
+            ]);
+        }
+
+        return "success anjeng";
     }
-    public static function loan()
-    {
-        return view('services.license.format_loan', [
-            'active' => 'template',
-        ]);
-    }
-    public static function practicum()
-    {
-        return view('services.license.format_practicum', [
-            'active' => 'template',
-        ]);
-    }
+
+    // public static function research()
+    // {
+    //     return view('services.license.format_research', [
+    //         'active' => 'template',
+    //     ]);
+    // }
+
+    // public static function data()
+    // {
+    //     return view('services.license.format_data', [
+    //         'active' => 'template',
+    //     ]);
+    // }
+    // public static function loan()
+    // {
+    //     return view('services.license.format_loan', [
+    //         'active' => 'template',
+    //     ]);
+    // }
+    // public static function practicum()
+    // {
+    //     return view('services.license.format_practicum', [
+    //         'active' => 'template',
+    //     ]);
+    // }
 }

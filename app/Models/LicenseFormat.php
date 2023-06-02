@@ -12,6 +12,10 @@ class LicenseFormat extends Model
 
     protected $fillable = [
         'id',
-        'format_title'
+        'format_title',
+        'letterhead',
+        'title',
+        'footnote',
+        'signature'
     ];
 }

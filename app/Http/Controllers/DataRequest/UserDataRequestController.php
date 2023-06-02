@@ -26,7 +26,7 @@ class UserDataRequestController extends Controller
     {
         return view('services.data_request.check', [
             'active' => 'data_request_check',
-            'data_request' => DataRequest::where('user_id', auth()->user()->id)->latest()->paginate(4)
+            'data_request' => DataRequest::where('user_id', auth()->user()->id)->paginate(4)
         ]);
     }
 

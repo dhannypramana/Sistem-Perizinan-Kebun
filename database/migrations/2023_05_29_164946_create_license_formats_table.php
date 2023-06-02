@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('license_formats', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('format_title');
+            $table->string('letterhead');
+            $table->string('title');
+            $table->string('footnote');
+            $table->string('signature');
             $table->timestamps();
         });
     }
