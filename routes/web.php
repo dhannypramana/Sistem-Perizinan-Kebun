@@ -18,6 +18,8 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
 
 // use NotificationChannels\WhatsApp\Component;
@@ -38,6 +40,18 @@ use Illuminate\Support\Facades\Route;
 /**
  * Test Routes
  */
+
+Route::get('/test', function () {
+    $data = [
+        'nomor_surat' => 'SURAT/001/2023',
+        'tanggal_surat' => Date::now(),
+        'nama_penerima' => 'Dhanny Adhi Pramana',
+        'isi_surat' => 'Ini adalah isi surat...'
+    ];
+
+    $pdf = Pdf::loadView('test', $data);
+    return $pdf->stream('surat.pdf');
+});
 
 /**
  * Main Routes

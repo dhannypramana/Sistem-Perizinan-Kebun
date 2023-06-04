@@ -162,10 +162,6 @@
                     if (result.isConfirmed) {
                         $('#form-container').append(form);
                         updateCount();
-
-                        Swal.fire('Saved!', '', 'success')
-                    } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
                     }
                 });
             });
@@ -187,7 +183,7 @@
                     $('#form-group-' + formNumber).remove();
                     updateCount()
 
-                    Swal.fire('Saved!', '', 'success')
+                    Swal.fire('Berhasil Menghapus', '', 'success')
                 } else if (result.isDenied) {
                     Swal.fire('Changes are not saved', '', 'info')
                 }
@@ -247,6 +243,7 @@
                         dataType: 'json',
                         beforeSend: function() {
                             $(document).find('span.error-text').text('');
+                            onLoading();
                         },
                         success: function(data) {
                             if (data.status == 1) {

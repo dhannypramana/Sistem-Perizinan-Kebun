@@ -7,6 +7,7 @@
 @section('container')
     <h2 class="mb-4">Form Ajuan Penelitian</h2>
     <hr class="divider rounded">
+
     <form id="researchForm" onsubmit="submitResearchForm(event)">
         @csrf
         <div class="row p-4 my-3">
@@ -98,6 +99,8 @@
                 <span class="text-danger fst-italic fw-lighter error-text agency_license_error"></span>
             </div>
 
+            {{-- <div id="loading-spinner"></div> --}}
+
             <div class="col-md-12">
                 <div class="form-group mt-5 mb-0">
                     <div class="form-check">
@@ -183,6 +186,7 @@
                         dataType: 'json',
                         beforeSend: function() {
                             $(document).find('span.error-text').text('');
+                            onLoading();
                         },
                         success: function(data) {
                             if (data.status == 1) {
@@ -209,7 +213,7 @@
                         },
                         error: function(err) {
                             console.log(err.responseJSON.message);
-                        }
+                        },
                     });
                 }
             })

@@ -1,54 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="{{ asset('assets/js/jquery.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/bootstrap.css') }}">
+    <title>Surat</title>
 </head>
 
+<style>
+    .kop {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+</style>
+
 <body>
-    <div id="container"></div>
-
-    <button id="addSubject" class="btn btn-primary mt-5">Add</button>
-
-    <script>
-        $(document).ready(function() {
-            let count = 0;
-
-            $('#addSubject').click(function() {
-                count++;
-                var html = `
-                <div class="d-flex" id="group-${count}">
-                    <p>${count}</p>
-                    <button id="deleteSubject" onclick="deleteSubject(${count})" class="btn btn-danger ml-2">Delete</button>
-                </div>
-                `;
-
-                $('#container').append(html);
-            });
-        });
-
-        const updateCount = () => {
-            let count = 1;
-            $('[id^="group-"]').each(function() {
-                $(this).find('p').text(count);
-                $(this).attr('id', 'group-' + count);
-                $(this).find('button').attr('onclick', 'deleteSubject(' + count + ')');
-                count++;
-            });
-        };
-
-
-        const deleteSubject = (count) => {
-            console.log(count);
-            $('#group-' + count).remove();
-            updateCount()
-        };
-    </script>
+    <img class="kop" src="{{ asset('/assets/images/kop.png') }}" alt="" srcset="">
+    <h2>Nomor Surat: {{ $nomor_surat }}</h2>
+    <p>Tanggal Surat: {{ $tanggal_surat }}</p>
+    <p>Kepada:</p>
+    <p>{{ $nama_penerima }}</p>
+    <hr>
+    <p>{{ $isi_surat }}</p>
 </body>
 
 </html>

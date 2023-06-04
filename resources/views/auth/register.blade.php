@@ -70,6 +70,7 @@
                 dataType: 'json',
                 beforeSend: function() {
                     $(document).find('span.error-text').text('');
+                    onLoading();
                 },
                 success: function(data) {
                     if (data.status == 1) {

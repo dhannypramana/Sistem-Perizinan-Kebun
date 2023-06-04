@@ -59,6 +59,9 @@
                 cache: false,
                 timeout: 600000,
                 dataType: 'json',
+                beforeSend: function() {
+                    onLoading();
+                },
                 success: function(data) {
                     if (data.status == 1) {
                         Swal.fire({

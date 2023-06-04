@@ -228,6 +228,7 @@
 
     <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
+    <script src="{{ asset('assets/js/global.js') }}"></script>
 
     @include('sweetalert::alert')
 
@@ -237,6 +238,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         const submitLogoutForm = (e) => {
             e.preventDefault();
 

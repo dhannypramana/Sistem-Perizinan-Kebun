@@ -33,6 +33,7 @@
 
     <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/global.js') }}"></script>
 
     @yield('script')
 </body>
