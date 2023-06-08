@@ -1,5 +1,14 @@
 @extends('services.layouts.index')
 
+@section('css')
+    <style>
+        .pdf {
+            width: 100%;
+            height: 700px;
+        }
+    </style>
+@endsection
+
 @section('container')
     <div class="card">
         <div class="card-header justify-content-between d-flex pt-4 px-4">

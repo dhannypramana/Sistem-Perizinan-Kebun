@@ -141,32 +141,38 @@ use Carbon\Carbon;
                 showLoaderOnConfirm: true,
                 confirmButtonText: 'Tolak',
                 preConfirm: (admin_message) => {
-                    $.ajax({
-                        url: "{{ route('reject') }}",
-                        type: "POST",
-                        data: {
-                            license_number: license_number,
-                            admin_message: admin_message
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href = '/admin/practicum/check';
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
+                    if (!admin_message) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        $.ajax({
+                            url: "{{ route('reject') }}",
+                            type: "POST",
+                            data: {
+                                license_number: license_number,
+                                admin_message: admin_message
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '/admin/practicum/check';
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: xhr.responseJSON.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                        });
+                    }
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             });

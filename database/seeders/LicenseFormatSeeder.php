@@ -20,7 +20,7 @@ class LicenseFormatSeeder extends Seeder
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Penelitian',
-            'letterhead' => asset('/storage/image/kop.png'),
+            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Penelitian',
             'footnote' => 'Ini Adalah Footnote',
             'signature' => 'Ini Adalah Signature'
@@ -28,7 +28,7 @@ class LicenseFormatSeeder extends Seeder
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Permintaan Data',
-            'letterhead' => asset('/storage/image/kop.png'),
+            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Permintaan Data',
             'footnote' => 'Ini Adalah Footnote',
             'signature' => 'Ini Adalah Signature'
@@ -36,7 +36,7 @@ class LicenseFormatSeeder extends Seeder
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Peminjaman Sarana dan Prasarana',
-            'letterhead' => asset('/storage/image/kop.png'),
+            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Peminjaman Sarana dan Prasarana',
             'footnote' => 'Ini Adalah Footnote',
             'signature' => 'Ini Adalah Signature'
@@ -44,7 +44,7 @@ class LicenseFormatSeeder extends Seeder
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Praktikum',
-            'letterhead' => asset('/storage/image/kop.png'),
+            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Praktikum',
             'footnote' => 'Ini Adalah Footnote',
             'signature' => 'Ini Adalah Signature'

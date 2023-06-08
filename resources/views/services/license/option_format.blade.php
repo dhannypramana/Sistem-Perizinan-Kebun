@@ -6,38 +6,167 @@
         <hr class="divider rounded">
     </div>
 
-    <div class="list container-fluid mt-5 px-5">
-        @php
-            $count = 1;
-        @endphp
-        @foreach ($license_formats as $ls)
-            <div class="row item bg-white border rounded d-flex align-items-center p-3 mb-3">
-                <div class="col">
-                    <span class="pl-5">{{ $count++ }}</span>
-                </div>
-                <div class="col">
-                    <div class="sub-title p-1 text-dark fw-bolder">Nama</div>
-                    <div class="value p-1">{{ $ls->format_title }}</div>
-                </div>
-                <div class="col">
-                    <div class="sub_title p-1 text-dark fw-bolder ml-2">Aksi</div>
-                    <div class="value p-1">
-                        <div class="dropdown">
-                            <img class="btn dropdown-toggle"data-toggle="dropdown"
-                                src="{{ asset('/assets/images/svg/gear.svg') }}">
-                            <span class="caret"></span></img>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ route('details_template', ['id' => $ls->id]) }}" class="dropdown-item">
-                                        <img src="{{ asset('assets/images/svg/edit.svg') }}" class="mr-1">
-                                        <span>Generate Template</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
+    @if ($license_formats->isEmpty())
+        <div class="p-3">
+            <h3>Belum ada data template</h3>
+        </div>
+    @else
+        <div class="list container-fluid mt-5 px-5">
+            @php
+                $count = 1;
+            @endphp
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Judul Format</td>
+                        <td>Aksi</td>
+                    </tr>
+                </thead>
+                @foreach ($license_formats as $ls)
+                    <tbody>
+                        <tr>
+                            <td>{{ $count++ }}</td>
+                            <td id="title-{{ $ls->id }}">{{ $ls->format_title }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <img class="btn dropdown-toggle"data-toggle="dropdown"
+                                        src="{{ asset('/assets/images/svg/gear.svg') }}">
+                                    <span class="caret"></span></img>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('details_template', ['id' => $ls->id]) }}"
+                                                class="dropdown-item">
+                                                <img src="{{ asset('assets/images/svg/letter.svg') }}" class="mr-1">
+                                                <span>Generate Template</span>
+                                            </a>
+                                        </li>
+                                        <li onclick="editTemplateForm(event, '{{ $ls->id }}')"
+                                            style="cursor: pointer !important;">
+                                            <div class="dropdown-item">
+                                                <img src="{{ asset('assets/images/svg/edit.svg') }}" class="mr-1">
+                                                <span style="border: none; background: none; padding: 0; cursor: pointer;">
+                                                    Edit Template
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                @endforeach
+            </table>
+        </div>
+    @endif
+    <form onsubmit="submitTemplateForm(event)" class="ml-2" id="templateForm">
+        @csrf
+        <button type="submit" class="btn btn-sm btn-info mt-3 ml-auto d-flex">Tambah Template</button>
+    </form>
+@endsection
+
+@section('script')
+    <script>
+        const editTemplateForm = (e, id) => {
+            e.preventDefault();
+
+            let format_title = $(`#title-${id}`).text();
+
+            Swal.fire({
+                title: 'Masukkan Judul Template',
+                input: 'text',
+                inputValue: format_title,
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonText: 'Submit',
+                preConfirm: (title) => {
+                    if (!title) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        $.ajax({
+                            url: "{{ route('update_template') }}",
+                            type: "POST",
+                            data: {
+                                id: id,
+                                title: title
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '/admin/template';
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: xhr.responseJSON.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                        });
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+        };
+
+        const submitTemplateForm = (e) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Masukkan Judul Template',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonText: 'Submit',
+                preConfirm: (title) => {
+                    if (!title) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        $.ajax({
+                            url: "{{ route('store_template') }}",
+                            type: "POST",
+                            data: {
+                                title: title
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '/admin/template';
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    icon: 'Error',
+                                    title: 'Error!',
+                                    text: xhr.responseJSON.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                        });
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+        };
+    </script>
 @endsection

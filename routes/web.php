@@ -21,6 +21,7 @@ use App\Http\Controllers\User\ProfileController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // use NotificationChannels\WhatsApp\Component;
 // use NotificationChannels\WhatsApp\WhatsAppChannel;
@@ -42,15 +43,14 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/test', function () {
-    $data = [
-        'nomor_surat' => 'SURAT/001/2023',
-        'tanggal_surat' => Date::now(),
-        'nama_penerima' => 'Dhanny Adhi Pramana',
-        'isi_surat' => 'Ini adalah isi surat...'
-    ];
+    $file = 'image/kop_16862517780906230216181140141193.jpg';
+    $isDeleted = Storage::disk('public')->delete($file);
 
-    $pdf = Pdf::loadView('test', $data);
-    return $pdf->stream('surat.pdf');
+    if ($isDeleted) {
+        return "file dihapus";
+    } else {
+        return "file gagal dhapus";
+    }
 });
 
 /**
@@ -148,8 +148,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::prefix('/template')->group(function () {
             Route::get('/', [LicenseGenerator::class, 'show'])->name('template');
-            Route::post('/tolol', [LicenseGenerator::class, 'tolol'])->name('insertTolol');
+            Route::post('/', [LicenseGenerator::class, 'store'])->name('store_template');
+            Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_template');
+            Route::post('/update-kop', [LicenseGenerator::class, 'updateKop'])->name('update_kop');
+            Route::post('/delete-kop', [LicenseGenerator::class, 'deleteKop'])->name('delete_kop');
+            Route::post('/update-signature', [LicenseGenerator::class, 'updateSignature'])->name('update_signature');
+            Route::post('/delete-signature', [LicenseGenerator::class, 'deleteSignature'])->name('delete_signature');
             Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
+
+            Route::post('/save-template', [LicenseGenerator::class, 'saveTemplate'])->name('saveTemplate');
         });
 
         Route::prefix('/research')->group(function () {

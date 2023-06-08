@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatDetail;
+use App\Models\LicenseLetterhead;
+use App\Models\LicenseSignature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class LicenseGenerator extends Controller
 {
     public static function show()
     {
-        $license_formats = LicenseFormat::get();
+        $license_formats = LicenseFormat::get()->sortBy('created_at');
 
         return view('services.license.option_format', [
             'active' => 'template',
@@ -19,58 +24,186 @@ class LicenseGenerator extends Controller
         ]);
     }
 
-    public static function details($id)
+    public static function store(Request $request)
     {
-        $data = LicenseFormat::find($id);
+        LicenseFormat::create([
+            'format_title' => $request->title,
+        ]);
 
-        return view('services.license.details_format', [
-            'active' => 'template',
-            'data' => $data
+        return response()->json([
+            'message' => 'Berhasil menambah data template surat',
         ]);
     }
 
-    public function tolol(Request $tolol)
+    public static function details($id)
     {
-        // return LicenseFormatDetail::create([
-        //     'id' => Str::uuid(),
-        //     'type' => $tolol->type,
-        //     'license_format_id' => $tolol->license_format_id
-        // ]);
+        $data = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
+        $letterheads = LicenseLetterhead::get()->sortBy('created_at');
+        $signatures = LicenseSignature::get()->sortBy('created_at');
 
-        for ($i = 0; $i < count($tolol->type); $i++) {
-            LicenseFormatDetail::create([
-                'id' => Str::uuid(),
-                'type' => $tolol->type[$i],
-                'license_format_id' => $tolol->license_format_id
+        return view('services.license.details_format', [
+            'active' => 'template',
+            'data' => $data,
+            'letterheads' => $letterheads,
+            'signatures' => $signatures,
+        ]);
+    }
+
+    public static function update(Request $request)
+    {
+        $data = LicenseFormat::find($request->id);
+
+        $data->update([
+            'format_title' => $request->title
+        ]);
+
+        return response()->json([
+            'message' => 'Sukses memperbarui template'
+        ]);
+    }
+
+    public static function updateKop(Request $request)
+    {
+        $data = LicenseFormat::find($request->license_format_id);
+
+        $data->update([
+            'license_letterhead_id' => $request->license_type_id
+        ]);
+
+        return response()->json([
+            'success' => 'Sukses mengganti kop surat',
+        ]);
+    }
+
+    public static function updateSignature(Request $request)
+    {
+        $data = LicenseFormat::find($request->license_format_id);
+
+        $data->update([
+            'license_signature_id' => $request->license_type_id
+        ]);
+
+        return response()->json([
+            'success' => 'Sukses mengganti tanda tangan surat',
+        ]);
+    }
+
+    public static function deleteKop(Request $request)
+    {
+        $license_format = LicenseFormat::where('license_letterhead_id', $request->license_type_id)->get();
+        $letterhead = LicenseLetterhead::find($request->license_type_id);
+
+        foreach ($license_format as $ls) {
+            $ls->update([
+                'license_letterhead_id' => null
             ]);
         }
 
-        return "success anjeng";
+        $isDeleted = Storage::disk('public')->delete('image/' . $letterhead->letterhead);
+        if ($isDeleted) {
+            $letterhead->delete();
+        } else {
+            return response()->json([
+                'status' => 1,
+                'err' => 'Gagal menghapus kop surat',
+            ]);
+        }
+
+        return response()->json([
+            'success' => 'Sukses menghapus kop surat',
+        ]);
     }
 
-    // public static function research()
-    // {
-    //     return view('services.license.format_research', [
-    //         'active' => 'template',
-    //     ]);
-    // }
+    public static function deleteSignature(Request $request)
+    {
+        $license_format = LicenseFormat::where('license_signature_id', $request->license_type_id)->get();
+        $signature = LicenseSignature::find($request->license_type_id);
 
-    // public static function data()
-    // {
-    //     return view('services.license.format_data', [
-    //         'active' => 'template',
-    //     ]);
-    // }
-    // public static function loan()
-    // {
-    //     return view('services.license.format_loan', [
-    //         'active' => 'template',
-    //     ]);
-    // }
-    // public static function practicum()
-    // {
-    //     return view('services.license.format_practicum', [
-    //         'active' => 'template',
-    //     ]);
-    // }
+        foreach ($license_format as $ls) {
+            $ls->update([
+                'license_signature_id' => null
+            ]);
+        }
+
+        $isDeleted = Storage::disk('public')->delete('image/' . $signature->signature);
+
+        if ($isDeleted) {
+            $signature->delete();
+        } else {
+            return response()->json([
+                'status' => 1,
+                'err' => 'Gagal menghapus tanda tangan surat',
+            ]);
+        }
+
+        return response()->json([
+            'success' => 'Sukses menghapus tanda tangan surat',
+        ]);
+    }
+
+    public function saveTemplate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'letterhead' => ['file', 'mimes:jpg,jpeg,png', 'max:1025'],
+            'signature' => ['file', 'mimes:jpg,jpeg,png', 'max:1025'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 1,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $data = LicenseFormat::find($request->license_format_id);
+
+        if ($request->hasFile('letterhead')) {
+            $extension      = $request->file('letterhead')->extension();
+            $fileName        = 'kop_' . time() . date('dmyHis') . rand() . '.'  . $extension;
+
+            Storage::putFileAs('public/image', $request->file('letterhead'), $fileName);
+
+            $lh = LicenseLetterhead::create([
+                'id' => Str::uuid(),
+                'letterhead' => $fileName,
+            ]);
+
+            $data->update([
+                'license_letterhead_id' => $lh->id,
+            ]);
+        }
+
+        if ($request->hasFile('signature')) {
+            $extension      = $request->file('signature')->extension();
+            $fileName        = 'signature_' . time() . date('dmyHis') . rand() . '.'  . $extension;
+
+            Storage::putFileAs('public/image', $request->file('signature'), $fileName);
+
+            $ls = LicenseSignature::create([
+                'id' => Str::uuid(),
+                'signature' => $fileName
+            ]);
+
+            $data->update([
+                'license_signature_id' => $ls->id,
+            ]);
+        }
+
+        $data->update([
+            'title' => $request->title,
+            'footnote' => $request->footnote,
+        ]);
+
+        // for ($i = 0; $i < count($request->type); $i++) {
+        //     LicenseFormatDetail::create([
+        //         'id' => Str::uuid(),
+        //         'type' => $request->type[$i],
+        //         'license_format_id' => $request->license_format_id
+        //     ]);
+        // }
+
+        return response()->json([
+            'success' => 'Sukses memperbarui template surat!',
+        ]);
+    }
 }

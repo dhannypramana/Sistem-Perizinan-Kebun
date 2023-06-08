@@ -49,23 +49,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function penelitian()
+    public function research()
     {
-        return $this->hasMany(Penelitian::class, 'user_id');
+        return $this->hasMany(Research::class, 'user_id');
     }
 
-    public function data()
+    public function data_request()
     {
-        return $this->hasMany(Data::class, 'user_id');
+        return $this->hasMany(DataRequest::class, 'user_id');
     }
 
-    public function peminjaman()
+    public function loan()
     {
-        return $this->hasMany(Peminjaman::class, 'user_id');
+        return $this->hasMany(Loan::class, 'user_id');
     }
 
-    public function praktikum()
+    public function practicum()
     {
-        return $this->hasMany(Praktikum::class, 'user_id');
+        return $this->hasMany(Practicum::class, 'user_id');
     }
 }
