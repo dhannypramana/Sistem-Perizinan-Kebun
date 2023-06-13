@@ -178,8 +178,13 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     {{ auth()->user()->name }}
                                 </span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{ asset('assets/images/svg/undraw_profile.svg') }}">
+                                @if (auth()->user()->photo)
+                                    <img class="img-profile rounded-circle"
+                                        src="{{ asset('assets/images/profile.png') }}">
+                                @else
+                                    <img class="img-profile rounded-circle"
+                                        src="{{ asset('assets/images/no-profile.jpeg') }}">
+                                @endif
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -28,6 +28,7 @@ class User extends Authenticatable
         'phone_number',
         'academic_program',
         'is_admin',
+        'photo',
     ];
 
     /**

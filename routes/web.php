@@ -89,7 +89,10 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::prefix('/profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('profile');
-        Route::post('/', [ProfileController::class, 'edit']);
+        Route::get('/edit', [ProfileController::class, 'showEdit'])->name('edit_profile');
+        Route::post('/edit', [ProfileController::class, 'edit']);
+        Route::post('/change-photo', [ProfileController::class, 'changePhoto'])->name('change_photo');
+        Route::post('/delete-photo', [ProfileController::class, 'deleteUserPhoto'])->name('delete_user_photo');
     });
 
     Route::middleware(['complete_profile', 'ownership'])->group(function () {

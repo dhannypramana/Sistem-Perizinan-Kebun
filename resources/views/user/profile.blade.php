@@ -1,7 +1,7 @@
 @extends('services.layouts.index')
 
 @section('title')
-    Profile
+    {{-- Profile --}}
 @endsection
 
 @section('css')
@@ -9,188 +9,280 @@
 @endsection
 
 @section('container')
-    <div class="container">
-        <div class="row mt-5 justify-content-center align-items-center">
-            <div class="col-md-10">
-                <div class="card mb-4">
-                    <div class="card-header p-3 mb-4 text-center">
-                        Profile
-                    </div>
-
-                    <div class="card-body">
-                        <form id="profileForm" onsubmit="submitProfileForm(event)">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="name">Nama</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" name="name" id="name" value="{{ $user->name }}"
-                                        class="form-control" placeholder="Masukkan Nama" required>
-                                    <span class="text-danger fst-italic fw-lighter error-text name_error"></span>
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="email">Email</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    @if ($user->email_verified_at == null)
-                                        <input type="text" name="email" id="email" value="{{ $user->email }}"
-                                            class="form-control" required>
-                                        <span class="text-danger fst-italic fw-lighter error-text email_error"></span>
-                                    @else
-                                        <input type="text" name="email" value="{{ $user->email }}"
-                                            class="form-control read_only_input" placeholder="Masukkan Email">
-                                        <span class="small text-success"><sup>*</sup>Email kamu sudah terverifikasi!</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="address">Alamat</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <textarea rows="3" type="text" name="address" id="address" class="form-control "
-                                        placeholder="Masukkan Alamat" required>{{ $user->address }}</textarea>
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="academic_program">Program Studi</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" name="academic_program" id="academic_program"
-                                        value="{{ $user->academic_program }}" class="form-control"
-                                        placeholder="Masukkan Prodi">
-                                    <span
-                                        class="text-danger fst-italic fw-lighter error-text academic_program_error"></span>
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="student_number">NIM</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="number" name="student_number" id="student_number"
-                                        value="{{ $user->student_number }}" class="form-control" placeholder="Masukkan NIM"
-                                        required>
-                                    <span class="text-danger fst-italic fw-lighter error-text student_number_error"></span>
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label for="phone_number">Whatsapp</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                        <input type="text" name="phone_number" id="phone_number"
-                                            value="{{ $user->phone_number }}" class="form-control"
-                                            placeholder="Masukkan No Whatsapp" required>
+    <section>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <div class="profile-picture" id="changeProfile">
+                                <div class="dropdown">
+                                    <a href="#" data-toggle="dropdown" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="image-container">
+                                            @if ($user->photo == null)
+                                                <img src="{{ asset('assets/images/no-profile.jpeg') }}" alt="Gambar Profil"
+                                                    class="image rounded-circle img-fluid" />
+                                            @else
+                                                <img src="{{ asset('storage/image/' . $user->photo) }}" alt="Gambar Profil"
+                                                    class="image rounded-circle img-fluid" />
+                                            @endif
+                                            <div class="hint-box rounded-circle">
+                                                <span class="hint-text">Change your avatar</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-5" aria-labelledby="dropdownMenuLink">
+                                        <button class="dropdown-item" id="uploadPhoto">Upload a Photo</button>
+                                        <button class="dropdown-item" id="removePhoto">Remove Photo</button>
                                     </div>
                                 </div>
                             </div>
+                            <h5 class="my-3">{{ $user->name }}</h5>
+                            <p class="text-muted mb-1">{{ $user->academic_program }}</p>
+                            <p class="text-muted mb-4">{{ $user->student_number }}</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <a href="{{ route('edit_profile') }}" class="btn btn-outline-primary">Edit Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ $user->name }}</p>
+                                </div>
+                            </div>
                             <hr>
-
-                            <button class="btn btn-primary mt-2" type="submit">
-                                Edit Profile
-                            </button>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ $user->email }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Prodi</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ $user->academic_program }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">NIM</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ $user->student_number }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Whatsapp</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">+62 {{ $user->phone_number }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Address</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ $user->address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4 mb-md-0">
+                                <div class="card-body">
+                                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project
+                                        Status
+                                    </p>
+                                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 89%"
+                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 55%"
+                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                                    <div class="progress rounded mb-2" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 66%"
+                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4 mb-md-0">
+                                <div class="card-body">
+                                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project
+                                        Status
+                                    </p>
+                                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 80%"
+                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 72%"
+                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 89%"
+                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                                    <div class="progress rounded" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 55%"
+                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                                    <div class="progress rounded mb-2" style="height: 5px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 66%"
+                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
 
 @section('script')
     <script>
-        const submitProfileForm = (e) => {
-            e.preventDefault();
+        $(document).ready(() => {
+            $('#removePhoto').click(removePhoto);
+            $('#uploadPhoto').click(uploadPhoto);
+        });
+
+        const uploadPhoto = async () => {
+            let files = null;
+
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.onchange = _ => {
+                files = Array.from(input.files);
+
+                const data = new FormData();
+                data.append('file', files[0]);
+
+                $.ajax({
+                    url: "{{ route('change_photo') }}",
+                    type: 'POST',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.status == 1) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: data.err,
+                                icon: 'error',
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Success!",
+                                text: data.success,
+                                icon: 'success',
+                                showCancelButton: true,
+                            }).then(() => {
+                                window.location.href = '/profile';
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Terjadi kesalahan saat mengunggah file');
+                    }
+                });
+
+            };
+            input.click();
+        };
+
+        const removePhoto = () => {
+            let user_id = '{{ auth()->user()->id }}';
 
             Swal.fire({
                 title: 'Kamu Yakin?',
-                text: "Pastikan Data Yang Kamu Masukkan Sudah Benar!",
+                text: "Aksi ini tidak dapat dikembalikan!",
                 icon: 'warning',
-                showCancelButton: true,
+                showDenyButton: true,
                 confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Submit Sekarang!'
+                confirmButtonText: 'Yes, Hapus Sekarang!',
+                denyButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let form = $('#profileForm')[0];
-                    let data = new FormData(form);
-
                     $.ajax({
-                        url: "/profile",
+                        url: "{{ route('delete_user_photo') }}",
                         type: "POST",
                         enctype: 'multipart/form-data',
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        timeout: 600000,
+                        data: {
+                            user_id: user_id,
+                        },
                         dataType: 'json',
                         beforeSend: function() {
-                            $(document).find('span.error-text').text('');
                             onLoading();
                         },
                         success: function(data) {
                             if (data.status == 1) {
                                 Swal.fire({
+                                    title: "Error!",
+                                    text: data.err,
                                     icon: 'error',
-                                    title: 'Terdapat Kesalahan!',
-                                    text: 'Periksa Kembali Form Kamu!',
-                                }).then(() => {
-                                    $.each(data.errors, function(prefix, val) {
-                                        $('span.' + prefix + '_error').text(val[0]);
-                                    });
                                 });
                             } else {
-                                $('#profileForm')[0].reset();
                                 Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
+                                    title: "Success!",
                                     text: data.success,
-                                    confirmButtonText: 'OK'
+                                    icon: 'success',
+                                    showCancelButton: true,
                                 }).then(() => {
                                     window.location.href = '/profile';
                                 });
                             }
                         },
                         error: function(data) {
-                            if (data.status == 422) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terdapat Kesalahan!',
-                                    text: 'Periksa Kembali Form Kamu!',
-                                }).then(() => {
-                                    if (data.responseJSON.unique_field[2] ==
-                                        'users_email_unique') {
-                                        $('.email_error').text(data.responseJSON.errors)
-                                    } else if (data.responseJSON.unique_field[2] ==
-                                        'users_student_number_unique') {
-                                        $('.student_number_error').text(data.responseJSON
-                                            .errors)
-                                    } else if (data.responseJSON.unique_field[2] ==
-                                        'users_name_unique') {
-                                        $('.name_error').text(data.responseJSON.errors)
-                                    }
-                                });
-                            }
+                            console.log(data.responseJSON.message);
                         }
                     });
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
                 }
-            })
+            });
         };
     </script>
 @endsection

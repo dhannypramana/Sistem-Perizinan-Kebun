@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -16,6 +17,72 @@ class ProfileController extends Controller
             'active' => 'profile',
             'user' => auth()->user(),
         ]);
+    }
+
+    public static function showEdit()
+    {
+        return view('user.edit_profile', [
+            'active' => 'profile',
+            'user' => auth()->user(),
+        ]);
+    }
+
+    public static function changePhoto(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $user = User::find(auth()->user()->id);
+
+            $extension      = $request->file('file')->extension();
+            $fileName       = 'photo' . '_' . auth()->user()->id . '.'  . $extension;
+
+            try {
+                Storage::disk('public')->delete('image/' . $user->photo);
+                Storage::putFileAs('public/image', $request->file('file'), $fileName);
+
+                $user->update([
+                    'photo' => $fileName,
+                ]);
+
+                return response()->json([
+                    'success' => 'Berhasil mengubah foto profil',
+                ]);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'status' => 1,
+                    'err' => $th,
+                ]);
+            }
+        }
+    }
+
+    public static function deleteUserPhoto(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        if ($user->photo == null) {
+            return response()->json([
+                'status' => 1,
+                'err' => 'Belum ada foto profil!',
+            ]);
+        }
+
+        try {
+            Storage::disk('public')->delete('image/' . $user->photo);
+
+            $user->update([
+                'photo' => null,
+            ]);
+
+            return response()->json([
+                'status' => 0,
+                'success' => 'Berhasil menghapus foto profil',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 1,
+                'err' => $th,
+            ]);
+        }
     }
 
     public static function edit(Request $request)

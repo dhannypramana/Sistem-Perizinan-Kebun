@@ -4,3 +4,50 @@
     background: #efefef;
     pointer-events: none;
 }
+
+/* .img-wrapper:hover {
+    background-color: red;
+} */
+
+.profile-picture {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image {
+    width: 150px;
+  }
+
+  .hint-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+.hint-text {
+    color: white;
+    font-size: 13px;
+}
+
+.image-container:hover .hint-box {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
