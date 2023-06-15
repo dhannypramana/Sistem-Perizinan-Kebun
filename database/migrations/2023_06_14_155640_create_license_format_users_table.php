@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\LicenseFormat;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('license_format_details', function (Blueprint $table) {
+        Schema::create('license_format_users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
             $table->string('type_name');
-            $table->string('info_type');
-            $table->foreignIdFor(LicenseFormat::class);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('license_format_details');
+        Schema::dropIfExists('license_format_users');
     }
 };

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UUID;
 
-class LicenseFormatDetail extends Model
+class LicenseFormatService extends Model
 {
     use HasFactory, UUID;
 
@@ -14,12 +14,6 @@ class LicenseFormatDetail extends Model
         'id',
         'type',
         'type_name',
-        'info_type',
-        'license_format_id',
+        'service',
     ];
-
-    public function license_format()
-    {
-        return $this->belongsTo(LicenseFormat::class, "license_format_id");
-    }
 }

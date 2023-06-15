@@ -8,6 +8,8 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LicenseFormatServiceController;
+use App\Http\Controllers\LicenseFormatUserController;
 use App\Http\Controllers\LicenseGenerator;
 use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
@@ -43,14 +45,7 @@ use Illuminate\Support\Facades\Storage;
  */
 
 Route::get('/test', function () {
-    $file = 'image/kop_16862517780906230216181140141193.jpg';
-    $isDeleted = Storage::disk('public')->delete($file);
-
-    if ($isDeleted) {
-        return "file dihapus";
-    } else {
-        return "file gagal dhapus";
-    }
+    return view('test');
 });
 
 /**
@@ -153,11 +148,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::get('/', [LicenseGenerator::class, 'show'])->name('template');
             Route::post('/', [LicenseGenerator::class, 'store'])->name('store_template');
             Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_template');
+            Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
+
             Route::post('/update-kop', [LicenseGenerator::class, 'updateKop'])->name('update_kop');
             Route::post('/delete-kop', [LicenseGenerator::class, 'deleteKop'])->name('delete_kop');
+
             Route::post('/update-signature', [LicenseGenerator::class, 'updateSignature'])->name('update_signature');
             Route::post('/delete-signature', [LicenseGenerator::class, 'deleteSignature'])->name('delete_signature');
-            Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
+
+            Route::get('/license-user', [LicenseFormatUserController::class, 'getLicenseUser'])->name('get-license-user');
+            Route::post('/create-license-user', [LicenseFormatUserController::class, 'postLicenseUser'])->name('post-license-user');
+            Route::post('/delete-license-user', [LicenseFormatUserController::class, 'deleteLicenseUser'])->name('delete-license-user');
+
+            Route::get('/license-service/{type}', [LicenseFormatServiceController::class, 'getLicenseService'])->name('get-license-service');
+            Route::post('/create-license-service', [LicenseFormatServiceController::class, 'postLicenseService'])->name('post-license-service');
+            Route::post('/delete-license-service', [LicenseFormatServiceController::class, 'deleteLicenseService'])->name('delete-license-service');
 
             Route::post('/save-template', [LicenseGenerator::class, 'saveTemplate'])->name('saveTemplate');
         });

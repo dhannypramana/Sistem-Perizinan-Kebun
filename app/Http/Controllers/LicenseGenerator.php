@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatDetail;
+use App\Models\LicenseFormatService;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
 use Illuminate\Http\Request;
@@ -40,12 +41,16 @@ class LicenseGenerator extends Controller
         $data = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
         $letterheads = LicenseLetterhead::get()->sortBy('created_at');
         $signatures = LicenseSignature::get()->sortBy('created_at');
+        $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
+        $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
 
         return view('services.license.details_format', [
             'active' => 'template',
             'data' => $data,
             'letterheads' => $letterheads,
             'signatures' => $signatures,
+            'service_info' => $service_info,
+            'user_info' => $user_info,
         ]);
     }
 
@@ -194,13 +199,9 @@ class LicenseGenerator extends Controller
             'footnote' => $request->footnote,
         ]);
 
-        // for ($i = 0; $i < count($request->type); $i++) {
-        //     LicenseFormatDetail::create([
-        //         'id' => Str::uuid(),
-        //         'type' => $request->type[$i],
-        //         'license_format_id' => $request->license_format_id
-        //     ]);
-        // }
+        /**
+         * Save User Info
+         */
 
         return response()->json([
             'success' => 'Sukses memperbarui template surat!',

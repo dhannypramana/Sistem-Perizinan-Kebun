@@ -5,3 +5,16 @@ const onLoading = () => {
         allowOutsideClick: false
     });
 };
+
+function createSlug(text) {
+    return text.toLowerCase().replace(/\s+/g, '_');
+}
+
+var fileInputs = document.querySelectorAll('.custom-file-input');
+var labels = document.querySelectorAll('.custom-file-label');
+
+fileInputs.forEach(function(fileInput, index) {
+    fileInput.addEventListener('change', function() {
+        labels[index].textContent = this.files[0].name;
+    });
+});

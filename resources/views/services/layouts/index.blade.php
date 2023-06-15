@@ -180,7 +180,7 @@
                                 </span>
                                 @if (auth()->user()->photo)
                                     <img class="img-profile rounded-circle"
-                                        src="{{ asset('assets/images/profile.png') }}">
+                                        src="{{ asset('storage/image/' . auth()->user()->photo) }}">
                                 @else
                                     <img class="img-profile rounded-circle"
                                         src="{{ asset('assets/images/no-profile.jpeg') }}">
@@ -189,10 +189,13 @@
 
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}">
-                                    <img src="{{ asset('assets/images/svg/undraw_account.svg') }}" class="mr-1">
-                                    <span>Account</span>
-                                </a>
+                                @if (auth()->user()->is_admin == 0)
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                        <img src="{{ asset('assets/images/svg/undraw_account.svg') }}"
+                                            class="mr-1">
+                                        <span>Account</span>
+                                    </a>
+                                @endif
                                 <form onsubmit="submitLogoutForm(event)">
                                     @csrf
                                     <button type="submit" class="dropdown-item">

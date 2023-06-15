@@ -52,8 +52,11 @@
                         </div>
                     @endif
                     <div class="form-group col-md-5">
-                        <label for="kop">Upload Kop Baru</label>
-                        <input type="file" name="letterhead" class="form-control-file mt-1" id="letterhead">
+                        <label for="letterhead" class="form-label">Upload Kop Baru</label>
+                        <div class="custom-file">
+                            <input type="file" name="letterhead" class="custom-file-input" id="letterhead">
+                            <label class="custom-file-label" for="letterhead">Choose file</label>
+                        </div>
                         <span class="text-danger fst-italic fw-lighter error-text letterhead_error"></span>
                     </div>
                 </div>
@@ -84,8 +87,8 @@
                                         <a class="dropdown-item dropdown-item-license"
                                             onclick="updateImages(event, '{{ $data->id }}', '{{ $s->id }}', 'signature')">
                                             <div class="image-wrapper">
-                                                <img src="{{ asset('/storage/image/' . $s->signature) }}" alt="Kop"
-                                                    class="select-kop">
+                                                <img src="{{ asset('/storage/image/' . $s->signature) }}" alt="Signature"
+                                                    class="select-kop border">
                                                 <a onclick="deleteImages(event, '{{ $s->id }}', 'signature')"
                                                     class="btn-select btn btn-danger">
                                                     <img src="{{ asset('assets/images/svg/delete.svg') }}" alt="delete">
@@ -101,8 +104,11 @@
                         </div>
                     @endif
                     <div class="form-group col-md-5">
-                        <label for="kop">Upload Tanda Tangan Baru</label>
-                        <input type="file" name="signature" class="form-control-file mt-1" id="signature">
+                        <label for="signature" class="form-label">Upload Tanda Tangan Baru</label>
+                        <div class="custom-file">
+                            <input type="file" name="signature" class="custom-file-input" id="signature">
+                            <label class="custom-file-label" for="signature">Choose file</label>
+                        </div>
                         <span class="text-danger fst-italic fw-lighter error-text signature_error"></span>
                     </div>
                 </div>
@@ -127,137 +133,418 @@
                         value="{{ $data->footnote }}">
                 </div>
 
-                {{-- <div class="user_info">
+                <div class="user_info">
                     <h4 class="mt-4">Informasi Pengaju</h4>
-                    <table class="table table-bordered mt-3 text-center">
-                        <thead>
-                            <tr>
-                                <th>Tipe</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Nama</td>
-                                <td>
-                                    <input type="checkbox" value="name" name="type[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Alamat</td>
-                                <td>
-                                    <input type="checkbox" value="alamat" name="type[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Prodi</td>
-                                <td>
-                                    <input type="checkbox" value="prodi" name="type[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>NIM</td>
-                                <td>
-                                    <input type="checkbox" value="nim" name="type[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>No Telefon</td>
-                                <td>
-                                    <input type="checkbox" value="no_telfon" name="type[]">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> --}}
+                    <button id="addUserInfo" type="button"
+                        class="btn btn-sm btn-info mt-3 ml-auto d-flex align-items-center">
+                        <img src="{{ asset('assets/images/svg/plus.svg') }}" class="mr-1" style="height: 16px;">
+                        <span>Tambah Informasi Pengaju</span>
+                    </button>
+                    @if ($user_info->isNotEmpty())
+                        <table class="table table-bordered mt-3 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Tipe</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($user_info as $ui)
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                {{ ucfirst(trans($ui->info_type)) }}
+                                            </span>
+                                            <span> - </span>
+                                            <span>
+                                                {{ $ui->type_name }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <img class="btn dropdown-toggle"data-toggle="dropdown"
+                                                    src="{{ asset('/assets/images/svg/gear.svg') }}">
+                                                <span class="caret"></span>
+                                                </img>
+                                                <ul class="dropdown-menu">
+                                                    <li onclick="deleteUserInfo(event, '{{ $ui->id }}')"
+                                                        style="cursor: pointer !important;">
+                                                        <div class="dropdown-item">
+                                                            <img src="{{ asset('assets/images/svg/delete.svg') }}"
+                                                                class="mr-1">
+                                                            <span
+                                                                style="border: none; background: none; padding: 0; cursor: pointer;">
+                                                                Hapus
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
 
-                {{-- <div class="research_info">
+                <div class="research_info">
                     <h4 class="mt-4">Informasi Pengajuan</h4>
-                    <table class="table table-bordered mt-3 text-center">
-                        <thead>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Tipe</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Lokasi Penelitian</td>
-                                <td>Penelitian - Lokasi</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jumlah Personil</td>
-                                <td>Penelitian - Jumlah</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Judul Penelitian</td>
-                                <td>Penelitian - Judul</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Waktu Mulai</td>
-                                <td>Penelitian - Mulai</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Waktu Berakhir</td>
-                                <td>Penelitian - Berakhir</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fasilitas</td>
-                                <td>Penelitian - Fasilitas</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dosen Pembimbing Penelitian</td>
-                                <td>Penelitian - Dosen Penelitian</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dosen Pembimbing Akademik</td>
-                                <td>Penelitian - Dosen Akademik</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Status Pengajuan</td>
-                                <td>Penelitian - Status</td>
-                                <td>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> --}}
+                    <button id="addServiceInfo" type="button"
+                        class="btn btn-sm btn-info mt-3 ml-auto d-flex align-items-center">
+                        <img src="{{ asset('assets/images/svg/plus.svg') }}" class="mr-1" style="height: 16px;">
+                        <span>Tambah Informasi Pengajuan</span>
+                    </button>
+                    @if ($service_info->isNotEmpty())
+                        <table class="table table-bordered mt-3 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Tipe</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($service_info as $si)
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                @if ($si->info_type == 'research')
+                                                    Penelitian
+                                                @elseif ($si->info_type == 'data_request')
+                                                    Permintaan Data
+                                                @elseif ($si->info_type == 'loan')
+                                                    Peminjaman
+                                                @else
+                                                    Praktikum
+                                                @endif
+                                            </span>
+                                            <span> - </span>
+                                            <span>
+                                                {{ $si->type_name }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <img class="btn dropdown-toggle"data-toggle="dropdown"
+                                                    src="{{ asset('/assets/images/svg/gear.svg') }}">
+                                                <span class="caret"></span>
+                                                </img>
+                                                <ul class="dropdown-menu">
+                                                    <li onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                                        style="cursor: pointer !important;">
+                                                        <div class="dropdown-item">
+                                                            <img src="{{ asset('assets/images/svg/delete.svg') }}"
+                                                                class="mr-1">
+                                                            <span
+                                                                style="border: none; background: none; padding: 0; cursor: pointer;">
+                                                                Hapus
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
             </div>
             <input type="text" name="license_format_id" class="form-control" value="{{ $data->id }}"
                 style="display:none;">
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button type="submit" class="btn btn-primary mt-3">
+                <img src="{{ asset('assets/images/svg/save.svg') }}" class="mr-1">
+                <span>Simpan Format</span>
+            </button>
         </form>
     </div>
 @endsection
 
 @section('script')
     <script>
+        $(document).ready(() => {
+            $('#addServiceInfo').click(addServiceInfo);
+            $('#addUserInfo').click(addUserInfo);
+        });
+
+        const addUserInfo = () => {
+            Swal.fire({
+                title: 'Tambahkan Informasi',
+                html: `<div class="form-group col-md-12">
+                <label for="select1">Data User</label>
+                <select name="select1" id="select1" class="form-control" required>
+                </select>
+                </div>`,
+                focusConfirm: false,
+                confirmButtonText: 'Tambah',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                didOpen: () => {
+                    let select1 = $('#select1');
+                    let url = "{{ route('get-license-user') }}";
+
+                    $.get(url).done((response) => {
+                        $.each(response.data, (index, option) => {
+                            const optionElement = $('<option></option>')
+                                .val(option.type)
+                                .text(option.type_name);
+                            select1.append(optionElement);
+                        });
+                    });
+                },
+                preConfirm: () => {
+                    const type = $('#select1').val();
+                    const type_name = $('#select1 option:selected').text();
+
+                    if (!type) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        return {
+                            type,
+                            type_name,
+                        };
+                    }
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const {
+                        type,
+                        type_name
+                    } = result.value;
+
+                    $.ajax({
+                        url: "{{ route('post-license-user') }}",
+                        type: "POST",
+                        data: {
+                            license_format_id: '{{ $data->id }}',
+                            info_type: 'user',
+                            type,
+                            type_name,
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            onLoading();
+                        },
+                        success: function(data) {
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: data.err,
+                                    icon: 'error',
+                                });
+                            } else {
+                                window.location.href =
+                                    '/admin/template/details/{{ $data->id }}';
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data.responseJSON.message);
+                        }
+                    });
+                }
+            });
+        };
+
+        const deleteUserInfo = (e, id) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Kamu Yakin?',
+                text: "kamu yakin untuk menghapus Informasi?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus Sekarang!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('delete-license-user') }}",
+                        type: "POST",
+                        data: {
+                            license_format_details_id: id,
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            onLoading();
+                        },
+                        success: function(data) {
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: data.err,
+                                    icon: 'error',
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: data.success,
+                                    icon: 'success',
+                                }).then(() => {
+                                    window.location.href =
+                                        '/admin/template/details/{{ $data->id }}';
+                                });
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data.responseJSON.message);
+                        }
+                    });
+                }
+            });
+        };
+
+        const addServiceInfo = () => {
+            Swal.fire({
+                title: 'Tambahkan Informasi',
+                html: `<div class="form-group col-md-12">
+                <label for="select1">Layanan</label>
+                <select name="select1" id="select1" class="form-control" required>
+                    <option selected disabled>Choose...</option>
+                    <option value="research">Penelitian</option>
+                    <option value="data_request">Permintaan Data</option>
+                    <option value="loan">Peminjaman</option>
+                    <option value="practicum">Praktikum</option>
+                </select>
+                <br>
+                <label for="select2">Kategori:</label>
+                <select name="select2" id="select2" class="form-control" required>
+                </select>
+                </div>`,
+                focusConfirm: false,
+                confirmButtonText: 'Tambah',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                preConfirm: () => {
+                    const service = $('#select1').val();
+                    const type = $('#select2').val();
+                    const type_name = $('#select2 option:selected').text();
+
+                    if (!type) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        return {
+                            service,
+                            type,
+                            type_name,
+                        };
+                    }
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const {
+                        service,
+                        type,
+                        type_name,
+                    } = result.value;
+
+                    $.ajax({
+                        url: "{{ route('post-license-service') }}",
+                        type: "POST",
+                        data: {
+                            license_format_id: '{{ $data->id }}',
+                            service,
+                            type,
+                            type_name
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            onLoading();
+                        },
+                        success: function(data) {
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: data.err,
+                                    icon: 'error',
+                                });
+                            } else {
+                                window.location.href =
+                                    '/admin/template/details/{{ $data->id }}';
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data.responseJSON.message);
+                        }
+                    });
+                }
+            });
+
+            $('#select1').on('change', () => {
+                let type = $('#select1').val();
+
+                let url = "{{ route('get-license-service', ['type' => ':type']) }}";
+                url = url.replace(/:type/g, type);
+
+                $.get(url).done((data) => {
+                    let services = $.map(data, (option) => option);
+                    services.splice(0, 1);
+
+                    $('#select2').empty();
+                    $.each(services, (index, option) => {
+                        const optionElement = $('<option></option>')
+                            .val(option.type)
+                            .text(option.type_name);
+                        $('#select2').append(optionElement);
+                    });
+                });
+            });
+        };
+
+        const deleteServiceInfo = (e, id) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Kamu Yakin?',
+                text: "kamu yakin untuk menghapus Informasi?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus Sekarang!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('delete-license-user') }}",
+                        type: "POST",
+                        data: {
+                            license_format_details_id: id,
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            onLoading();
+                        },
+                        success: function(data) {
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: data.err,
+                                    icon: 'error',
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: data.success,
+                                    icon: 'success',
+                                }).then(() => {
+                                    window.location.href =
+                                        '/admin/template/details/{{ $data->id }}';
+                                });
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data.responseJSON.message);
+                        }
+                    });
+                }
+            });
+        };
+
         const deleteImages = (e, license_type_id, type) => {
             e.preventDefault();
 
@@ -381,14 +668,17 @@
                             onLoading();
                         },
                         success: function(data) {
+                            console.log(data);
                             if (data.status == 1) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Terdapat Kesalahan!',
                                     text: 'Periksa Kembali Form Kamu!',
                                 }).then(() => {
-                                    $.each(data.errors, function(prefix, val) {
-                                        $('span.' + prefix + '_error').text(
+                                    $.each(data.errors, function(prefix,
+                                        val) {
+                                        $('span.' + prefix +
+                                            '_error').text(
                                             val[0]);
                                     });
                                 });

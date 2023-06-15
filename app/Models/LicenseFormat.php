@@ -32,4 +32,14 @@ class LicenseFormat extends Model
     {
         return $this->belongsTo(LicenseSignature::class, "license_signature_id");
     }
+
+    public function license_format_details()
+    {
+        return $this->hasMany(LicenseFormatDetail::class, "license_format_id");
+    }
+
+    public function license_format_services()
+    {
+        return $this->hasMany(LicenseFormatService::class, "license_format_id");
+    }
 }

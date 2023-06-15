@@ -218,7 +218,6 @@
                                 title: "Success!",
                                 text: data.success,
                                 icon: 'success',
-                                showCancelButton: true,
                             }).then(() => {
                                 window.location.href = '/profile';
                             });
@@ -269,7 +268,6 @@
                                     title: "Success!",
                                     text: data.success,
                                     icon: 'success',
-                                    showCancelButton: true,
                                 }).then(() => {
                                     window.location.href = '/profile';
                                 });

@@ -20,34 +20,26 @@ class LicenseFormatSeeder extends Seeder
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Penelitian',
-            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Penelitian',
             'footnote' => 'Ini Adalah Footnote',
-            'signature' => 'Ini Adalah Signature'
         ]);
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Permintaan Data',
-            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Permintaan Data',
             'footnote' => 'Ini Adalah Footnote',
-            'signature' => 'Ini Adalah Signature'
         ]);
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Peminjaman Sarana dan Prasarana',
-            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Peminjaman Sarana dan Prasarana',
             'footnote' => 'Ini Adalah Footnote',
-            'signature' => 'Ini Adalah Signature'
         ]);
         LicenseFormat::create([
             'id' => Str::uuid(),
             'format_title' => 'Format Surat Balasan Pengajuan Praktikum',
-            'letterhead' => 'kop.png',
             'title' => 'Format Surat Balasan Pengajuan Praktikum',
             'footnote' => 'Ini Adalah Footnote',
-            'signature' => 'Ini Adalah Signature'
         ]);
     }
 }
