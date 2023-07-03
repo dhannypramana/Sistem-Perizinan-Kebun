@@ -2,10 +2,33 @@
 
 namespace App\Helpers;
 
+use App\Models\DataRequest;
+use App\Models\Loan;
+use App\Models\Practicum;
+use App\Models\Research;
 use Illuminate\Database\Eloquent\Model;
 
 class Helpers
 {
+    public static function findDataByLicenseNumber($license_number)
+    {
+        $code = substr($license_number, 3, 2);
+
+        $data = null;
+
+        if ($code == 'PL') {
+            $data = Research::where('license_number', $license_number)->get();
+        } else if ($code == 'PD') {
+            $data = DataRequest::where('license_number', $license_number)->first();
+        } else if ($code == 'PS') {
+            $data = Loan::where('license_number', $license_number)->get();
+        } else if ($code == 'PK') {
+            $data = Practicum::where('license_number', $license_number)->get();
+        }
+
+        return $data;
+    }
+
     public static function generateLicenseNumber($service, $time, $number)
     {
         $day = date('d', strtotime($time));

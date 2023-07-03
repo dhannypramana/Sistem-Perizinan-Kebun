@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Helpers;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Models\LicenseFormatDetail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +48,12 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/test', function () {
     return view('test');
+});
+
+Route::get('/template/pdf', function () {
+    $data = Helpers::findDataByLicenseNumber('KFSPD202306291');
+    dd($data->license_letterhead_id);
+    // return view('test');
 });
 
 /**
@@ -149,6 +157,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::post('/', [LicenseGenerator::class, 'store'])->name('store_template');
             Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_template');
             Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
+            Route::get('/license-formats', [LicenseGenerator::class, 'getLicenseFormat'])->name('get-license-formats');
 
             Route::post('/update-kop', [LicenseGenerator::class, 'updateKop'])->name('update_kop');
             Route::post('/delete-kop', [LicenseGenerator::class, 'deleteKop'])->name('delete_kop');

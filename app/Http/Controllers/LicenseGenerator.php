@@ -25,6 +25,16 @@ class LicenseGenerator extends Controller
         ]);
     }
 
+    public static function getLicenseFormat()
+    {
+        $license_formats = LicenseFormat::get()->sortBy('created_at');
+
+        return response()->json([
+            'message' => 'Success get data',
+            'data' => $license_formats
+        ]);
+    }
+
     public static function store(Request $request)
     {
         LicenseFormat::create([
