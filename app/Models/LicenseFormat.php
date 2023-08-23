@@ -17,7 +17,7 @@ class LicenseFormat extends Model
         'format_title',
         'letterhead',
         'title',
-        'footnote',
+        'signed',
         'signature',
         'license_letterhead_id',
         'license_signature_id',

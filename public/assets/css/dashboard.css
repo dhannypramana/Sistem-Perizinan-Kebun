@@ -11281,3 +11281,22 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.hamburger {
+    width: 30px;
+}
+
+.hamburger:hover {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .title {
+        display: none;
+    }
+
+    .nav-link span {
+        margin-right: 6px;
+        margin-top: 6px;
+    }
+}

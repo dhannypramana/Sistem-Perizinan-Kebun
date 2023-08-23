@@ -186,10 +186,40 @@ use Carbon\Carbon;
             Swal.fire({
                 title: 'Setujui Ajuan?',
                 icon: 'info',
+                width: "800px",
+                html: `
+                    <div class="form-group text-left mb-2">
+                        <label class="form-label">Format Surat Balasan</label>
+                        <select name="license_format_select" id="license_format_select" class="form-control shadow-none">
+                        </select>
+                    </div>
+                    `,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Setujui Sekarang!'
+                confirmButtonText: 'Yes, Setujui Sekarang!',
+                didOpen: () => {
+                    let license_format_select = $('#license_format_select');
+                    let url = "{{ route('get-license-formats') }}";
+
+                    $.get(url).done((response) => {
+                        $.each(response.data, (index, option) => {
+                            const optionElement = $('<option></option>')
+                                .val(option.id)
+                                .text(option.title);
+                            license_format_select.append(optionElement);
+                        });
+                    });
+                },
+                preConfirm: () => {
+                    const license_format_select = $('#license_format_select')[0].value;
+
+                    if (!license_format_select) return Swal.showValidationMessage('Field is Required')
+
+                    return {
+                        license_format: createSlug(license_format_select)
+                    }
+                },
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -197,6 +227,7 @@ use Carbon\Carbon;
                         type: "POST",
                         data: {
                             license_number: license_number,
+                            license_format: result.value.license_format,
                         },
                         success: function(response) {
                             Swal.fire({
@@ -205,7 +236,8 @@ use Carbon\Carbon;
                                 text: response.message,
                                 confirmButtonText: 'OK'
                             }).then(() => {
-                                window.location.href = '/admin/practicum/check';
+                                window.location.href =
+                                    `/admin/template/final-template/${response.license_format}/{{ $practicum[0]->user->id }}/{{ $practicum[0]->license_number }}`
                             });
                         },
                         error: function(xhr) {

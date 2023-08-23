@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('format_title');
             $table->string('title')->nullable();
-            $table->string('footnote')->nullable();
+            $table->string('signed')->nullable();
             $table->foreignIdFor(LicenseLetterhead::class)->nullable();
             $table->foreignIdFor(LicenseSignature::class)->nullable();
             $table->timestamps();

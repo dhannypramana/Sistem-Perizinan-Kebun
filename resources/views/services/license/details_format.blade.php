@@ -127,10 +127,9 @@
                 </div>
 
                 <div class="form-group mt-3">
-                    <label for="footnote">Footnote</label>
-                    <input type="text" name="footnote" class="form-control" id="footnote"
-                        placeholder="Masukkan Footnote" placeholder="Masukkan Footnote" required
-                        value="{{ $data->footnote }}">
+                    <label for="signed">Yang bertanda tangan</label>
+                    <input type="text" name="signed" class="form-control" id="signed"
+                        placeholder="Masukkan yang bertanda tangan" required value="{{ $data->signed }}">
                 </div>
 
                 <div class="user_info">
@@ -271,8 +270,8 @@
         const addUserInfo = () => {
             Swal.fire({
                 title: 'Tambahkan Informasi',
-                html: `<div class="form-group col-md-12">
-                <label for="select1">Data User</label>
+                html: `<div class="form-group col-md-12 text-left">
+                <label for="select1" class="form-label">Data User</label>
                 <select name="select1" id="select1" class="form-control" required>
                 </select>
                 </div>`,
@@ -400,7 +399,7 @@
         const addServiceInfo = () => {
             Swal.fire({
                 title: 'Tambahkan Informasi',
-                html: `<div class="form-group col-md-12">
+                html: `<div class="form-group col-md-12 text-left">
                 <label for="select1">Layanan</label>
                 <select name="select1" id="select1" class="form-control" required>
                     <option selected disabled>Choose...</option>

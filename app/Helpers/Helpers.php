@@ -17,11 +17,11 @@ class Helpers
         $data = null;
 
         if ($code == 'PL') {
-            $data = Research::where('license_number', $license_number)->get();
+            $data = Research::where('license_number', $license_number)->first();
         } else if ($code == 'PD') {
             $data = DataRequest::where('license_number', $license_number)->first();
         } else if ($code == 'PS') {
-            $data = Loan::where('license_number', $license_number)->get();
+            $data = Loan::where('license_number', $license_number)->first();
         } else if ($code == 'PK') {
             $data = Practicum::where('license_number', $license_number)->get();
         }

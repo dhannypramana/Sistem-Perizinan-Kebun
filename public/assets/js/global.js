@@ -18,3 +18,13 @@ fileInputs.forEach(function(fileInput, index) {
         labels[index].textContent = this.files[0].name;
     });
 });
+
+const sidebarToogler = $('#sidebarToggle')
+
+sidebarToogler.click(() => {
+    $('#researchTitle').toggle();
+    $('#dataRequestTitle').toggle();
+    $('#loanTitle').toggle();
+    $('#practicumTitle').toggle();
+    $('#letterTitle').toggle();
+})

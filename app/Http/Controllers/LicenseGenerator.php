@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatDetail;
 use App\Models\LicenseFormatService;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
+use App\Models\User;
+use Faker\Extension\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
@@ -35,6 +38,11 @@ class LicenseGenerator extends Controller
         ]);
     }
 
+    public static function getLicenseFormatByID($id)
+    {
+        return response()->json($id);
+    }
+
     public static function store(Request $request)
     {
         LicenseFormat::create([
@@ -61,6 +69,27 @@ class LicenseGenerator extends Controller
             'signatures' => $signatures,
             'service_info' => $service_info,
             'user_info' => $user_info,
+        ]);
+    }
+
+    public static function detailsTemplate($id, $user_id, $license_number)
+    {
+        $data = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
+        $letterheads = LicenseLetterhead::get()->sortBy('created_at');
+        $signatures = LicenseSignature::get()->sortBy('created_at');
+        $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
+        $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
+        $user = User::where('id', $user_id)->first();
+        $service_data = Helpers::findDataByLicenseNumber($license_number);
+
+        return view('services.license.template', [
+            'data' => $data,
+            'letterheads' => $letterheads,
+            'signatures' => $signatures,
+            'service_info' => $service_info,
+            'user_info' => $user_info,
+            'user' => $user,
+            'service_data' => $service_data
         ]);
     }
 
@@ -206,7 +235,7 @@ class LicenseGenerator extends Controller
 
         $data->update([
             'title' => $request->title,
-            'footnote' => $request->footnote,
+            'signed' => $request->signed,
         ]);
 
         /**

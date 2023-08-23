@@ -183,7 +183,7 @@
                     $.get(url).done((response) => {
                         $.each(response.data, (index, option) => {
                             const optionElement = $('<option></option>')
-                                .val(option.title)
+                                .val(option.id)
                                 .text(option.title);
                             license_format_select.append(optionElement);
                         });
@@ -192,33 +192,37 @@
                 preConfirm: () => {
                     const license_format_select = $('#license_format_select')[0].value;
 
+                    if (!license_format_select) return Swal.showValidationMessage('Field is Required')
+
                     return {
                         license_format: createSlug(license_format_select)
                     }
                 },
             }).then((result) => {
-                return console.log(result);
                 if (result.isConfirmed) {
                     $.ajax({
                         url: "{{ route('accept') }}",
                         type: "POST",
                         data: {
                             license_number: license_number,
+                            license_format: result.value.license_format,
                         },
                         success: function(response) {
+                            console.log(response);
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Success!',
                                 text: response.message,
                                 confirmButtonText: 'OK'
                             }).then(() => {
-                                window.location.href = '/admin/data/check';
+                                window.location.href =
+                                    `/admin/template/final-template/${response.license_format}/{{ $data_request->user->id }}/${response.license_number}`
                             });
                         },
                         error: function(xhr) {
                             Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
+                                icon: 'error',
+                                title: 'Error!',
                                 text: xhr.responseJSON.message,
                                 confirmButtonText: 'OK'
                             });

@@ -41,7 +41,7 @@
             </div>
 
             <div class="layanan_penelitian">
-                <p class="text-white text-bold mx-3 my-2">Penelitian</p>
+                <p class="text-white text-bold mx-3 my-2 title" id="researchTitle">Penelitian</p>
                 <hr class="sidebar-divider">
 
                 @if (auth()->user()->is_admin == 0)
@@ -70,7 +70,7 @@
             </div>
 
             <div class="layanan_permintaan_data">
-                <p class="nav-item text-white text-bold mx-3 my-2">Permintaan Data</p>
+                <p class="nav-item text-white text-bold mx-3 my-2 title" id="dataRequestTitle">Permintaan Data</p>
                 <hr class="sidebar-divider">
 
                 @if (auth()->user()->is_admin == 0)
@@ -98,7 +98,7 @@
             </div>
 
             <div class="layanan_Peminjaman">
-                <p class="nav-item text-white text-bold mx-3 my-2">Peminjaman</p>
+                <p class="nav-item text-white text-bold mx-3 my-2 title" id="loanTitle">Peminjaman</p>
                 <hr class="sidebar-divider">
 
                 @if (auth()->user()->is_admin == 0)
@@ -126,7 +126,7 @@
             </div>
 
             <div class="layanan_praktikum">
-                <p class="nav-item text-white text-bold mx-3 my-2">Praktikum</p>
+                <p class="nav-item text-white text-bold mx-3 my-2 title" id="practicumTitle">Praktikum</p>
                 <hr class="sidebar-divider">
 
                 @if (auth()->user()->is_admin == 0)
@@ -155,7 +155,7 @@
 
             @if (auth()->user()->is_admin == 1)
                 <div class="license_generator">
-                    <p class="nav-item text-white text-bold mx-3 my-2">Surat</p>
+                    <p class="nav-item text-white text-bold mx-3 my-2 title" id="letterTitle">Surat</p>
                     <hr class="sidebar-divider">
 
                     <li class="nav-item @if ($active == 'template') active @endif">
@@ -169,8 +169,13 @@
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
+
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    {{-- <button class="btn" id="sidebarToggle"> --}}
+                    <img src="{{ asset('assets/images/svg/hamburger.svg') }}" class="hamburger" id="sidebarToggle"
+                        alt="hamburger" />
+                    {{-- </button> --}}
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"

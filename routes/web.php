@@ -22,10 +22,11 @@ use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Models\LicenseFormatDetail;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PdfToText\Pdf;
 
 // use NotificationChannels\WhatsApp\Component;
 // use NotificationChannels\WhatsApp\WhatsAppChannel;
@@ -47,14 +48,17 @@ use Illuminate\Support\Facades\Storage;
  */
 
 Route::get('/test', function () {
-    return view('test');
-});
+    $config = new \Smalot\PdfParser\Config();
+    $config->setFontSpaceLimit(-60);
+    $parser = new \Smalot\PdfParser\Parser([], $config);
 
-Route::get('/template/pdf', function () {
-    $data = Helpers::findDataByLicenseNumber('KFSPD202306291');
-    dd($data->license_letterhead_id);
-    // return view('test');
-});
+    $pdf = $parser->parseFile('storage/document/loan/KFSPS202308011.pdf');
+    $text = $pdf->getText();
+
+    return view('test', [
+        'text' => $text
+    ]);
+})->name('test');
 
 /**
  * Main Routes
@@ -157,18 +161,31 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::post('/', [LicenseGenerator::class, 'store'])->name('store_template');
             Route::post('/update', [LicenseGenerator::class, 'update'])->name('update_template');
             Route::get('/details/{id}', [LicenseGenerator::class, 'details'])->name('details_template');
+            Route::get('/final-template/{id}/{user_id}/{license_number}', [LicenseGenerator::class, 'detailsTemplate']);
             Route::get('/license-formats', [LicenseGenerator::class, 'getLicenseFormat'])->name('get-license-formats');
 
+            /**
+             * Letterhead Control
+             */
             Route::post('/update-kop', [LicenseGenerator::class, 'updateKop'])->name('update_kop');
             Route::post('/delete-kop', [LicenseGenerator::class, 'deleteKop'])->name('delete_kop');
 
+            /**
+             * Signature Control
+             */
             Route::post('/update-signature', [LicenseGenerator::class, 'updateSignature'])->name('update_signature');
             Route::post('/delete-signature', [LicenseGenerator::class, 'deleteSignature'])->name('delete_signature');
 
+            /**
+             * License User Control
+             */
             Route::get('/license-user', [LicenseFormatUserController::class, 'getLicenseUser'])->name('get-license-user');
             Route::post('/create-license-user', [LicenseFormatUserController::class, 'postLicenseUser'])->name('post-license-user');
             Route::post('/delete-license-user', [LicenseFormatUserController::class, 'deleteLicenseUser'])->name('delete-license-user');
 
+            /**
+             * License Service Control
+             */
             Route::get('/license-service/{type}', [LicenseFormatServiceController::class, 'getLicenseService'])->name('get-license-service');
             Route::post('/create-license-service', [LicenseFormatServiceController::class, 'postLicenseService'])->name('post-license-service');
             Route::post('/delete-license-service', [LicenseFormatServiceController::class, 'deleteLicenseService'])->name('delete-license-service');
