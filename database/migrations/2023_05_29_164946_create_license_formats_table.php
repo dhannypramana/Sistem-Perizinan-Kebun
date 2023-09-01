@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('format_title');
             $table->string('title')->nullable();
             $table->string('signed')->nullable();
+            $table->string('nip')->nullable();
             $table->foreignIdFor(LicenseLetterhead::class)->nullable();
             $table->foreignIdFor(LicenseSignature::class)->nullable();
             $table->timestamps();

@@ -5,7 +5,7 @@
         <div class="card-header d-flex justify-content-between align-items-center pt-4 px-4">
             <div class="items">
                 <h5>No. Izin</h5>
-                <p>{{ $loan->no_izin }}</p>
+                <p>{{ $loan->license_number }}</p>
             </div>
             <div class="items">
                 <h5>Tanggal Pengajuan</h5>
@@ -96,7 +96,9 @@
             @if (auth()->user()->is_admin == 1)
                 <div class="btn-group mt-3">
                     @if (!$loan->is_reviewed)
-                        <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
+                        <button class="btn btn-primary rounded" onclick="accept()">Setujui</button>
+
+                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $loan->license_number }}">
                             <button type="submit" class="btn btn-primary">Setujui</button>
@@ -107,7 +109,7 @@
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $loan->license_number }}">
                             <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form>
+                        </form> --}}
                     @endif
                 </div>
             @endif
@@ -169,10 +171,6 @@
         };
 
         const accept = (e) => {
-            e.preventDefault();
-
-            let license_number = $('input[name=license_number]').val();
-
             Swal.fire({
                 title: 'Setujui Ajuan?',
                 icon: 'info',
@@ -212,33 +210,8 @@
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('accept') }}",
-                        type: "POST",
-                        data: {
-                            license_number: license_number,
-                            license_format: result.value.license_format,
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href =
-                                    `/admin/template/final-template/${response.license_format}/{{ $loan->user->id }}/{{ $loan->license_number }}`
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
+                    window.location.href =
+                        `/admin/template/final-template/${result.value.license_format}/{{ $loan->user->id }}/{{ $loan->license_number }}`;
                 }
             });
         };

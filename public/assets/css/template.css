@@ -1,14 +1,3 @@
-body {
-}
-
-.letterhead img {
-    width: 100%;
-}
-
-.license-wrapper {
-    margin: 2rem 5rem 0 5rem;
-}
-
 .license-receiver p span {
     display: block;
     font-weight: bold;

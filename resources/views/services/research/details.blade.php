@@ -100,7 +100,8 @@
             @if (auth()->user()->is_admin == 1)
                 <div class="btn-group mt-3">
                     @if (!$research->is_reviewed)
-                        <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
+                        <button class="btn btn-primary rounded" onclick="accept()">Setujui</button>
+                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $research->license_number }}">
                             <button type="submit" class="btn btn-primary">Setujui</button>
@@ -111,7 +112,7 @@
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $research->license_number }}">
                             <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form>
+                        </form> --}}
                     @endif
                 </div>
             @endif
@@ -172,10 +173,8 @@
             });
         };
 
-        const accept = (e) => {
-            e.preventDefault();
-
-            let license_number = $('input[name=license_number]').val();
+        const accept = () => {
+            // let license_number = $('input[name=license_number]').val();
 
             Swal.fire({
                 title: 'Setujui Ajuan?',
@@ -200,7 +199,7 @@
                         $.each(response.data, (index, option) => {
                             const optionElement = $('<option></option>')
                                 .val(option.id)
-                                .text(option.title);
+                                .text(option.format_title);
                             license_format_select.append(optionElement);
                         });
                     });
@@ -216,33 +215,8 @@
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('accept') }}",
-                        type: "POST",
-                        data: {
-                            license_number: license_number,
-                            license_format: result.value.license_format,
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href =
-                                    `/admin/template/final-template/${response.license_format}/{{ $research->user->id }}/{{ $research->license_number }}`
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
+                    window.location.href =
+                        `/admin/template/final-template/${result.value.license_format}/{{ $research->user->id }}/{{ $research->license_number }}`;
                 }
             });
         };

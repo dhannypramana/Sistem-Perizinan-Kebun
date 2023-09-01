@@ -9,6 +9,9 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LicenseFormatBodyController;
+use App\Http\Controllers\LicenseFormatMetaController;
+use App\Http\Controllers\LicenseFormatMetaHeaderController;
 use App\Http\Controllers\LicenseFormatServiceController;
 use App\Http\Controllers\LicenseFormatUserController;
 use App\Http\Controllers\LicenseGenerator;
@@ -22,6 +25,8 @@ use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Models\LicenseFormatDetail;
+use App\Models\LicenseFormatMeta;
+use App\Models\LicenseFormatMetaHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
@@ -52,11 +57,11 @@ Route::get('/test', function () {
     $config->setFontSpaceLimit(-60);
     $parser = new \Smalot\PdfParser\Parser([], $config);
 
-    $pdf = $parser->parseFile('storage/document/loan/KFSPS202308011.pdf');
+    $pdf = $parser->parseFile('storage/document/data_request/KFSPD202308281.pdf');
     $text = $pdf->getText();
 
     return view('test', [
-        'text' => $text
+        'text' => $text,
     ]);
 })->name('test');
 
@@ -189,6 +194,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::get('/license-service/{type}', [LicenseFormatServiceController::class, 'getLicenseService'])->name('get-license-service');
             Route::post('/create-license-service', [LicenseFormatServiceController::class, 'postLicenseService'])->name('post-license-service');
             Route::post('/delete-license-service', [LicenseFormatServiceController::class, 'deleteLicenseService'])->name('delete-license-service');
+
+            /**
+             * License Body Control
+             */
+
+            Route::post('/create-license-body', [LicenseFormatBodyController::class, 'createLicenseBody'])->name('create-license-body');
+            Route::post('/update-license-body', [LicenseFormatBodyController::class, 'updateLicenseBody'])->name('update-license-body');
 
             Route::post('/save-template', [LicenseGenerator::class, 'saveTemplate'])->name('saveTemplate');
         });

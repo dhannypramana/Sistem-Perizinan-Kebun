@@ -131,8 +131,13 @@
                     <input type="text" name="signed" class="form-control" id="signed"
                         placeholder="Masukkan yang bertanda tangan" required value="{{ $data->signed }}">
                 </div>
+                <div class="form-group mt-3">
+                    <label for="nip">NIP</label>
+                    <input type="text" name="nip" class="form-control" id="nip" placeholder="Masukkan NIP"
+                        required value="{{ $data->nip }}">
+                </div>
 
-                <div class="user_info">
+                {{-- <div class="user_info">
                     <h4 class="mt-4">Informasi Pengaju</h4>
                     <button id="addUserInfo" type="button"
                         class="btn btn-sm btn-info mt-3 ml-auto d-flex align-items-center">
@@ -185,9 +190,9 @@
                             </tbody>
                         </table>
                     @endif
-                </div>
+                </div> --}}
 
-                <div class="research_info">
+                {{-- <div class="research_info">
                     <h4 class="mt-4">Informasi Pengajuan</h4>
                     <button id="addServiceInfo" type="button"
                         class="btn btn-sm btn-info mt-3 ml-auto d-flex align-items-center">
@@ -248,7 +253,7 @@
                             </tbody>
                         </table>
                     @endif
-                </div>
+                </div> --}}
             </div>
             <input type="text" name="license_format_id" class="form-control" value="{{ $data->id }}"
                 style="display:none;">

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\LicenseFormat;
+use App\Models\LicenseFormatBody;
 use App\Models\LicenseFormatDetail;
+use App\Models\LicenseFormatMeta;
+use App\Models\LicenseFormatMetaHeader;
 use App\Models\LicenseFormatService;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
@@ -81,15 +84,20 @@ class LicenseGenerator extends Controller
         $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user = User::where('id', $user_id)->first();
         $service_data = Helpers::findDataByLicenseNumber($license_number);
+        $body = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
+        // $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
 
         return view('services.license.template', [
+            'active' => 'a',
             'data' => $data,
             'letterheads' => $letterheads,
             'signatures' => $signatures,
             'service_info' => $service_info,
             'user_info' => $user_info,
             'user' => $user,
-            'service_data' => $service_data
+            'service_data' => $service_data,
+            'license_number' => $license_number,
+            'body' => $body
         ]);
     }
 
@@ -236,6 +244,7 @@ class LicenseGenerator extends Controller
         $data->update([
             'title' => $request->title,
             'signed' => $request->signed,
+            'nip' => $request->nip,
         ]);
 
         /**

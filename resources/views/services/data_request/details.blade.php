@@ -84,18 +84,20 @@
             @if (auth()->user()->is_admin == 1)
                 <div class="btn-group mt-3">
                     @if (!$data_request->is_reviewed)
-                        <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
+                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $data_request->license_number }}">
                             <button type="submit" class="btn btn-primary">Setujui</button>
-                        </form>
+                        </form> --}}
 
-                        <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
+                        <button class="btn btn-primary rounded" onclick="accept()">Setujui</button>
+
+                        {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
                             action="{{ route('reject') }}">
                             @csrf
                             <input type="hidden" name="license_number" value="{{ $data_request->license_number }}">
                             <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form>
+                        </form> --}}
                     @endif
                 </div>
             @endif
@@ -156,11 +158,7 @@
             });
         };
 
-        const accept = (e) => {
-            e.preventDefault();
-
-            let license_number = $('input[name=license_number]').val();
-
+        const accept = () => {
             Swal.fire({
                 title: 'Setujui Ajuan?',
                 icon: 'info',
@@ -182,9 +180,10 @@
 
                     $.get(url).done((response) => {
                         $.each(response.data, (index, option) => {
+                            // console.log(option);
                             const optionElement = $('<option></option>')
                                 .val(option.id)
-                                .text(option.title);
+                                .text(option.format_title);
                             license_format_select.append(optionElement);
                         });
                     });
@@ -200,34 +199,8 @@
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('accept') }}",
-                        type: "POST",
-                        data: {
-                            license_number: license_number,
-                            license_format: result.value.license_format,
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href =
-                                    `/admin/template/final-template/${response.license_format}/{{ $data_request->user->id }}/${response.license_number}`
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
+                    window.location.href =
+                        `/admin/template/final-template/${result.value.license_format}/{{ $data_request->user->id }}/{{ $data_request->license_number }}`;
                 }
             });
         };

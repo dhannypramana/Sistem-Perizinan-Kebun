@@ -10,7 +10,7 @@
 
 <body>
     <div class="container">
-        <pre>{{ $text }}</pre>
+        <p>{{ $text }}</p>
     </div>
 </body>
 

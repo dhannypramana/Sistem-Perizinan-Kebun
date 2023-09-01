@@ -50,7 +50,7 @@ class ConfirmationController extends Controller
         return response()->json([
             'message' => 'Berhasil Setujui Ajuan!',
             'license_number' => $request->license_number,
-            'license_format' => $request->license_format
+            // 'license_format' => $request->license_format
         ]);
     }
 
