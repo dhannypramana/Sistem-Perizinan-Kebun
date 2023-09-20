@@ -1,6 +1,5 @@
 <?php
 
-use App\Helpers\Helpers;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -10,8 +9,6 @@ use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LicenseFormatBodyController;
-use App\Http\Controllers\LicenseFormatMetaController;
-use App\Http\Controllers\LicenseFormatMetaHeaderController;
 use App\Http\Controllers\LicenseFormatServiceController;
 use App\Http\Controllers\LicenseFormatUserController;
 use App\Http\Controllers\LicenseGenerator;
@@ -24,14 +21,8 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
-use App\Models\LicenseFormatDetail;
-use App\Models\LicenseFormatMeta;
-use App\Models\LicenseFormatMetaHeader;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use Spatie\PdfToText\Pdf;
 
 // use NotificationChannels\WhatsApp\Component;
 // use NotificationChannels\WhatsApp\WhatsAppChannel;
@@ -53,16 +44,8 @@ use Spatie\PdfToText\Pdf;
  */
 
 Route::get('/test', function () {
-    $config = new \Smalot\PdfParser\Config();
-    $config->setFontSpaceLimit(-60);
-    $parser = new \Smalot\PdfParser\Parser([], $config);
-
-    $pdf = $parser->parseFile('storage/document/data_request/KFSPD202308281.pdf');
-    $text = $pdf->getText();
-
-    return view('test', [
-        'text' => $text,
-    ]);
+    // $pdf = Pdf::loadView('test', $data);
+    // return $pdf->download('test.pdf');
 })->name('test');
 
 /**
@@ -71,6 +54,7 @@ Route::get('/test', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agency_license');
+Route::get('/{license_number}/reply', [PdfController::class, 'reply'])->name('reply_license');
 
 /**
  * Auth Routes

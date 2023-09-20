@@ -1,6 +1,14 @@
 @extends('services.layouts.index')
 
 @section('container')
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center pt-4 px-4">
             <div class="items">
@@ -90,6 +98,16 @@
                                 Surat</a>
                         </td>
                     </tr>
+                    @if ($loan->reply !== null)
+                        <tr>
+                            <th>Surat Balasan</th>
+                            <td>
+                                <a target="__blank"
+                                    href="{{ route('reply_license', ['license_number' => $loan->license_number]) }}">Lihat
+                                    Surat</a>
+                            </td>
+                        </tr>
+                    @endif
                 </table>
             </div>
 
@@ -194,7 +212,7 @@
                         $.each(response.data, (index, option) => {
                             const optionElement = $('<option></option>')
                                 .val(option.id)
-                                .text(option.title);
+                                .text(option.format_title);
                             license_format_select.append(optionElement);
                         });
                     });

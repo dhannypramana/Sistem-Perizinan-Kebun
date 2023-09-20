@@ -20,6 +20,7 @@ class LicenseFormat extends Model
         'signed',
         'signature',
         'nip',
+        'footer',
         'license_letterhead_id',
         'license_signature_id',
     ];

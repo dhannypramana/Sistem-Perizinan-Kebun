@@ -12,6 +12,7 @@ use App\Models\LicenseFormatService;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Faker\Extension\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -86,6 +87,22 @@ class LicenseGenerator extends Controller
         $service_data = Helpers::findDataByLicenseNumber($license_number);
         $body = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
         // $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
+
+        $raw = [
+            'active' => 'null',
+            'data' => $data,
+            'letterheads' => $letterheads,
+            'signatures' => $signatures,
+            'service_info' => $service_info,
+            'user_info' => $user_info,
+            'user' => $user,
+            'service_data' => $service_data,
+            'body' => $body,
+            'license_number' => $license_number,
+        ];
+
+        // $pdf = Pdf::loadView('template.response', $raw);
+        // return $pdf->stream('test.pdf');
 
         return view('services.license.template', [
             'active' => 'a',
@@ -245,6 +262,7 @@ class LicenseGenerator extends Controller
             'title' => $request->title,
             'signed' => $request->signed,
             'nip' => $request->nip,
+            'footer' => $request->footer,
         ]);
 
         /**

@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('research_supervisor');
             $table->string('academic_supervisor');
             $table->string('agency_license')->default("");
+
+            $table->string('reply')->nullable();
             $table->timestamps();
         });
     }

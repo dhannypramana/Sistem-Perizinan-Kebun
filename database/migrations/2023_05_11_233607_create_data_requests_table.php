@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('purpose');
             $table->string('agency');
             $table->string('agency_license')->default("")->unique();
+            $table->string('reply')->nullable();
             $table->timestamps();
         });
     }

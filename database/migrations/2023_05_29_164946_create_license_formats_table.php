@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('signed')->nullable();
             $table->string('nip')->nullable();
+            $table->longText('footer')->nullable();
             $table->foreignIdFor(LicenseLetterhead::class)->nullable();
             $table->foreignIdFor(LicenseSignature::class)->nullable();
             $table->timestamps();

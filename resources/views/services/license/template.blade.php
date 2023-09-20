@@ -5,7 +5,8 @@
 @endsection
 
 @section('container')
-    <div class="container border p-0 mb-5">
+    <h2>{{ $data->format_title }} - {{ $license_number }}</h2>
+    <div class="container border p-0 my-5">
         {{-- Letterhead --}}
         <div class="letterhead">
             @if ($letterheads->isEmpty())
@@ -78,7 +79,7 @@
                 @else
                     <div class="row">
                         <div class="col">
-                            <px>{{ $body->body }}</px>
+                            <p class="text-justify">{{ $body->body }}</p>
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-facebook border" onclick="editModeBody()">
@@ -154,15 +155,7 @@
                 @else
                     <p class="mb-5">Belum ada Informasi Pengajuan</p>
                 @endif
-                <p class="mt-4">Adapun dosen penanggung jawab kegiatan dapat melakukan koordinasi lebih lanjut dengan UPT
-                    KFS berkaitan
-                    dengan segala aktivitas kegiatan yang ada di Kebun Raya ITERA. Narahubung UPT KFS a.n. Eryka Merdiana,
-                    S.P. (082181021850).
-                    Selama pelaksanaan kegiatan, mohon tetap melaksanakan protokol kesehatan sebagaimana yang telah
-                    ditetapkan di lingkungan kampus ITERA dan menjaga kebersihan serta keamanan. Demikian surat ini kami
-                    sampaikan. Atas kerjasamanya kami ucapkan terima kasih</p>
-                {{-- <button type="button" class="btn btn-sm btn-info ml-auto d-flex my-3"
-                    onclick="editTextArea('footer')">Edit</button> --}}
+                <p class="mt-4">{{ $data->footer }}</p>
             </div>
 
             <div class="license-footer d-flex flex-column align-items-end mt-4">
@@ -196,8 +189,10 @@
         </div>
     </div>
     <div class="container mb-5 p-0">
-        <form onsubmit="accept(event)" id="acceptForm" method="POST">
+        <form action="{{ route('accept') }}" method="POST">
             @csrf
+            <input type="hidden" name="id" value="{{ $data->id }}">
+            <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
             <input type="hidden" name="license_number" value="{{ $license_number }}">
             <button type="submit" class="btn btn-primary">
                 <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
@@ -410,50 +405,62 @@
         };
 
         const addServiceInfo = () => {
+            const license_number = '{{ $license_number }}';
+            const result = license_number.slice(3, 5);
+            let service = '';
+
+            if (result === 'PL') {
+                service = 'research'
+            } else if (result === 'PD') {
+                service = 'data_request'
+            } else if (result === 'PS') {
+                service = 'loan'
+            } else {
+                service = 'practicum'
+            }
+
             Swal.fire({
                 title: 'Tambahkan Informasi',
-                html: `<div class="form-group col-md-12 text-left">
-                <label for="select1">Layanan</label>
-                <select name="select1" id="select1" class="form-control" required>
-                    <option selected disabled>Choose...</option>
-                    <option value="research">Penelitian</option>
-                    <option value="data_request">Permintaan Data</option>
-                    <option value="loan">Peminjaman</option>
-                    <option value="practicum">Praktikum</option>
-                </select>
-                <br>
-                <label for="select2">Kategori:</label>
-                <select name="select2" id="select2" class="form-control" required>
-                </select>
-                </div>`,
+                html: `
+                <div class="text-left">
+                    <label for="selectService" class="form-label">Kategori:</label>
+                    <select name="selectService" id="selectService" class="form-control" required></select>
+                <div>
+                `,
                 focusConfirm: false,
                 confirmButtonText: 'Tambah',
                 confirmButtonColor: '#3085d6',
                 showCancelButton: true,
-                preConfirm: () => {
-                    const service = $('#select1').val();
-                    const type = $('#select2').val();
-                    const type_name = $('#select2 option:selected').text();
+                didOpen: () => {
 
-                    if (!type) {
-                        Swal.showValidationMessage(
-                            'Field is required'
-                        );
-                    } else {
-                        return {
-                            service,
-                            type,
-                            type_name,
-                        };
-                    }
+                    let selectService = $('#selectService');
+                    let url = "{{ route('get-license-service', ['type' => ':type']) }}";
+                    url = url.replace(/:type/g, service);
+
+                    $.get(url).done((response) => {
+                        $.each(response.data, (index, option) => {
+                            const optionElement = $('<option></option>')
+                                .val(option.type)
+                                .text(option.type_name);
+                            selectService.append(optionElement);
+                        });
+                    });
                 },
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const {
-                        service,
+                preConfirm: () => {
+                    const type = $('#selectService').val();
+                    const type_name = $('#selectService option:selected').text();
+
+                    return {
                         type,
                         type_name,
-                    } = result.value;
+                    };
+                },
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    const {
+                        type,
+                        type_name,
+                    } = res.value;
 
                     $.ajax({
                         url: "{{ route('post-license-service') }}",
@@ -485,27 +492,105 @@
                     });
                 }
             });
+        }
 
-            $('#select1').on('change', () => {
-                let type = $('#select1').val();
+        // const addServiceInfo = () => {
+        //     Swal.fire({
+        //         title: 'Tambahkan Informasi',
+        //         html: `<div class="form-group col-md-12 text-left">
+    //         <label for="select1">Layanan</label>
+    //         <select name="select1" id="select1" class="form-control" required>
+    //             <option selected disabled>Choose...</option>
+    //             <option value="research">Penelitian</option>
+    //             <option value="data_request">Permintaan Data</option>
+    //             <option value="loan">Peminjaman</option>
+    //             <option value="practicum">Praktikum</option>
+    //         </select>
+    //         <br>
+    //         <label for="select2">Kategori:</label>
+    //         <select name="select2" id="select2" class="form-control" required>
+    //         </select>
+    //         </div>`,
+        //         focusConfirm: false,
+        //         confirmButtonText: 'Tambah',
+        //         confirmButtonColor: '#3085d6',
+        //         showCancelButton: true,
+        //         preConfirm: () => {
+        //             const service = $('#select1').val();
+        //             const type = $('#select2').val();
+        //             const type_name = $('#select2 option:selected').text();
 
-                let url = "{{ route('get-license-service', ['type' => ':type']) }}";
-                url = url.replace(/:type/g, type);
+        //             if (!type) {
+        //                 Swal.showValidationMessage(
+        //                     'Field is required'
+        //                 );
+        //             } else {
+        //                 return {
+        //                     service,
+        //                     type,
+        //                     type_name,
+        //                 };
+        //             }
+        //         },
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             const {
+        //                 service,
+        //                 type,
+        //                 type_name,
+        //             } = result.value;
 
-                $.get(url).done((data) => {
-                    let services = $.map(data, (option) => option);
-                    services.splice(0, 1);
+        //             $.ajax({
+        //                 url: "{{ route('post-license-service') }}",
+        //                 type: "POST",
+        //                 data: {
+        //                     license_format_id: '{{ $data->id }}',
+        //                     service,
+        //                     type,
+        //                     type_name
+        //                 },
+        //                 dataType: 'json',
+        //                 beforeSend: function() {
+        //                     onLoading();
+        //                 },
+        //                 success: function(data) {
+        //                     if (data.status == 1) {
+        //                         Swal.fire({
+        //                             title: "Error!",
+        //                             text: data.err,
+        //                             icon: 'error',
+        //                         });
+        //                     } else {
+        //                         location.reload();
+        //                     }
+        //                 },
+        //                 error: function(data) {
+        //                     console.log(data.responseJSON.message);
+        //                 }
+        //             });
+        //         }
+        //     });
 
-                    $('#select2').empty();
-                    $.each(services, (index, option) => {
-                        const optionElement = $('<option></option>')
-                            .val(option.type)
-                            .text(option.type_name);
-                        $('#select2').append(optionElement);
-                    });
-                });
-            });
-        };
+        //     $('#select1').on('change', () => {
+        //         let type = $('#select1').val();
+
+        //         let url = "{{ route('get-license-service', ['type' => ':type']) }}";
+        //         url = url.replace(/:type/g, type);
+
+        //         $.get(url).done((data) => {
+        //             let services = $.map(data, (option) => option);
+        //             services.splice(0, 1);
+
+        //             $('#select2').empty();
+        //             $.each(services, (index, option) => {
+        //                 const optionElement = $('<option></option>')
+        //                     .val(option.type)
+        //                     .text(option.type_name);
+        //                 $('#select2').append(optionElement);
+        //             });
+        //         });
+        //     });
+        // };
 
         const deleteUserInfo = (e, id) => {
             e.preventDefault();
@@ -646,38 +731,86 @@
             textarea.prop('disabled', !textarea.prop('disabled'));
         }
 
+        const validationFormat = () => {
+            const letterheads = @json($letterheads);
+            const signatures = @json($signatures);
+            const body = @json($body)
+
+            if (letterheads.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Format Tidak Memliki Kop Surat',
+                    confirmButtonText: 'OK',
+                });
+                return false;
+            } else if (signatures.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Format Tidak Memliki Kop Surat',
+                    confirmButtonText: 'OK',
+                });
+                return false;
+            } else if (body.body === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Format Tidak Memliki Body Surat',
+                    confirmButtonText: 'OK',
+                });
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         const accept = (e) => {
             e.preventDefault();
 
-            let license_number = $('input[name=license_number]').val();
+            Swal.fire({
+                title: 'Kamu Yakin?',
+                text: "kamu yakin untuk melakukan finalisasi pengajuan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Finalisasi Sekarang!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const license_number = $('input[name=license_number]').val();
 
-            $.ajax({
-                url: "{{ route('accept') }}",
-                type: "POST",
-                data: {
-                    license_number: license_number,
-                },
-                success: function(response) {
-                    console.log(response);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.message,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = `/admin/loan/check/${license_number}`
-                    });
-                },
-                error: function(xhr) {
-                    console.log(xhr);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: xhr.responseJSON.message,
-                        confirmButtonText: 'OK'
-                    });
-                },
-            });
+                    if (validationFormat()) {
+                        $.ajax({
+                            url: "{{ route('accept') }}",
+                            type: "POST",
+                            data: {
+                                id: '{{ $data->id }}',
+                                user_id: '{{ $service_data->user_id }}',
+                                license_number: license_number,
+                            },
+                            success: function(response) {
+                                return console.log(response);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                            error: function(xhr) {
+                                console.log(xhr);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: xhr.responseJSON.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                        });
+                    }
+                }
+            })
         }
     </script>
 @endsection

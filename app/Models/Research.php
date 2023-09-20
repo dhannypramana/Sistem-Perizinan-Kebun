@@ -44,7 +44,8 @@ class Research extends Model
         'facility',
         'research_supervisor',
         'academic_supervisor',
-        'agency_license'
+        'agency_license',
+        'reply'
     ];
 
     public function user()

@@ -42,7 +42,8 @@ class Loan extends Model
         'purpose',
         'start_time',
         'end_time',
-        'agency_license'
+        'agency_license',
+        'reply'
     ];
 
     public function user()

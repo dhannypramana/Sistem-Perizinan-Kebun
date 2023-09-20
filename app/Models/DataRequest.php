@@ -39,7 +39,8 @@ class DataRequest extends Model
         'title',
         'purpose',
         'agency',
-        'agency_license'
+        'agency_license',
+        'reply'
     ];
 
     public function user()

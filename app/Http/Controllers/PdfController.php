@@ -52,4 +52,46 @@ class PdfController extends Controller
 
         return view('errors.404');
     }
+
+    public function reply(Request $request)
+    {
+        $service_type = substr($request->license_number, 3, 2);
+
+        $data = null;
+        $path = null;
+
+        if ($service_type == "PL") {
+            $data = Research::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/reply/research/' . $data->reply;
+        } else if ($service_type == "PD") {
+            $data = DataRequest::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/reply/data_request/' . $data->reply;
+        } else if ($service_type == "PS") {
+            $data = Loan::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/reply/loan/' . $data->reply;
+        } else if ($service_type == "PK") {
+            $data = Practicum::where('license_number', $request->license_number)->first();
+            $path = 'storage/document/reply/practicum/' . $data->reply;
+        }
+
+        if ($data) {
+            if (Auth::user()->is_admin == 0) {
+                if ($data->user_id == Auth::user()->id) {
+                    return view('pdf', [
+                        'path' => $path,
+                        'service' => $data->license_number,
+                    ]);
+                } else {
+                    return view('errors.404');
+                }
+            } else {
+                return view('pdf', [
+                    'path' => $path,
+                    'service' => $data->license_number,
+                ]);
+            }
+        }
+
+        return view('errors.404');
+    }
 }
