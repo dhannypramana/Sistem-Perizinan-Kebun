@@ -92,11 +92,8 @@ use Carbon\Carbon;
                         </tr>
                     </table>
                 </div>
-            </div>
-        </div>
-    @empty
+            @empty
     @endforelse
-
     @if (auth()->user()->is_admin == 1)
         <div class="btn-group mt-3">
             @if (!$practicum[0]->is_reviewed)
@@ -106,17 +103,17 @@ use Carbon\Carbon;
                     <button type="submit" class="btn btn-primary">Setujui</button>
                 </form>
 
-                <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
+                {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
                     action="{{ route('reject') }}">
                     @csrf
                     <input type="hidden" name="license_number" value="{{ $practicum[0]->license_number }}">
                     <button type="submit" class="btn btn-danger">Tolak</button>
-                </form>
+                </form> --}}
             @endif
         </div>
     @endif
-
-    <br>
+    </div>
+    </div>
 
     <a href="javascript:history.back()" class="btn btn-secondary my-3">
         <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
@@ -206,7 +203,7 @@ use Carbon\Carbon;
                         $.each(response.data, (index, option) => {
                             const optionElement = $('<option></option>')
                                 .val(option.id)
-                                .text(option.title);
+                                .text(option.format_title);
                             license_format_select.append(optionElement);
                         });
                     });
@@ -222,33 +219,8 @@ use Carbon\Carbon;
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('accept') }}",
-                        type: "POST",
-                        data: {
-                            license_number: license_number,
-                            license_format: result.value.license_format,
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href =
-                                    `/admin/template/final-template/${response.license_format}/{{ $practicum[0]->user->id }}/{{ $practicum[0]->license_number }}`
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
+                    window.location.href =
+                        `/admin/template/final-template/${result.value.license_format}/{{ $practicum[0]->user->id }}/{{ $practicum[0]->license_number }}`;
                 }
             });
         };

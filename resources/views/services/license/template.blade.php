@@ -5,16 +5,55 @@
 @endsection
 
 @section('container')
+    {{-- Rules --}}
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="letterhead-null">
+        Belum Terdapat Kop Surat
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="title-null">
+        Belum Terdapat Perihal
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="body-null">
+        Belum Terdapat Body Surat
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="signature-null">
+        Belum Terdapat Tanda Tangan
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="signed-null">
+        Belum Terdapat Nama Tertanda
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="nip-null">
+        Belum Terdapat NIP Tertanda
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{-- End Rules --}}
+
     <h2>{{ $data->format_title }} - {{ $license_number }}</h2>
     <div class="container border p-0 my-5">
         {{-- Letterhead --}}
         <div class="letterhead">
-            @if ($letterheads->isEmpty())
+            @if (is_null($data->letterhead))
                 <div class="border py-3 text-center bg-white">
                     Belum ada Kop Surat
                 </div>
             @else
-                <img src="{{ asset('/storage/image/' . $letterheads[0]->letterhead) }}" alt="letterhead" class="w-100">
+                <img src="{{ asset('/storage/image/' . $data->letterhead->letterhead) }}" alt="letterhead" class="w-100">
             @endif
         </div>
 
@@ -161,12 +200,12 @@
             <div class="license-footer d-flex flex-column align-items-end mt-4">
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div class="signature mt-3">
-                        @if ($signatures->isEmpty())
+                        @if (is_null($data->signature))
                             <div class="border rounded bg-white p-3">
                                 Belum ada TTD
                             </div>
                         @else
-                            <img src="{{ asset('/storage/image/' . $signatures[0]->signature) }}" alt="letterhead"
+                            <img src="{{ asset('/storage/image/' . $data->signature->signature) }}" alt="letterhead"
                                 width="100">
                         @endif
                     </div>
@@ -191,10 +230,14 @@
     <div class="container mb-5 p-0">
         <form action="{{ route('accept') }}" method="POST">
             @csrf
+            {{-- Rules --}}
+            <input type="hidden" name="letterhead" value="{{ $data->letterhead }}">
+
+            {{-- General --}}
             <input type="hidden" name="id" value="{{ $data->id }}">
             <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
             <input type="hidden" name="license_number" value="{{ $license_number }}">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" id="submit-btn">
                 <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
                 <span>Finalisasi Persetujuan</span>
             </button>
@@ -240,6 +283,40 @@
         $(document).ready(() => {
             $('#addServiceInfo').click(addServiceInfo);
             $('#addUserInfo').click(addUserInfo);
+
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                    $(this).remove();
+                });
+            }, 1500);
+
+            const data = @json($data);
+            const body = @json($body);
+
+            if (data.letterhead === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#letterhead-null').removeClass('d-none');
+            }
+            if (data.title === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#title-null').removeClass('d-none');
+            }
+            if (body === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#body-null').removeClass('d-none');
+            }
+            if (data.signature === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#signature-null').removeClass('d-none');
+            }
+            if (data.signed === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#signed-null').removeClass('d-none');
+            }
+            if (data.nip === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#nip-null').removeClass('d-none');
+            }
         });
 
         const editModeBody = () => {
@@ -732,31 +809,14 @@
         }
 
         const validationFormat = () => {
-            const letterheads = @json($letterheads);
-            const signatures = @json($signatures);
-            const body = @json($body)
+            const data = @json($data);
+            const body = @json($body);
 
-            if (letterheads.length === 0) {
-                Swal.fire({
+            if (data.letterhead === null) {
+                return Swal.fire({
                     icon: 'error',
                     title: 'Error!',
                     text: 'Format Tidak Memliki Kop Surat',
-                    confirmButtonText: 'OK',
-                });
-                return false;
-            } else if (signatures.length === 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Format Tidak Memliki Kop Surat',
-                    confirmButtonText: 'OK',
-                });
-                return false;
-            } else if (body.body === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Format Tidak Memliki Body Surat',
                     confirmButtonText: 'OK',
                 });
                 return false;
@@ -780,35 +840,33 @@
                 if (result.isConfirmed) {
                     const license_number = $('input[name=license_number]').val();
 
-                    if (validationFormat()) {
-                        $.ajax({
-                            url: "{{ route('accept') }}",
-                            type: "POST",
-                            data: {
-                                id: '{{ $data->id }}',
-                                user_id: '{{ $service_data->user_id }}',
-                                license_number: license_number,
-                            },
-                            success: function(response) {
-                                return console.log(response);
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: response.message,
-                                    confirmButtonText: 'OK'
-                                });
-                            },
-                            error: function(xhr) {
-                                console.log(xhr);
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: xhr.responseJSON.message,
-                                    confirmButtonText: 'OK'
-                                });
-                            },
-                        });
-                    }
+                    $.ajax({
+                        url: "{{ route('accept') }}",
+                        type: "POST",
+                        data: {
+                            id: '{{ $data->id }}',
+                            user_id: '{{ $service_data->user_id }}',
+                            license_number: license_number,
+                        },
+                        success: function(response) {
+                            return console.log(response);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: xhr.responseJSON.message,
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                    });
                 }
             })
         }

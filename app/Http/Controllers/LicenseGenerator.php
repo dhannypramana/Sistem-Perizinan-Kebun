@@ -60,7 +60,7 @@ class LicenseGenerator extends Controller
 
     public static function details($id)
     {
-        $data = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
+        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature'])->first();
         $letterheads = LicenseLetterhead::get()->sortBy('created_at');
         $signatures = LicenseSignature::get()->sortBy('created_at');
         $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
@@ -78,37 +78,16 @@ class LicenseGenerator extends Controller
 
     public static function detailsTemplate($id, $user_id, $license_number)
     {
-        $data = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
-        $letterheads = LicenseLetterhead::get()->sortBy('created_at');
-        $signatures = LicenseSignature::get()->sortBy('created_at');
+        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature'])->first();
         $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user = User::where('id', $user_id)->first();
         $service_data = Helpers::findDataByLicenseNumber($license_number);
         $body = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
-        // $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
-
-        $raw = [
-            'active' => 'null',
-            'data' => $data,
-            'letterheads' => $letterheads,
-            'signatures' => $signatures,
-            'service_info' => $service_info,
-            'user_info' => $user_info,
-            'user' => $user,
-            'service_data' => $service_data,
-            'body' => $body,
-            'license_number' => $license_number,
-        ];
-
-        // $pdf = Pdf::loadView('template.response', $raw);
-        // return $pdf->stream('test.pdf');
 
         return view('services.license.template', [
             'active' => 'a',
             'data' => $data,
-            'letterheads' => $letterheads,
-            'signatures' => $signatures,
             'service_info' => $service_info,
             'user_info' => $user_info,
             'user' => $user,

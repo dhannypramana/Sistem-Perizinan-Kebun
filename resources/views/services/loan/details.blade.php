@@ -220,7 +220,9 @@
                 preConfirm: () => {
                     const license_format_select = $('#license_format_select')[0].value;
 
-                    if (!license_format_select) return Swal.showValidationMessage('Field is Required')
+                    if (!license_format_select) return Swal.showValidationMessage(
+                        `Field is Required or <a href="{{ route('template') }}" class="ml-1">Create a new one</a>`
+                    )
 
                     return {
                         license_format: createSlug(license_format_select)

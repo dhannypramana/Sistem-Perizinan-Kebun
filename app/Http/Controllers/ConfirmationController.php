@@ -90,6 +90,17 @@ class ConfirmationController extends Controller
 
     public static function accept(Request $request)
     {
+        /**
+         * Confirmation Rules
+         */
+        if (is_null($request->letterhead)) {
+            return back()->with('null-letterhead', 'Belum terdapat Kop Surat!');
+        } else {
+            return response()->json([
+                'message' => 'sebenrnya udah works, tapi Biar ga langsung ke accept aja sih wkwkwk',
+            ]);
+        }
+
         try {
             ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number);
         } catch (\Throwable $th) {
