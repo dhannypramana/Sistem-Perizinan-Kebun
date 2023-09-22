@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignUuid('user_id');
             $table->string('license_number')->default("");
             $table->string('data_number')->unique();
-            $table->string('status')->default('Menunggu Konfirmasi');
+            // $table->string('status')->default('Menunggu Konfirmasi');
+            $table->tinyInteger('status')->default(0);
             $table->boolean('is_reviewed')->default(false);
             $table->string('admin_message')->default("");
 

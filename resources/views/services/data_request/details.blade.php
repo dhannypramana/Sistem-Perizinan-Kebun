@@ -30,7 +30,15 @@
             </div>
             <div class="items">
                 <h5>Status Pengajuan</h5>
-                <p>{{ $data_request->status }}</p>
+                <p>
+                    @if ($data_request->status == 0)
+                        Menunggu Konfirmasi
+                    @elseif ($data_request->status == 1)
+                        Disetujui
+                    @elseif ($data_request->status == 2)
+                        Ditolak
+                    @endif
+                </p>
             </div>
         </div>
         <div class="card-body">
@@ -108,7 +116,7 @@
                             <button type="submit" class="btn btn-primary">Setujui</button>
                         </form> --}}
 
-                        <button class="btn btn-primary rounded" onclick="accept()">Setujui</button>
+                        <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>
 
                         {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
                             action="{{ route('reject') }}">
@@ -178,7 +186,7 @@
 
         const accept = () => {
             Swal.fire({
-                title: 'Setujui Ajuan?',
+                title: 'Konfirmasi Ajuan?',
                 icon: 'info',
                 width: "800px",
                 html: `

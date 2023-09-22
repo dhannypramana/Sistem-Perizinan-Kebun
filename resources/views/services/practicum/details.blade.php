@@ -100,7 +100,7 @@ use Carbon\Carbon;
                 <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
                     @csrf
                     <input type="hidden" name="license_number" value="{{ $practicum[0]->license_number }}">
-                    <button type="submit" class="btn btn-primary">Setujui</button>
+                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
                 </form>
 
                 {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"

@@ -114,7 +114,7 @@
             @if (auth()->user()->is_admin == 1)
                 <div class="btn-group mt-3">
                     @if (!$loan->is_reviewed)
-                        <button class="btn btn-primary rounded" onclick="accept()">Setujui</button>
+                        <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>
 
                         {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
                             @csrf
@@ -190,7 +190,7 @@
 
         const accept = (e) => {
             Swal.fire({
-                title: 'Setujui Ajuan?',
+                title: 'Konfirmasi Ajuan?',
                 icon: 'info',
                 width: "800px",
                 html: `

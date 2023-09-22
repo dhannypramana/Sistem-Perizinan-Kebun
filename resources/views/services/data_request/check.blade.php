@@ -38,7 +38,15 @@
                     </div>
                     <div class="status p-3">
                         <div class="sub_title p-1 text-dark fw-bolder">Status Pengajuan</div>
-                        <div class="value p-1 width-status">{{ $d->status }}</div>
+                        <div class="value p-1 width-status">
+                            @if ($d->status == 0)
+                                Menunggu Konfirmasi
+                            @elseif ($d->status == 1)
+                                Disetujui
+                            @elseif ($d->status == 2)
+                                Ditolak
+                            @endif
+                        </div>
                     </div>
                     <div class="details p-3">
                         @if (auth()->user()->is_admin == 1)

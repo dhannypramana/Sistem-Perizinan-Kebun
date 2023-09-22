@@ -39,7 +39,7 @@ class ConfirmationController extends Controller
         }
     }
 
-    public static function generateReply($id, $user_id, $license_number)
+    public static function generateReply($id, $user_id, $license_number, $status)
     {
         $data           = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
         $letterheads    = LicenseLetterhead::get()->sortBy('created_at');
@@ -61,6 +61,7 @@ class ConfirmationController extends Controller
             'service_data' => $service_data,
             'body' => $body,
             'license_number' => $license_number,
+            'status' => $status,
         ];
 
         $fileName =  'reply_' . $license_number . '.pdf';
@@ -90,19 +91,8 @@ class ConfirmationController extends Controller
 
     public static function accept(Request $request)
     {
-        /**
-         * Confirmation Rules
-         */
-        if (is_null($request->letterhead)) {
-            return back()->with('null-letterhead', 'Belum terdapat Kop Surat!');
-        } else {
-            return response()->json([
-                'message' => 'sebenrnya udah works, tapi Biar ga langsung ke accept aja sih wkwkwk',
-            ]);
-        }
-
         try {
-            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number);
+            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number, $request->status);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -114,8 +104,14 @@ class ConfirmationController extends Controller
             foreach ($service as $s) {
                 $s->update([
                     'is_reviewed' => true,
-                    'status' => 'Disetujui',
+                    'status' => $request->status,
                 ]);
+
+                if ($request->status == '2') {
+                    $service->update([
+                        'admin_message' => $request->admin_message
+                    ]);
+                }
             }
 
             $url = $url . '/practicum/check/' . $request->license_number;
@@ -130,8 +126,14 @@ class ConfirmationController extends Controller
 
             $service->update([
                 'is_reviewed' => true,
-                'status' => 'Disetujui',
+                'status' => $request->status,
             ]);
+
+            if ($request->status == '2') {
+                $service->update([
+                    'admin_message' => $request->admin_message
+                ]);
+            }
         }
 
         return Redirect::to($url)->with('status', 'Sukses Konfirmasi Pengajuan!');

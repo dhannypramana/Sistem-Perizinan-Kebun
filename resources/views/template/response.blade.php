@@ -72,7 +72,13 @@
                     <span class="space-lethead">: </span>
                     <span>
                         @if ($data->title)
-                            {{ $data->format_title }}
+                            {{ $data->format_title }} - @if ($status == 0)
+                                Menunggu Konfirmasi
+                            @elseif ($status == 1)
+                                Disetujui
+                            @elseif ($status == 2)
+                                Ditolak
+                            @endif
                         @else
                             <span class="text-danger">Belum Ada Perihal</span>
                         @endif

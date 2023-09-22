@@ -45,7 +45,7 @@
     {{-- End Rules --}}
 
     <h2>{{ $data->format_title }} - {{ $license_number }}</h2>
-    <div class="container border p-0 my-5">
+    <div class="container border p-0 mb-5 mt-3">
         {{-- Letterhead --}}
         <div class="letterhead">
             @if (is_null($data->letterhead))
@@ -85,7 +85,7 @@
                                 <span class="ml-2">: </span>
                                 <span class="ml-2">
                                     @if ($data->title)
-                                        {{ $data->title }}
+                                        {{ $data->title }} - <span class="font-italic">( Status Pengajuan )</span>
                                     @else
                                         <span class="text-danger">Belum Ada Perihal</span>
                                     @endif
@@ -228,19 +228,37 @@
         </div>
     </div>
     <div class="container mb-5 p-0">
+
         <form action="{{ route('accept') }}" method="POST">
             @csrf
-            {{-- Rules --}}
-            <input type="hidden" name="letterhead" value="{{ $data->letterhead }}">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="status" class="h4">Status Pengajuan</label>
+                    <select name="status" id="status" class="form-control" aria-label="Form Status"
+                        onchange="yesNoCheck(this);">
+                        <option value="1">Setujui</option>
+                        <option value="2">Tolak</option>
+                    </select>
+                </div>
+                <div class="col-lg-6" id="ifYes" style="display: none">
+                    <label for="admin_message" class="h4">Masukkan Pesan</label>
+                    <input type="text" name="admin_message" id="admin_message" class="form-control">
+                </div>
+            </div>
 
             {{-- General --}}
             <input type="hidden" name="id" value="{{ $data->id }}">
             <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
             <input type="hidden" name="license_number" value="{{ $license_number }}">
-            <button type="submit" class="btn btn-primary" id="submit-btn">
-                <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
-                <span>Finalisasi Persetujuan</span>
-            </button>
+            <div class="d-flex align-items-baseline mt-3">
+                <button type="submit" class="btn btn-primary" id="submit-btn">
+                    <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
+                    <span>Finalisasi Persetujuan</span>
+                </button>
+                <p class="text-danger ml-2 d-none" id="disabled-alert">
+                    <sup>*</sup>Silahkan lengkapi informasi terlebih dahulu!
+                </p>
+            </div>
         </form>
     </div>
     {{-- <div class="signature">
@@ -317,7 +335,23 @@
                 $('#submit-btn').prop('disabled', true);
                 $('#nip-null').removeClass('d-none');
             }
+
+            // Check if Button is Disabeld, and Show Info
+            const submitBtn = $('#submit-btn')
+            if (submitBtn.prop('disabled')) {
+                $('#disabled-alert').removeClass('d-none')
+            }
         });
+
+        const yesNoCheck = (that) => {
+            if (that.value === "2") {
+                document.getElementById("ifYes").style.display = "block";
+                document.getElementById("admin_message").setAttribute('required', 'required');
+            } else {
+                document.getElementById("ifYes").style.display = "none";
+                document.getElementById("admin_message").removeAttribute('required');
+            }
+        }
 
         const editModeBody = () => {
             const bodyData = @json($body);
