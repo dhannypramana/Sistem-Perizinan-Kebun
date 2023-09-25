@@ -84,6 +84,7 @@ class LicenseGenerator extends Controller
         $user = User::where('id', $user_id)->first();
         $service_data = Helpers::findDataByLicenseNumber($license_number);
         $body = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
+        $countServiceData = $service_data->count();
 
         return view('services.license.template', [
             'active' => 'a',
@@ -93,7 +94,8 @@ class LicenseGenerator extends Controller
             'user' => $user,
             'service_data' => $service_data,
             'license_number' => $license_number,
-            'body' => $body
+            'body' => $body,
+            'countServiceData' => $countServiceData,
         ]);
     }
 

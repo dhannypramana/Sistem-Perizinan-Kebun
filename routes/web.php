@@ -44,8 +44,6 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/test', function () {
-    // $pdf = Pdf::loadView('test', $data);
-    // return $pdf->download('test.pdf');
 })->name('test');
 
 /**

@@ -49,6 +49,7 @@ class ConfirmationController extends Controller
         $user           = User::where('id', $user_id)->first();
         $service_data   = Helpers::findDataByLicenseNumber($license_number);
         $body           = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
+        $countServiceData = $service_data->count();
         // $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
 
         $raw = [
@@ -62,31 +63,38 @@ class ConfirmationController extends Controller
             'body' => $body,
             'license_number' => $license_number,
             'status' => $status,
+            'countServiceData' => $countServiceData
         ];
 
         $fileName =  'reply_' . $license_number . '.pdf';
         $pdf = Pdf::loadView('template.response', $raw);
         $content = $pdf->download()->getOriginalContent();
-
         $path = 'public/document/reply/';
+        $service = ConfirmationController::getService($license_number);
 
         if (substr($license_number, 3, 2) == 'PK') {
             $path .= 'practicum/';
-        } else if (substr($license_number, 3, 2) == 'PL') {
-            $path .= 'research/';
-        } else if (substr($license_number, 3, 2) == 'PD') {
-            $path .= 'data_request/';
-        } else if (substr($license_number, 3, 2) == 'PS') {
-            $path .= 'loan/';
+            foreach ($service as $s) {
+                $s->update([
+                    'reply' => $fileName,
+                ]);
+            }
+        } else {
+            if (substr($license_number, 3, 2) == 'PL') {
+                $path .= 'research/';
+            } else if (substr($license_number, 3, 2) == 'PD') {
+                $path .= 'data_request/';
+            } else if (substr($license_number, 3, 2) == 'PS') {
+                $path .= 'loan/';
+            }
+
+            $service->update([
+                'reply' => $fileName,
+            ]);
         }
 
         Storage::makeDirectory($path);
         Storage::put($path . $fileName, $content);
-
-        $service = ConfirmationController::getService($license_number);
-        $service->update([
-            'reply' => $fileName,
-        ]);
     }
 
     public static function accept(Request $request)
@@ -139,28 +147,28 @@ class ConfirmationController extends Controller
         return Redirect::to($url)->with('status', 'Sukses Konfirmasi Pengajuan!');
     }
 
-    public static function reject(Request $request)
-    {
-        $service = ConfirmationController::getService($request->license_number);
+    // public static function reject(Request $request)
+    // {
+    //     $service = ConfirmationController::getService($request->license_number);
 
-        if (substr($request->license_number, 3, 2) == 'PK') {
-            foreach ($service as $s) {
-                $s->update([
-                    'is_reviewed' => true,
-                    'status' => 'Ditolak',
-                    'admin_message' => $request->admin_message,
-                ]);
-            }
-        } else {
-            $service->update([
-                'is_reviewed' => true,
-                'status' => 'Ditolak',
-                'admin_message' => $request->admin_message,
-            ]);
-        }
+    //     if (substr($request->license_number, 3, 2) == 'PK') {
+    //         foreach ($service as $s) {
+    //             $s->update([
+    //                 'is_reviewed' => true,
+    //                 'status' => 'Ditolak',
+    //                 'admin_message' => $request->admin_message,
+    //             ]);
+    //         }
+    //     } else {
+    //         $service->update([
+    //             'is_reviewed' => true,
+    //             'status' => 'Ditolak',
+    //             'admin_message' => $request->admin_message,
+    //         ]);
+    //     }
 
-        return response()->json([
-            'message' => 'Berhasil Menolak Ajuan!',
-        ]);
-    }
+    //     return response()->json([
+    //         'message' => 'Berhasil Menolak Ajuan!',
+    //     ]);
+    // }
 }

@@ -88,7 +88,15 @@
         </table>
         <div class="form-group mt-3">
             <div class="font-weight-bold">
-                <span>Yth. Ketua <span class="text-capitalize">{{ $service_data->agency }}</span> </span> <br>
+                <span>Yth. Ketua
+                    @if ($countServiceData > 1)
+                        @foreach ($service_data as $sd_practicum)
+                            <span class="text-capitalize">{{ $sd_practicum->agency }}</span>
+                        @endforeach
+                    @else
+                        <span class="text-capitalize">{{ $service_data->agency }}</span>
+                    @endif
+                </span><br>
                 <span>Institut Teknologi Sumatera</span> <br>
                 <span>di</span> <br>
                 <span>Kampus ITERA</span>
@@ -124,16 +132,33 @@
         <table class="table table-borderless mt-2">
             @if ($service_info->isNotEmpty())
                 <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
-                @foreach ($service_info as $si)
-                    <tr>
-                        <td>
-                            {{ $si->type_name }}
-                        </td>
-                        <td>
-                            {{ $service_data[$si->type] }}
-                        </td>
-                    </tr>
-                @endforeach
+                @if ($countServiceData > 1)
+                    @foreach ($service_info as $si)
+                        <div class="col">
+                            <div class="row">
+                                <h5>{{ $si->type_name }}</h5>
+                            </div>
+                            <div class="row">
+                                <ul>
+                                    @for ($i = 0; $i < $countServiceData; $i++)
+                                        <li>{{ $service_data[$i][$si->type] }}</li>
+                                    @endfor
+                                </ul>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    @foreach ($service_info as $si)
+                        <tr>
+                            <td>
+                                {{ $si->type_name }}
+                            </td>
+                            <td>
+                                {{ $service_data[$si->type] }}
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             @endif
         </table>
         {{-- <div class="page-break"></div> --}}

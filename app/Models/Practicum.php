@@ -45,6 +45,7 @@ class Practicum extends Model
         'start_time',
         'end_time',
         'agency_license',
+        'reply',
     ];
 
     public function user()

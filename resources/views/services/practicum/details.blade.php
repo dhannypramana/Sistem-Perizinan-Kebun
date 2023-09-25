@@ -5,22 +5,57 @@ use Carbon\Carbon;
 ?>
 
 @section('container')
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     @forelse ($practicum as $p)
         <div class="card mt-3">
-            <div class="card-header d-flex justify-content-between align-items-center p-4">
-                <div class="items">
-                    <h5>No. Izin</h5>
-                    <p>{{ $p->license_number }}</p>
+            @if ($loop->iteration == 1)
+                <div class="card-header d-flex justify-content-between align-items-center p-4">
+                    <div class="items">
+                        <h5>No. Izin</h5>
+                        <p>{{ $p->license_number }}</p>
+                    </div>
+                    <div class="items">
+                        <h5>Tanggal Pengajuan</h5>
+                        <p>{{ $p->created_at->format('j F Y, H:i a') }}</p>
+                    </div>
+                    <div class="items">
+                        <h5>Status Pengajuan</h5>
+                        <p>
+                            @if ($p->status == 0)
+                                Menunggu Konfirmasi
+                            @elseif ($p->status == 1)
+                                Disetujui
+                            @elseif ($p->status == 2)
+                                Ditolak
+                            @endif
+                        </p>
+                    </div>
                 </div>
-                <div class="items">
-                    <h5>Tanggal Pengajuan</h5>
-                    <p>{{ $p->created_at->format('j F Y, H:i a') }}</p>
+                <div class="mx-4 mt-4 mb-3">
+                    <div>
+                        <h5 class="font-weight-bold">Surat Pengantar Instansi</h5>
+                        <a target="__blank"
+                            href="{{ route('agency_license', ['license_number' => $p->license_number]) }}">Lihat
+                            Surat</a>
+                    </div>
+                    <div class="mt-3">
+                        @if ($p->reply !== null)
+                            <h5 class="font-weight-bold">Surat Balasan</h5>
+                            <a target="__blank"
+                                href="{{ route('reply_license', ['license_number' => $p->license_number]) }}">Lihat
+                                Surat</a>
+                            </tr>
+                        @endif
+                    </div>
                 </div>
-                <div class="items">
-                    <h5>Status Pengajuan</h5>
-                    <p>{{ $p->status }}</p>
-                </div>
-            </div>
+            @endif
             <div class="card-body">
                 <h4>Mata Kuliah #{{ $loop->iteration }}</h4>
                 <div class="border d-flex rounded mt-4">
@@ -80,14 +115,6 @@ use Carbon\Carbon;
                                     $year = date('Y', strtotime($p->end_time));
                                 @endphp
                                 {{ $day }} {{ $month }} {{ $year }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Surat Pengantar Instansi</th>
-                            <td>
-                                <a target="__blank"
-                                    href="{{ route('agency_license', ['license_number' => $p->license_number]) }}">Lihat
-                                    Surat</a>
                             </td>
                         </tr>
                     </table>
@@ -211,7 +238,9 @@ use Carbon\Carbon;
                 preConfirm: () => {
                     const license_format_select = $('#license_format_select')[0].value;
 
-                    if (!license_format_select) return Swal.showValidationMessage('Field is Required')
+                    if (!license_format_select) return Swal.showValidationMessage(
+                        `Field is Required or <a href="{{ route('template') }}" class="ml-1">Create a new one</a>`
+                    )
 
                     return {
                         license_format: createSlug(license_format_select)

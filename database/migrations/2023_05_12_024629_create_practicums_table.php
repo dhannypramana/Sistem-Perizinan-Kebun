@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignUuid('user_id');
             $table->string('license_number')->default("");
             $table->string('practicum_number');
-            $table->string('status')->default('Menunggu Konfirmasi');
+            $table->tinyInteger('status')->default(0);
             $table->boolean('is_reviewed')->default(false);
             $table->string('admin_message')->default("");
 
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('start_time');
             $table->date('end_time');
             $table->string('agency_license')->default("");
+            $table->string('reply')->nullable();
             $table->timestamps();
         });
     }

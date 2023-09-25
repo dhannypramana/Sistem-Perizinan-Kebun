@@ -38,3 +38,7 @@ sup {
 .custom-file-input:hover {
     cursor: pointer;
 }
+
+.table {
+    table-layout: fixed;
+}

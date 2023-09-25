@@ -6,3 +6,7 @@
 .license-body p {
     text-align: justify;
 }
+
+.table {
+    table-layout: fixed;
+}

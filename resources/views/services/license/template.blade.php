@@ -102,7 +102,15 @@
             <div class="license-receiver my-4">
                 <div class="form-group">
                     <div class="font-weight-bold">
-                        <span>Yth. Ketua <span class="text-capitalize">{{ $service_data['agency'] }}</span> </span> <br>
+                        <span>Yth. Ketua
+                            @if ($countServiceData > 1)
+                                @foreach ($service_data as $sd_practicum)
+                                    <span class="text-capitalize">{{ $sd_practicum->agency }}</span>
+                                @endforeach
+                            @else
+                                <span class="text-capitalize">{{ $service_data->agency }}</span>
+                            @endif
+                        </span><br>
                         <span>Institut Teknologi Sumatera</span> <br>
                         <span>di</span> <br>
                         <span>Kampus ITERA</span>
@@ -162,7 +170,7 @@
                     <p class="mb-5">Belum ada Informasi Pengaju</p>
                 @endif
 
-                <div class="row mt-4">
+                <div class="row mt-4 mb-3">
                     <div class="col-md-3">
                         <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
                     </div>
@@ -174,25 +182,42 @@
                     </div>
                 </div>
                 @if ($service_info->isNotEmpty())
-                    @foreach ($service_info as $si)
-                        <div class="row my-2 align-items-center">
-                            <div class="col-md-4">
-                                <p class="text-capitalize m-0">{{ $si->type_name }}</p>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="text-capitalize m-0">{{ $service_data[$si->type] }}</p>
-                                    <button class="btn btn-facebook border ml-5"
-                                        onclick="deleteServiceInfo(event, '{{ $si->id }}')"
-                                        style="cursor: pointer !important;">
-                                        <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
-                                    </button>
+                    @if ($countServiceData > 1)
+                        @foreach ($service_info as $si)
+                            <div class="col">
+                                <div class="row">
+                                    <h5>{{ $si->type_name }}</h5>
+                                </div>
+                                <div class="row">
+                                    <ul>
+                                        @for ($i = 0; $i < $countServiceData; $i++)
+                                            <li>{{ $service_data[$i][$si->type] }}</li>
+                                        @endfor
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        @foreach ($service_info as $si)
+                            <div class="row my-2 align-items-center">
+                                <div class="col-md-4">
+                                    <p class="text-capitalize m-0">{{ $si->type_name }}</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="text-capitalize m-0">{{ $service_data[$si->type] }}</p>
+                                        <button class="btn btn-facebook border ml-5"
+                                            onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                            style="cursor: pointer !important;">
+                                            <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 @else
-                    <p class="mb-5">Belum ada Informasi Pengajuan</p>
+                    <p>Belum ada Informasi Pengajuan</p>
                 @endif
                 <p class="mt-4">{{ $data->footer }}</p>
             </div>
@@ -248,7 +273,11 @@
 
             {{-- General --}}
             <input type="hidden" name="id" value="{{ $data->id }}">
-            <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
+            @if ($countServiceData > 1)
+                <input type="hidden" name="user_id" value="{{ $service_data[0]->user_id }}">
+            @else
+                <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
+            @endif
             <input type="hidden" name="license_number" value="{{ $license_number }}">
             <div class="d-flex align-items-baseline mt-3">
                 <button type="submit" class="btn btn-primary" id="submit-btn">
@@ -857,52 +886,6 @@
             } else {
                 return true;
             }
-        }
-
-        const accept = (e) => {
-            e.preventDefault();
-
-            Swal.fire({
-                title: 'Kamu Yakin?',
-                text: "kamu yakin untuk melakukan finalisasi pengajuan?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Finalisasi Sekarang!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const license_number = $('input[name=license_number]').val();
-
-                    $.ajax({
-                        url: "{{ route('accept') }}",
-                        type: "POST",
-                        data: {
-                            id: '{{ $data->id }}',
-                            user_id: '{{ $service_data->user_id }}',
-                            license_number: license_number,
-                        },
-                        success: function(response) {
-                            return console.log(response);
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                        error: function(xhr) {
-                            console.log(xhr);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: xhr.responseJSON.message,
-                                confirmButtonText: 'OK'
-                            });
-                        },
-                    });
-                }
-            })
         }
     </script>
 @endsection
