@@ -81,7 +81,11 @@ class UserDataRequestController extends Controller
             'agency_license' => $fileName
         ]);
 
+        /**
+         * Send Proposal Notification to Admin
+         */
         NotificationController::sendWhatsapp($data);
+        NotificationController::sendEmail($data);
 
         return response()->json([
             'success' => 'Terima Kasih Atas Feedback Kamu, Pengajuan Kamu Akan Segera di Review',

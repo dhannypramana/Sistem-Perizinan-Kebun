@@ -115,6 +115,7 @@ class UserPracticumController extends Controller
 
             if ($i == $request->count) {
                 NotificationController::sendWhatsapp($practicum);
+                NotificationController::sendEmail($practicum);
             }
         }
 

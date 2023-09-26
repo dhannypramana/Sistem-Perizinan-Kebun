@@ -98,6 +98,7 @@ class UserResearchController extends Controller
          */
 
         NotificationController::sendWhatsapp($research);
+        NotificationController::sendEmail($research);
 
         return response()->json([
             'success' => 'Terima Kasih Atas Feedback Kamu, Pengajuan Kamu Akan Segera di Review',

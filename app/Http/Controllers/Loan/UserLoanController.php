@@ -100,6 +100,7 @@ class UserLoanController extends Controller
         ]);
 
         NotificationController::sendWhatsapp($loan);
+        NotificationController::sendEmail($loan);
 
         return response()->json([
             'success' => 'Terima Kasih Atas Feedback Kamu, Pengajuan Kamu Akan Segera di Review',

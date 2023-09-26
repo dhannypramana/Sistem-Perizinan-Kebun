@@ -21,7 +21,9 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Mail\DemoMail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 // use NotificationChannels\WhatsApp\Component;
@@ -44,6 +46,15 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/test', function () {
+    return view('emails.notifications');
+    // $mailData = [
+    //     'title' => 'Mail from ItSolutionStuff.com',
+    //     'body' => 'This is for testing email using smtp.'
+    // ];
+
+    // Mail::to('p.dhannypramana@gmail.com')->send(new DemoMail($mailData));
+
+    // dd("Email is sent successfully.");
 })->name('test');
 
 /**

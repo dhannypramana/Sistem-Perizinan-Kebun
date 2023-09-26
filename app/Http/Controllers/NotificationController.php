@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Mail\AdminNotificationMail;
+use App\Mail\DemoMail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Twilio\Rest\Client;
 
 class NotificationController extends Controller
@@ -35,5 +38,18 @@ class NotificationController extends Controller
                 'body' => $template
             ]
         );
+    }
+
+    public static function sendEmail(Model $model)
+    {
+        $adminEmail = 'sisperlak.test@gmail.com';
+        $service = Helpers::getService($model->license_number);
+        $link = Helpers::getAdminUrl($model->license_number);
+
+        try {
+            Mail::to($adminEmail)->send(new AdminNotificationMail($model, $service, $link));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
