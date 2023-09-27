@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Mail\UserNotificationMail;
 use App\Models\DataRequest;
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatBody;
@@ -15,6 +16,7 @@ use App\Models\Research;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -143,6 +145,12 @@ class ConfirmationController extends Controller
                 ]);
             }
         }
+
+        /**
+         * Send Email Confirmation to User
+         */
+
+        Mail::to($service->user->email)->send(new UserNotificationMail($service, Helpers::getService($service->license_number)));
 
         return Redirect::to($url)->with('status', 'Sukses Konfirmasi Pengajuan!');
     }

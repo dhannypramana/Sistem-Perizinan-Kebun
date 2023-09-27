@@ -42,12 +42,13 @@ class NotificationController extends Controller
 
     public static function sendEmail(Model $model)
     {
-        $adminEmail = 'sisperlak.test@gmail.com';
+        $email = 'sisperlak.test@gmail.com';
+
         $service = Helpers::getService($model->license_number);
         $link = Helpers::getAdminUrl($model->license_number);
 
         try {
-            Mail::to($adminEmail)->send(new AdminNotificationMail($model, $service, $link));
+            Mail::to($email)->send(new AdminNotificationMail($model, $service, $link));
         } catch (\Throwable $th) {
             throw $th;
         }

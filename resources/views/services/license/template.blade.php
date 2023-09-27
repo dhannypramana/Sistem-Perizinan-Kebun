@@ -170,7 +170,7 @@
                     <p class="mb-5">Belum ada Informasi Pengaju</p>
                 @endif
 
-                <div class="row mt-4 mb-3">
+                <div class="row mt-4">
                     <div class="col-md-3">
                         <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
                     </div>
