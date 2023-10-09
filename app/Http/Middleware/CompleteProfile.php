@@ -20,7 +20,14 @@ class CompleteProfile
     {
         $user = Auth::user();
 
-        if ($user->name == null || $user->address == null || $user->academic_program == null || $user->student_number == null || $user->phone_number == null) {
+        if (
+            $user->name == null ||
+            $user->address == null ||
+            $user->academic_program == null ||
+            $user->student_number == null ||
+            $user->phone_number == null ||
+            $user->major == null
+        ) {
             Alert::warning('Oopss...', 'Profil Belum Lengkap! Silahkan Lengkapi Profil Terlebih Dahulu!')->persistent(true)->autoClose(5000);
             return redirect()->route('profile');
         } else {

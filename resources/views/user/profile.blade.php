@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                             <h5 class="my-3">{{ $user->name }}</h5>
+                            <p class="text-muted mb-1">{{ $user->major }}</p>
                             <p class="text-muted mb-1">{{ $user->academic_program }}</p>
                             <p class="text-muted mb-4">{{ $user->student_number }}</p>
                             <div class="d-flex justify-content-center mb-2">
@@ -70,10 +71,27 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <p class="mb-0">Jurusan</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    @if ($user->major == null)
+                                        <p class="text-danger mb-0">Belum ada Jurusan</p>
+                                    @else
+                                        <p class="text-muted mb-0">{{ $user->major }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <p class="mb-0">Prodi</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{ $user->academic_program }}</p>
+                                    @if ($user->academic_program == null)
+                                        <p class="text-danger mb-0">Belum ada Prodi</p>
+                                    @else
+                                        <p class="text-muted mb-0">{{ $user->academic_program }}</p>
+                                    @endif
                                 </div>
                             </div>
                             <hr>
@@ -82,7 +100,11 @@
                                     <p class="mb-0">NIM</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{ $user->student_number }}</p>
+                                    @if ($user->student_number == null)
+                                        <p class="text-danger mb-0">Belum ada NIM</p>
+                                    @else
+                                        <p class="text-muted mb-0">{{ $user->student_number }}</p>
+                                    @endif
                                 </div>
                             </div>
                             <hr>
@@ -91,7 +113,11 @@
                                     <p class="mb-0">Whatsapp</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">+62 {{ $user->phone_number }}</p>
+                                    @if ($user->phone_number == null)
+                                        <p class="text-danger mb-0">Belum ada Nomor Telefon</p>
+                                    @else
+                                        <p class="text-muted mb-0">+62 {{ $user->phone_number }}</p>
+                                    @endif
                                 </div>
                             </div>
                             <hr>
@@ -100,7 +126,11 @@
                                     <p class="mb-0">Address</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{ $user->address }}</p>
+                                    @if ($user->address == null)
+                                        <p class="text-danger mb-0">Belum ada Alamat</p>
+                                    @else
+                                        <p class="text-muted mb-0">{{ $user->address }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -119,8 +149,8 @@
                                     </div>
                                     <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                                     <div class="progress rounded" style="height: 5px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 72%"
+                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
                                     <div class="progress rounded" style="height: 5px;">

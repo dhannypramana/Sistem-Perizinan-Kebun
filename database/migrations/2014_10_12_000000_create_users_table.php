@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('academic_program')->nullable();
+            $table->string('major')->nullable();
             $table->boolean('is_admin')->default(0);
             $table->string('photo')->nullable();
 

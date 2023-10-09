@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => Str::uuid(),
             'name' => 'Dhanny Adhi Pramana',
-            'email' => 'example.dani@gmail.com',
+            'email' => 'p.dhannypramana@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('dani'),
             'remember_token' => 'asdtyuqwe',
@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
             'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',
             'phone_number' => '83191831403',
             'academic_program' => 'Teknik Informatika',
+            'major' => 'Teknolgi Produksi dan Industri',
         ]);
 
         DB::table('users')->insert([

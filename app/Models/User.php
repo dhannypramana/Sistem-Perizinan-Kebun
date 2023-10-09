@@ -29,6 +29,7 @@ class User extends Authenticatable
         'academic_program',
         'is_admin',
         'photo',
+        'major'
     ];
 
     /**
