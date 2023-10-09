@@ -89,7 +89,7 @@
         <div class="form-group mt-3">
             <div class="font-weight-bold">
                 <span>Yth. Ketua
-                    @if ($countServiceData > 1)
+                    @if ($isPracticum)
                         @foreach ($service_data as $sd_practicum)
                             <span class="text-capitalize">{{ $sd_practicum->agency }}</span>
                         @endforeach
@@ -132,7 +132,7 @@
         <table class="table table-borderless mt-2">
             @if ($service_info->isNotEmpty())
                 <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
-                @if ($countServiceData > 1)
+                @if ($isPracticum)
                     @foreach ($service_info as $si)
                         <div class="col">
                             <div class="row">
@@ -140,7 +140,7 @@
                             </div>
                             <div class="row">
                                 <ul>
-                                    @for ($i = 0; $i < $countServiceData; $i++)
+                                    @for ($i = 0; $i < $practicumCount; $i++)
                                         <li>{{ $service_data[$i][$si->type] }}</li>
                                     @endfor
                                 </ul>
@@ -163,11 +163,7 @@
         </table>
         {{-- <div class="page-break"></div> --}}
         <p class="text-justify mt-2">
-            Adapun dosen penanggung jawab kegiatan dapat melakukan koordinasi lebih lanjut dengan UPT KFS berkaitan
-            dengan segala aktivitas kegiatan yang ada di Kebun Raya ITERA. Narahubung UPT KFS a.n. Eryka Merdiana, S.P.
-            (082181021850). Selama pelaksanaan kegiatan, mohon tetap melaksanakan protokol kesehatan sebagaimana yang
-            telah ditetapkan di lingkungan kampus ITERA dan menjaga kebersihan serta keamanan. Demikian surat ini kami
-            sampaikan. Atas kerjasamanya kami ucapkan terima kasih
+            {{ $data->footer }}
         </p>
         <div class="license-footer">
             <div class="signature mt-3">

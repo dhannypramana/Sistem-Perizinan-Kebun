@@ -51,8 +51,16 @@ class ConfirmationController extends Controller
         $user           = User::where('id', $user_id)->first();
         $service_data   = Helpers::findDataByLicenseNumber($license_number);
         $body           = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
-        $countServiceData = $service_data->count();
-        // $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
+
+        $isPracticum = null;
+        $practicumCount = 0;
+
+        if ($service_data instanceof \Illuminate\Database\Eloquent\Collection && $service_data->isNotEmpty()) {
+            $isPracticum = true;
+            $practicumCount = $service_data->count();
+        } else {
+            $isPracticum = false;
+        }
 
         $raw = [
             'data' => $data,
@@ -65,7 +73,8 @@ class ConfirmationController extends Controller
             'body' => $body,
             'license_number' => $license_number,
             'status' => $status,
-            'countServiceData' => $countServiceData
+            'isPracticum' => $isPracticum,
+            'practicumCount' => $practicumCount,
         ];
 
         $fileName =  'reply_' . $license_number . '.pdf';
@@ -149,8 +158,9 @@ class ConfirmationController extends Controller
         /**
          * Send Email Confirmation to User
          */
-
-        Mail::to($service->user->email)->send(new UserNotificationMail($service, Helpers::getService($service->license_number)));
+        if (!substr($request->license_number, 3, 2) == 'PK') {
+            Mail::to($service->user->email)->send(new UserNotificationMail($service, Helpers::getService($service->license_number)));
+        }
 
         return Redirect::to($url)->with('status', 'Sukses Konfirmasi Pengajuan!');
     }

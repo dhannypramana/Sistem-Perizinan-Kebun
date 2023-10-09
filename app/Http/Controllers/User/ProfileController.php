@@ -93,7 +93,8 @@ class ProfileController extends Controller
             'address' => ['required'],
             'academic_program' => ['required'],
             'student_number' => ['required', 'min:9'],
-            'phone_number' => ['required']
+            'phone_number' => ['required'],
+            'major' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -110,6 +111,7 @@ class ProfileController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'address' => $request->address,
+                'major' => $request->major,
                 'academic_program' => $request->academic_program,
                 'student_number' => $request->student_number,
                 'phone_number' => substr($request->phone_number, 1)

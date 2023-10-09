@@ -59,6 +59,18 @@
 
                             <div class="row">
                                 <div class="col-md-5">
+                                    <label for="major">Jurusan</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="major" id="major" value="{{ $user->major }}"
+                                        class="form-control" placeholder="Masukkan Jurusan">
+                                    <span class="text-danger fst-italic fw-lighter error-text major_error"></span>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-5">
                                     <label for="academic_program">Program Studi</label>
                                 </div>
                                 <div class="col-lg-6">

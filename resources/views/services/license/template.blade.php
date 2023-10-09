@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <div class="font-weight-bold">
                         <span>Yth. Ketua
-                            @if ($countServiceData > 1)
+                            @if ($isPracticum)
                                 @foreach ($service_data as $sd_practicum)
                                     <span class="text-capitalize">{{ $sd_practicum->agency }}</span>
                                 @endforeach
@@ -182,7 +182,7 @@
                     </div>
                 </div>
                 @if ($service_info->isNotEmpty())
-                    @if ($countServiceData > 1)
+                    @if ($isPracticum)
                         @foreach ($service_info as $si)
                             <div class="col">
                                 <div class="row">
@@ -190,7 +190,7 @@
                                 </div>
                                 <div class="row">
                                     <ul>
-                                        @for ($i = 0; $i < $countServiceData; $i++)
+                                        @for ($i = 0; $i < $practicumCount; $i++)
                                             <li>{{ $service_data[$i][$si->type] }}</li>
                                         @endfor
                                     </ul>
@@ -273,7 +273,7 @@
 
             {{-- General --}}
             <input type="hidden" name="id" value="{{ $data->id }}">
-            @if ($countServiceData > 1)
+            @if ($isPracticum)
                 <input type="hidden" name="user_id" value="{{ $service_data[0]->user_id }}">
             @else
                 <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
@@ -284,8 +284,10 @@
                     <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
                     <span>Finalisasi Persetujuan</span>
                 </button>
-                <p class="text-danger ml-2 d-none" id="disabled-alert">
-                    <sup>*</sup>Silahkan lengkapi informasi terlebih dahulu!
+                <p class="ml-2 d-none" id="disabled-alert">
+                    <sup>*</sup> <a class="text-danger" href="{{ route('details_template', ['id' => $data->id]) }}">
+                        Silahkan lengkapi informasi terlebih dahulu!
+                    </a>
                 </p>
             </div>
         </form>

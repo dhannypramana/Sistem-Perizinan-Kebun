@@ -11,6 +11,7 @@ use App\Models\LicenseFormatMetaHeader;
 use App\Models\LicenseFormatService;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
+use App\Models\Practicum;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Faker\Extension\Helper;
@@ -84,7 +85,16 @@ class LicenseGenerator extends Controller
         $user = User::where('id', $user_id)->first();
         $service_data = Helpers::findDataByLicenseNumber($license_number);
         $body = LicenseFormatBody::where('license_number', $license_number)->where('license_format_id', $id)->first();
-        $countServiceData = $service_data->count();
+
+        $isPracticum = null;
+        $practicumCount = 0;
+
+        if ($service_data instanceof \Illuminate\Database\Eloquent\Collection && $service_data->isNotEmpty()) {
+            $isPracticum = true;
+            $practicumCount = $service_data->count();
+        } else {
+            $isPracticum = false;
+        }
 
         return view('services.license.template', [
             'active' => 'a',
@@ -95,7 +105,8 @@ class LicenseGenerator extends Controller
             'service_data' => $service_data,
             'license_number' => $license_number,
             'body' => $body,
-            'countServiceData' => $countServiceData,
+            'isPracticum' => $isPracticum,
+            'practicumCount' => $practicumCount,
         ]);
     }
 
