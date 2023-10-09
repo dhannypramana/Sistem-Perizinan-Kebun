@@ -21,10 +21,13 @@ use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\VerificationController;
 use App\Mail\DemoMail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 // use NotificationChannels\WhatsApp\Component;
 // use NotificationChannels\WhatsApp\WhatsAppChannel;
@@ -66,6 +69,13 @@ Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agen
 Route::get('/{license_number}/reply', [PdfController::class, 'reply'])->name('reply_license');
 
 /**
+ * Verification Routes
+ */
+Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+/**
  * Auth Routes
  */
 
@@ -89,7 +99,7 @@ Route::middleware('auth')->group(function () {
  * User Routes
  */
 
-Route::middleware(['auth', 'user'])->group(function () {
+Route::middleware(['auth', 'user', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('user_dashboard');
 
     Route::prefix('/profile')->group(function () {

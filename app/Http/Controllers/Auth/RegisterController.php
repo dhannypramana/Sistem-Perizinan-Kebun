@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,7 @@ class RegisterController extends Controller
         }
 
         try {
-            User::create([
+            $user = User::create([
                 'id' => Str::uuid(),
                 'name' => $request->name,
                 'email' => $request->email,
@@ -59,6 +60,8 @@ class RegisterController extends Controller
                 ], 500);
             }
         }
+
+        event(new Registered($user));
 
         return response()->json([
             'success' => 'Register berhasil, Silahkan Login!',

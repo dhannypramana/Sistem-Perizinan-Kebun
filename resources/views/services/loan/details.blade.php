@@ -21,7 +21,15 @@
             </div>
             <div class="items">
                 <h5>Status Pengajuan</h5>
-                <p>{{ $loan->status }}</p>
+                <p>
+                    @if ($loan->status == 0)
+                        Menunggu Konfirmasi
+                    @elseif ($loan->status == 1)
+                        Disetujui
+                    @elseif ($loan->status == 2)
+                        Ditolak
+                    @endif
+                </p>
             </div>
         </div>
         <div class="card-body">

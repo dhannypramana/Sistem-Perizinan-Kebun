@@ -17,23 +17,23 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'id' => Str::uuid(),
-            'name' => 'Dhanny Adhi Pramana',
-            'email' => 'p.dhannypramana@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('dani'),
-            'remember_token' => 'asdtyuqwe',
-            'created_at' => now(),
-            'updated_at' => now(),
-            'is_admin' => 0,
+        // DB::table('users')->insert([
+        //     'id' => Str::uuid(),
+        //     'name' => 'Dhanny Adhi Pramana',
+        //     'email' => 'p.dhannypramana@gmail.com',
+        //     // 'email_verified_at' => now(),
+        //     'password' => Hash::make('dani'),
+        //     'remember_token' => 'asdtyuqwe',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        //     'is_admin' => 0,
 
-            'student_number' => '118140182',
-            'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',
-            'phone_number' => '83191831403',
-            'academic_program' => 'Teknik Informatika',
-            'major' => 'Teknolgi Produksi dan Industri',
-        ]);
+        //     'student_number' => '118140182',
+        //     'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',
+        //     'phone_number' => '83191831403',
+        //     'academic_program' => 'Teknik Informatika',
+        //     'major' => 'Teknolgi Produksi dan Industri',
+        // ]);
 
         DB::table('users')->insert([
             'id' => Str::uuid(),
