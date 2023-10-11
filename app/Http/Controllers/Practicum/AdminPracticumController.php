@@ -12,11 +12,10 @@ class AdminPracticumController extends Controller
     {
         return view('services.practicum.check', [
             'active' => 'practicum_check',
-            'practicum' => Practicum::latest()->get()
-
-            // 'practicum' => Practicum::select('license_number',)
-            //     ->distinct()
-            //     ->paginate(4)
+            'practicum' => Practicum::select('license_number', 'created_at', 'status',)
+                ->distinct()
+                ->latest()
+                ->get()
         ]);
     }
 
