@@ -25,9 +25,10 @@ class UserPracticumController extends Controller
         return view('services.practicum.check', [
             'active' => 'practicum_check',
             'practicum' => Practicum::where('user_id', auth()->user()->id)
-                ->select('license_number',)
-                ->distinct()
-                ->paginate(4)
+                // ->select('license_number',)
+                // ->distinct()
+                ->latest()
+                ->get()
         ]);
     }
 

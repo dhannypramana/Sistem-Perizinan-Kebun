@@ -12,7 +12,7 @@ class AdminDataRequestController extends Controller
     {
         return view('services.data_request.check', [
             'active' => 'data_request_check',
-            'data_request' => DataRequest::latest()->paginate(4)
+            'data_request' => DataRequest::latest()->get()
         ]);
     }
 

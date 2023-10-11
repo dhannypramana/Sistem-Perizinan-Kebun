@@ -43,6 +43,9 @@ class UserSeeder extends Seeder
             'remember_token' => 'asdtyuqwe',
             'created_at' => now(),
             'updated_at' => now(),
+            'email_verified_at' => now(),
+            'student_number' => '118140183',
+            'major' => 'JTPI',
             'is_admin' => 0,
 
             'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',

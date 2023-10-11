@@ -15,6 +15,7 @@
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/datatables.min.css') }}" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -237,6 +238,7 @@
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>

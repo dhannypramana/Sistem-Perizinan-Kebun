@@ -13,7 +13,7 @@ class AdminLoanController extends Controller
     {
         return view('services.loan.check', [
             'active' => 'loan_check',
-            'loan' => Loan::latest()->paginate(4)
+            'loan' => Loan::latest()->get()
         ]);
     }
 

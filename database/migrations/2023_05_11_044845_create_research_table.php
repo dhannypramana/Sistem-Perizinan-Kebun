@@ -17,10 +17,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id');
             $table->string('license_number')->default("");
-            $table->string('status')->default('Menunggu Konfirmasi');
-            $table->string('admin_message')->default("");
-            $table->boolean('is_reviewed')->default(false);
             $table->string('research_number')->unique();
+            $table->tinyInteger('status')->default(0);
+            $table->boolean('is_reviewed')->default(false);
+            $table->string('admin_message')->default("");
 
             $table->string('location');
             $table->integer('personnel');

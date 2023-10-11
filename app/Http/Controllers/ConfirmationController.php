@@ -153,12 +153,10 @@ class ConfirmationController extends Controller
                     'admin_message' => $request->admin_message
                 ]);
             }
-        }
 
-        /**
-         * Send Email Confirmation to User
-         */
-        if (!substr($request->license_number, 3, 2) == 'PK') {
+            /**
+             * Send Email Confirmation to User
+             */
             Mail::to($service->user->email)->send(new UserNotificationMail($service, Helpers::getService($service->license_number)));
         }
 

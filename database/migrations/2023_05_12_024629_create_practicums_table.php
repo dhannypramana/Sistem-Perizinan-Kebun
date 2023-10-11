@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('start_time');
             $table->date('end_time');
             $table->string('agency_license')->default("");
+
             $table->string('reply')->nullable();
             $table->timestamps();
         });

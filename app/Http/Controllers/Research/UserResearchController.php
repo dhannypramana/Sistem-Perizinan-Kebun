@@ -26,7 +26,7 @@ class UserResearchController extends Controller
     {
         return view('services.research.check', [
             'active' => 'research_check',
-            'research' => Research::where('user_id', auth()->user()->id)->latest()->paginate(4)
+            'research' => Research::where('user_id', auth()->user()->id)->latest()->get()
         ]);
     }
 

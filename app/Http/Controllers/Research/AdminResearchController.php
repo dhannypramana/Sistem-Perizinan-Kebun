@@ -13,7 +13,7 @@ class AdminResearchController extends Controller
     {
         return view('services.research.check', [
             'active' => 'research_check',
-            'research' => Research::latest()->paginate(4)
+            'research' => Research::latest()->get()
         ]);
     }
 
