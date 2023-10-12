@@ -9,7 +9,6 @@
             <table class="table table-bordered table-hover" id="loanTable">
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>No. Izin</th>
                         <th>Tanggal Pengajuan</th>
                         <th>Status Pengajuan</th>
@@ -18,7 +17,6 @@
                 <tbody>
                     @foreach ($loan as $l)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
                             <td>
                                 @if (auth()->user()->is_admin == 1)
                                     <a

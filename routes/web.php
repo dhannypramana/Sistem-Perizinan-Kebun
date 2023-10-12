@@ -49,15 +49,9 @@ use Illuminate\Http\Request;
  */
 
 Route::get('/test', function () {
-    return view('emails.notifications');
-    // $mailData = [
-    //     'title' => 'Mail from ItSolutionStuff.com',
-    //     'body' => 'This is for testing email using smtp.'
-    // ];
-
-    // Mail::to('p.dhannypramana@gmail.com')->send(new DemoMail($mailData));
-
-    // dd("Email is sent successfully.");
+    return view('test.home', [
+        'active' => 'home'
+    ]);
 })->name('test');
 
 /**

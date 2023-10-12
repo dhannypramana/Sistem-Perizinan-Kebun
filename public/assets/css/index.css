@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import "~twbs/icons/scss/icons";
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.jumbotron{
+    padding-top: 18rem;
+    width: 100%;
+    background: url('../images/hero.jpg');
+    background-size: cover;
+}
+
+#about {
+    background-color: #0d6efd;
+}
+
+.navbar {
+    padding: 15px;
+}
+
+#lapor {
+    background-color: #0d6efd;
+}
+
+
+/* .title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.form-group{
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: red;
+}
+.right-navbar{
+    right: 30%;
+} */
+
+/* .form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+/*
+
+.separator{
+    margin: 1px;
+}
+
+.button {
+    float: right;
+} */
+
+/* .btn {
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.masthead {
+    min-height: 30rem;
+    position: relative;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: linear-gradient(90deg, rgba(92, 77, 66, 0.3) 0%, rgba(92, 77, 66, 0.3) 100%), url("/img/bg-callout.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.masthead h1, .masthead .h1 {
+    font-size: 4rem;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 992px) {
+    .masthead {
+      height: 100vh;
+    }
+    .masthead h1, .masthead .h1 {
+      font-size: 5.5rem;
+    }
+}
+
+.content-section {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+}
+
+.content-section-heading h2, .content-section-heading .h2 {
+    font-size: 3rem;
+}
+
+.content-section-heading h3, .content-section-heading .h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.isi-content{
+    text-align: justify;
+}
+
+
+  .sub-title{
+      color: bl;
+  } */

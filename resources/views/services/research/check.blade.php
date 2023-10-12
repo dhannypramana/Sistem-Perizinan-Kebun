@@ -9,7 +9,6 @@
             <table class="table table-bordered table-hover" id="researchTable">
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>No. Izin</th>
                         <th>Tanggal Pengajuan</th>
                         <th>Status Pengajuan</th>
@@ -18,7 +17,6 @@
                 <tbody>
                     @foreach ($research as $r)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
                             <td>
                                 @if (auth()->user()->is_admin == 1)
                                     <a

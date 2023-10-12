@@ -25,7 +25,7 @@ class LicenseGenerator extends Controller
 {
     public static function show()
     {
-        $license_formats = LicenseFormat::get()->sortBy('created_at');
+        $license_formats = LicenseFormat::latest()->get();
 
         return view('services.license.option_format', [
             'active' => 'template',

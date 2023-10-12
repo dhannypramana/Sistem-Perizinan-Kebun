@@ -1,7 +1,7 @@
 @extends('services.layouts.index')
 
 @section('title')
-    User Dashboard
+    Dashboard
 @endsection
 
 @section('container')

@@ -12,21 +12,16 @@
         </div>
     @else
         <div class="list container-fluid mt-5 px-5">
-            @php
-                $count = 1;
-            @endphp
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="licenseFormatTable">
                 <thead>
                     <tr>
-                        <td>No</td>
                         <td>Judul Format</td>
                         <td>Aksi</td>
                     </tr>
                 </thead>
-                @foreach ($license_formats as $ls)
-                    <tbody>
+                <tbody>
+                    @foreach ($license_formats as $ls)
                         <tr>
-                            <td>{{ $count++ }}</td>
                             <td id="title-{{ $ls->id }}">{{ $ls->format_title }}</td>
                             <td>
                                 <div class="dropdown">
@@ -54,8 +49,8 @@
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
-                @endforeach
+                    @endforeach
+                </tbody>
             </table>
         </div>
     @endif
@@ -67,6 +62,10 @@
 
 @section('script')
     <script>
+        $(document).ready(() => {
+            $('#licenseFormatTable').DataTable();
+        });
+
         const editTemplateForm = (e, id) => {
             e.preventDefault();
 

@@ -8,7 +8,6 @@
         <table class="table table-bordered table-hover" id="practicumTable">
             <thead>
                 <tr>
-                    <th>No</th>
                     <th>No. Izin</th>
                     <th>Tanggal Pengajuan</th>
                     <th>Status Pengajuan</th>
@@ -17,7 +16,6 @@
             <tbody>
                 @foreach ($practicum as $p)
                     <tr>
-                        <td>{{ $loop->index + 1 }}</td>
                         <td>
                             @if (auth()->user()->is_admin == 1)
                                 <a
