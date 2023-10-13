@@ -22,10 +22,9 @@
 
 <body id="page-top">
     <div id="wrapper">
-        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="block_logo">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                    href="{{ route('user_dashboard') }}">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
                     <div class="sidebar-brand-text mx-3">
                         <img class="nav_img" src="{{ asset('assets/images/itera.png') }}" alt="logo_itera">
                     </div>
@@ -166,6 +165,17 @@
                         </a>
                     </li>
                 </div>
+                <div class="license_generator">
+                    <p class="nav-item text-white text-bold mx-3 my-2 title" id="letterTitle">News</p>
+                    <hr class="sidebar-divider">
+
+                    <li class="nav-item @if ($active == 'news') active @endif">
+                        <a class="nav-link" href="{{ route('news') }}">
+                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                            <span class="ml-1">Buat Berita</span>
+                        </a>
+                    </li>
+                </div>
             @endif
         </ul>
 
@@ -241,8 +251,6 @@
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
     <script src="{{ asset('assets/js/global.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
 

@@ -4,8 +4,8 @@
     <h3 class="fw-bolder text-dark">Daftar Pengajuan Praktikum</h3>
     <hr class="divider rounded">
 
-    <div class="px-5 mt-5">
-        <table class="table table-bordered table-hover" id="practicumTable">
+    <div class="container-fluid mt-5">
+        <table class="table table-responsive-lg table-bordered table-hover" id="practicumTable">
             <thead>
                 <tr>
                     <th>No. Izin</th>

@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-        <div class="row p-3 text-center fw-bold">
+        <div class="row p-3 text-center fw-bold mt-5">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright &copy; Kebun Raya ITERA | Sistem Perizinan Layanan 2023</span>

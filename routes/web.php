@@ -14,6 +14,7 @@ use App\Http\Controllers\LicenseFormatUserController;
 use App\Http\Controllers\LicenseGenerator;
 use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
@@ -49,9 +50,6 @@ use Illuminate\Http\Request;
  */
 
 Route::get('/test', function () {
-    return view('test.home', [
-        'active' => 'home'
-    ]);
 })->name('test');
 
 /**
@@ -59,6 +57,8 @@ Route::get('/test', function () {
  */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/news', [HomeController::class, 'news'])->name('newsHome');
+Route::get('/news/{id}', [HomeController::class, 'details'])->name('detailsNewsHome');
 Route::get('/{license_number}/pdf', [PdfController::class, 'index'])->name('agency_license');
 Route::get('/{license_number}/reply', [PdfController::class, 'reply'])->name('reply_license');
 
@@ -154,6 +154,12 @@ Route::middleware(['auth', 'user', 'verified'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
+
+        Route::get('/news', [NewsController::class, 'show'])->name('news');
+        Route::get('/news/{id}', [NewsController::class, 'details'])->name('details_news');
+        Route::post('/news', [NewsController::class, 'store'])->name('store_news');
+        Route::delete('/news', [NewsController::class, 'delete'])->name('delete_news');
+        Route::put('/news', [NewsController::class, 'update'])->name('update_news');
 
         Route::post('/accept', [ConfirmationController::class, 'accept'])->name('accept');
         Route::post('/reject', [ConfirmationController::class, 'reject'])->name('reject');

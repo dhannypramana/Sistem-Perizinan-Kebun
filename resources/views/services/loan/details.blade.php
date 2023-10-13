@@ -10,14 +10,10 @@
         </div>
     @endif
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center pt-4 px-4">
+        <div class="card-header pt-4 px-4">
             <div class="items">
                 <h5>No. Izin</h5>
                 <p>{{ $loan->license_number }}</p>
-            </div>
-            <div class="items">
-                <h5>Tanggal Pengajuan</h5>
-                <p>{{ $loan->created_at->format('j F Y, H:i a') }}</p>
             </div>
             <div class="items">
                 <h5>Status Pengajuan</h5>
@@ -33,14 +29,9 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="border d-flex rounded">
-                <table class="table bordered text-left">
-                    @if ($loan->admin_message)
-                        <tr>
-                            <th class="text-danger">Alasan Penolakan</th>
-                            <td class="text-danger">{{ $loan->admin_message }}</td>
-                        </tr>
-                    @endif
+            <h4>Informasi Pengaju</h4>
+            <div class="border rounded mt-3 mb-5">
+                <table class="table text-left">
                     <tr>
                         <th>Nama</th>
                         <td>{{ $loan->user->name }}</td>
@@ -58,8 +49,30 @@
                         <td>{{ $loan->user->phone_number }}</td>
                     </tr>
                     <tr>
+                        <th>Jurusan</th>
+                        <td>{{ $loan->user->major }}</td>
+                    </tr>
+                    <tr>
                         <th>Prodi</th>
                         <td>{{ $loan->user->academic_program }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4>Informasi Pengajuan</h4>
+            <div class="border rounded mt-3">
+                <table class="table text-left">
+                    @if ($loan->admin_message)
+                        <tr>
+                            <th class="text-danger">Alasan Penolakan</th>
+                            <td class="text-danger">{{ $loan->admin_message }}</td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <th>Tanggal Pengajuan</th>
+                        <td>
+                            {{ $loan->created_at->format('j F Y, H:i a') }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Kategori Peminjaman</th>
@@ -123,29 +136,11 @@
                 <div class="btn-group mt-3">
                     @if (!$loan->is_reviewed)
                         <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>
-
-                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $loan->license_number }}">
-                            <button type="submit" class="btn btn-primary">Setujui</button>
-                        </form>
-
-                        <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
-                            action="{{ route('reject') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $loan->license_number }}">
-                            <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form> --}}
                     @endif
                 </div>
             @endif
         </div>
     </div>
-
-    <a href="javascript:history.back()" class="btn btn-secondary mt-3">
-        <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
-        <span>Kembali</span>
-    </a>
 @endsection
 
 @section('script')

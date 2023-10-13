@@ -20,6 +20,12 @@
                 <img src="{{ asset('assets/images/itera.png') }}" alt="itera-nav" style="width: 30px; height: 35px;">
                 <span class="ms-3">SISPERLAK</span>
             </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link @if ($active == 'news') active @endif"
+                        href="{{ route('newsHome') }}">News</a>
+                </li>
+            </ul>
             <div id="navbarSupportedContent">
                 @auth
                     <ul class="navbar-nav ml-auto">

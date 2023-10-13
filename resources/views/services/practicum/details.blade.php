@@ -99,7 +99,7 @@ use Carbon\Carbon;
                             @php
                                 $toDate = Carbon::parse($p->start_time);
                                 $fromDate = Carbon::parse($p->end_time);
-                                
+
                                 $practicum_time = $toDate->diffInDays($fromDate);
                             @endphp
                             <td>{{ $practicum_time }} Hari<br> Terhitung Sejak
@@ -129,23 +129,10 @@ use Carbon\Carbon;
                     <input type="hidden" name="license_number" value="{{ $practicum[0]->license_number }}">
                     <button type="submit" class="btn btn-primary">Konfirmasi</button>
                 </form>
-
-                {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
-                    action="{{ route('reject') }}">
-                    @csrf
-                    <input type="hidden" name="license_number" value="{{ $practicum[0]->license_number }}">
-                    <button type="submit" class="btn btn-danger">Tolak</button>
-                </form> --}}
             @endif
         </div>
     @endif
     </div>
-    </div>
-
-    <a href="javascript:history.back()" class="btn btn-secondary my-3">
-        <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
-        <span>Kembali</span>
-    </a>
 @endsection
 
 @section('script')

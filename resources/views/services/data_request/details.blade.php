@@ -1,14 +1,5 @@
 @extends('services.layouts.index')
 
-@section('css')
-    <style>
-        .pdf {
-            width: 100%;
-            height: 700px;
-        }
-    </style>
-@endsection
-
 @section('container')
     @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,14 +10,10 @@
         </div>
     @endif
     <div class="card">
-        <div class="card-header justify-content-between d-flex pt-4 px-4">
+        <div class="card-header pt-4 px-4">
             <div class="items">
                 <h5>No. Izin</h5>
                 <p>{{ $data_request->license_number }}</p>
-            </div>
-            <div class="items">
-                <h5>Tanggal Pengajuan</h5>
-                <p>{{ $data_request->created_at->format('j F Y, H:i a') }}</p>
             </div>
             <div class="items">
                 <h5>Status Pengajuan</h5>
@@ -42,14 +29,9 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="border d-flex rounded">
+            <h4>Informasi Pengaju</h4>
+            <div class="border rounded mt-3 mb-5">
                 <table class="table text-left">
-                    @if ($data_request->admin_message)
-                        <tr>
-                            <th class="text-danger">Pesan Admin</th>
-                            <td class="text-danger">{{ $data_request->admin_message }}</td>
-                        </tr>
-                    @endif
                     <tr>
                         <th>Nama</th>
                         <td>{{ $data_request->user->name }}</td>
@@ -67,8 +49,30 @@
                         <td>{{ $data_request->user->phone_number }}</td>
                     </tr>
                     <tr>
+                        <th>Jurusan</th>
+                        <td>{{ $data_request->user->major }}</td>
+                    </tr>
+                    <tr>
                         <th>Prodi</th>
                         <td>{{ $data_request->user->academic_program }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4>Informasi Pengajuan</h4>
+            <div class="border rounded mt-3">
+                <table class="table text-left">
+                    @if ($data_request->admin_message)
+                        <tr>
+                            <th>Pesan Admin</th>
+                            <td>{{ $data_request->admin_message }}</td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <th>Tanggal Pengajuan</th>
+                        <td>
+                            {{ $data_request->created_at->format('j F Y, H:i a') }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Kategori Data</th>
@@ -110,30 +114,12 @@
             @if (auth()->user()->is_admin == 1)
                 <div class="btn-group mt-3">
                     @if (!$data_request->is_reviewed)
-                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $data_request->license_number }}">
-                            <button type="submit" class="btn btn-primary">Setujui</button>
-                        </form> --}}
-
                         <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>
-
-                        {{-- <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
-                            action="{{ route('reject') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $data_request->license_number }}">
-                            <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form> --}}
                     @endif
                 </div>
             @endif
         </div>
     </div>
-
-    <a href="javascript:history.back()" class="btn btn-secondary my-3">
-        <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
-        <span>Kembali</span>
-    </a>
 @endsection
 
 @section('script')
@@ -206,7 +192,6 @@
 
                     $.get(url).done((response) => {
                         $.each(response.data, (index, option) => {
-                            // console.log(option);
                             const optionElement = $('<option></option>')
                                 .val(option.id)
                                 .text(option.format_title);

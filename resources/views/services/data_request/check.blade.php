@@ -5,8 +5,8 @@
     <hr class="divider rounded">
 
     @if ($data_request->isNotEmpty())
-        <div class="px-5 mt-5">
-            <table class="table table-bordered table-hover" id="dataRequestTable">
+        <div class="container-fluid mt-5">
+            <table class="table table-responsive-lg table-bordered table-hover" id="dataRequestTable">
                 <thead>
                     <tr>
                         <th>No. Izin</th>
@@ -46,7 +46,6 @@
             <h5>Belum ada Data Permintaan Data</h5>
         </div>
     @endif
-
 @endsection
 
 @section('script')

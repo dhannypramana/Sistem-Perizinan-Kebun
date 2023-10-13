@@ -13,9 +13,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Reports
+                                    Total Pengajuan Penelitian
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $researchCount }}</div>
                             </div>
                             <div class="col-auto">
                                 <img src="{{ asset('assets/images/svg/undraw_comment.svg') }}" class="mr-1"
@@ -32,9 +32,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Reports
+                                    Total Pengajuan Permintaan Data
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">7</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $dataRequestCount }}</div>
                             </div>
                             <div class="col-auto">
                                 <img src="{{ asset('assets/images/svg/undraw_comment.svg') }}" class="mr-1"
@@ -51,9 +51,28 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Reports
+                                    Total Pengajuan Peminjaman
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">9</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $loanCount }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <img src="{{ asset('assets/images/svg/undraw_comment.svg') }}" class="mr-1"
+                                    width="25">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-secondary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Total Pengajuan Praktikum
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $practicumCount }}</div>
                             </div>
                             <div class="col-auto">
                                 <img src="{{ asset('assets/images/svg/undraw_comment.svg') }}" class="mr-1"

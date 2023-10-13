@@ -5,8 +5,8 @@
     <hr class="divider rounded">
 
     @if ($loan->isNotEmpty())
-        <div class="px-5 mt-5">
-            <table class="table table-bordered table-hover" id="loanTable">
+        <div class="container-fluid mt-5">
+            <table class="table table-responsive-lg table-bordered table-hover" id="loanTable">
                 <thead>
                     <tr>
                         <th>No. Izin</th>

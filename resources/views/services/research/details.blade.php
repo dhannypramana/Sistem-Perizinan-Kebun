@@ -10,18 +10,14 @@
         </div>
     @endif
     <div class="card">
-        <div class="card-header justify-content-between d-flex pt-4 px-4">
+        <div class="card-header pt-4 px-4">
             <div class="items">
                 <h5>No. Izin</h5>
                 <p id="license_number">{{ $research->license_number }}</p>
             </div>
             <div class="items">
-                <h5>Tanggal Pengajuan</h5>
-                <p>{{ $research->created_at->format('j F Y, H:i a') }}</p>
-            </div>
-            <div class="items">
                 <h5>Status Pengajuan</h5>
-                <p>
+                <p id="license_number">
                     @if ($research->status == 0)
                         Menunggu Konfirmasi
                     @elseif ($research->status == 1)
@@ -33,14 +29,9 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="border d-flex rounded">
+            <h4>Informasi Pengaju</h4>
+            <div class="border rounded mt-3 mb-5">
                 <table class="table text-left">
-                    @if ($research->admin_message)
-                        <tr>
-                            <th class="text-danger">Pesan Admin</th>
-                            <td class="text-danger">{{ $research->admin_message }}</td>
-                        </tr>
-                    @endif
                     <tr>
                         <th>Nama</th>
                         <td>{{ $research->user->name }}</td>
@@ -58,8 +49,29 @@
                         <td>{{ $research->user->phone_number }}</td>
                     </tr>
                     <tr>
+                        <th>Jurusan</th>
+                        <td>{{ $research->user->major }}</td>
+                    </tr>
+                    <tr>
                         <th>Prodi</th>
                         <td>{{ $research->user->academic_program }}</td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Informasi Pengajuan</h4>
+            <div class="border rounded mt-3">
+                <table class="table text-left">
+                    @if ($research->admin_message)
+                        <tr>
+                            <th class="text-danger">Pesan Admin</th>
+                            <td class="text-danger">{{ $research->admin_message }}</td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <th>Tanggal Pengajuan</th>
+                        <td>
+                            {{ $research->created_at->format('j F Y, H:i a') }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Lokasi Penelitian</th>
@@ -127,28 +139,11 @@
                 <div class="btn-group mt-3">
                     @if (!$research->is_reviewed)
                         <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>
-                        {{-- <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $research->license_number }}">
-                            <button type="submit" class="btn btn-primary">Setujui</button>
-                        </form>
-
-                        <form onsubmit="reject(event)" class="ml-2" id="rejectForm" method="POST"
-                            action="{{ route('reject') }}">
-                            @csrf
-                            <input type="hidden" name="license_number" value="{{ $research->license_number }}">
-                            <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form> --}}
                     @endif
                 </div>
             @endif
         </div>
     </div>
-
-    <a href="javascript:history.back()" class="btn btn-secondary my-3">
-        <img src="{{ asset('assets/images/svg/arrow_left.svg') }}">
-        <span>Kembali</span>
-    </a>
 @endsection
 
 @section('script')

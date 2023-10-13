@@ -1,9 +1,17 @@
 @extends('services.layouts.index')
 
 @section('container')
-    <div class="px-3">
-        <h2>Data Template Surat</h2>
-        <hr class="divider rounded">
+    <div class="px-3 d-flex justify-content-between">
+        <div>
+            <h2>Data Template Surat</h2>
+            <hr class="divider rounded">
+        </div>
+        <form onsubmit="submitTemplateForm(event)" class="ml-2" id="templateForm">
+            @csrf
+            <button type="submit" class="btn">
+                <img src="{{ asset('assets/images/svg/plus.svg') }}" alt="Plus" style="width: 50px; height: 50px">
+            </button>
+        </form>
     </div>
 
     @if ($license_formats->isEmpty())
@@ -54,10 +62,6 @@
             </table>
         </div>
     @endif
-    <form onsubmit="submitTemplateForm(event)" class="ml-2" id="templateForm">
-        @csrf
-        <button type="submit" class="btn btn-sm btn-info mt-3 ml-auto d-flex">Tambah Template</button>
-    </form>
 @endsection
 
 @section('script')
