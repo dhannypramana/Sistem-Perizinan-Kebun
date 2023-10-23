@@ -115,7 +115,7 @@
         @endif
         <table class="table table-borderless mt-2">
             @if ($user_info->isNotEmpty())
-                <h5 class="font-weight-bold m-0 mr-3">Informasi Pengaju</h5>
+                {{-- <h5 class="font-weight-bold m-0 mr-3">Informasi Pengaju</h5> --}}
                 @foreach ($user_info as $ui)
                     <tr>
                         <td>
@@ -131,7 +131,7 @@
 
         <table class="table table-borderless mt-2">
             @if ($service_info->isNotEmpty())
-                <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
+                {{-- <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5> --}}
                 @if ($isPracticum)
                     @foreach ($service_info as $si)
                         <div class="col">
@@ -166,6 +166,7 @@
             {{ $data->footer }}
         </p>
         <div class="license-footer">
+            Kepala UPT Konservasi Flora Sumatera
             <div class="signature mt-3">
                 @if ($signatures->isEmpty())
                     <div class="border rounded bg-white p-3">

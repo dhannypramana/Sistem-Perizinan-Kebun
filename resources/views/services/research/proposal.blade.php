@@ -26,6 +26,10 @@
                     <label>Prodi</label>
                     <input value="{{ $user->academic_program }}" class="form-control" disabled>
                 </div>
+                <div class="form-group">
+                    <label>Jurusan / Fakultas</label>
+                    <input value="{{ $user->major }}" class="form-control" disabled>
+                </div>
 
                 <div class="form-group">
                     <label>NIM</label>
@@ -36,6 +40,7 @@
                     <label>No. Telfon</label>
                     <input value="{{ $user->phone_number }}" class="form-control" disabled>
                 </div>
+
             </div>
             <div class="col-md-6">
                 <div class="form-group">

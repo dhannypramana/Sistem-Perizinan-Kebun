@@ -110,11 +110,19 @@
                         </label>
                     </div>
                 </div>
+                <div class="form-group mt-2 mb-0">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="changeCheck" required>
+                        <label class="form-check-label" for="changeCheck">
+                            Saya bersedia mengganti barang yang hilang atau rusak
+                        </label>
+                    </div>
+                </div>
                 <div class="form-group mt-2">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="rescheduleCheck" required>
                         <label class="form-check-label" for="rescheduleCheck">
-                            Saya bersedia melakukan perubahan jadwal maksimal H-2 Minggu jika terdapat perubahan tanggal
+                            Saya bersedia melakukan perubahan jadwal maksimal H-1 Minggu jika terdapat perubahan tanggal
                             pada
                             waktu peminjaman saya
                         </label>

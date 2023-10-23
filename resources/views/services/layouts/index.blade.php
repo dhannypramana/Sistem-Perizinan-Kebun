@@ -44,7 +44,7 @@
                 <p class="text-white text-bold mx-3 my-2 title" id="researchTitle">Penelitian</p>
                 <hr class="sidebar-divider">
 
-                @if (auth()->user()->is_admin == 0)
+                @if (auth()->user()->role == 'user')
                     <li class="nav-item
                     @if ($active == 'research_proposal') active @endif">
                         <a class="nav-link" href="{{ route('research_proposal') }}">
@@ -55,7 +55,7 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'research_check') active @endif">
-                    @if (auth()->user()->is_admin == 1)
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                         <a class="nav-link" href="{{ route('admin_research_check') }}">
                             <img src="{{ asset('assets/images/svg/undraw_research.svg') }}">
                             <span class="ml-2">Cek Penelitian</span>
@@ -73,7 +73,7 @@
                 <p class="nav-item text-white text-bold mx-3 my-2 title" id="dataRequestTitle">Permintaan Data</p>
                 <hr class="sidebar-divider">
 
-                @if (auth()->user()->is_admin == 0)
+                @if (auth()->user()->role == 'user')
                     <li class="nav-item @if ($active == 'data_request_proposal') active @endif">
                         <a class="nav-link" href="{{ route('data_request_proposal') }}">
                             <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
@@ -83,7 +83,7 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'data_request_check') active @endif">
-                    @if (auth()->user()->is_admin == 1)
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                         <a class="nav-link" href="{{ route('admin_data_request_check') }}">
                             <img src="{{ asset('assets/images/svg/undraw_data.svg') }}">
                             <span class="ml-2">Cek Ajuan Data</span>
@@ -101,7 +101,7 @@
                 <p class="nav-item text-white text-bold mx-3 my-2 title" id="loanTitle">Peminjaman</p>
                 <hr class="sidebar-divider">
 
-                @if (auth()->user()->is_admin == 0)
+                @if (auth()->user()->role == 'user')
                     <li class="nav-item @if ($active == 'loan_proposal') active @endif">
                         <a class="nav-link" href={{ route('loan_proposal') }}>
                             <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
@@ -111,7 +111,7 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'loan_check') active @endif">
-                    @if (auth()->user()->is_admin == 1)
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                         <a class="nav-link" href={{ route('admin_loan_check') }}>
                             <img src="{{ asset('assets/images/svg/undraw_loan.svg') }}">
                             <span class="ml-2">Cek Ajuan Peminjaman</span>
@@ -129,7 +129,7 @@
                 <p class="nav-item text-white text-bold mx-3 my-2 title" id="practicumTitle">Praktikum</p>
                 <hr class="sidebar-divider">
 
-                @if (auth()->user()->is_admin == 0)
+                @if (auth()->user()->role == 'user')
                     <li class="nav-item @if ($active == 'practicum_proposal') active @endif">
                         <a class="nav-link" href="{{ route('practicum_proposal') }}">
                             <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
@@ -139,7 +139,7 @@
                 @endif
 
                 <li class="nav-item @if ($active == 'practicum_check') active @endif">
-                    @if (auth()->user()->is_admin == 1)
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                         <a class="nav-link" href="{{ route('admin_practicum_check') }}">
                             <img src="{{ asset('assets/images/svg/undraw_practicum.svg') }}">
                             <span class="ml-1">Cek Ajuan Praktikum</span>
@@ -153,7 +153,7 @@
                 </li>
             </div>
 
-            @if (auth()->user()->is_admin == 1)
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                 <div class="license_generator">
                     <p class="nav-item text-white text-bold mx-3 my-2 title" id="letterTitle">Surat</p>
                     <hr class="sidebar-divider">
@@ -165,14 +165,29 @@
                         </a>
                     </li>
                 </div>
-                <div class="license_generator">
-                    <p class="nav-item text-white text-bold mx-3 my-2 title" id="letterTitle">News</p>
+
+                <div class="news">
+                    <p class="nav-item text-white text-bold mx-3 my-2 title">News</p>
                     <hr class="sidebar-divider">
 
                     <li class="nav-item @if ($active == 'news') active @endif">
                         <a class="nav-link" href="{{ route('news') }}">
                             <img src="{{ asset('assets/images/svg/letter.svg') }}">
                             <span class="ml-1">Buat Berita</span>
+                        </a>
+                    </li>
+                </div>
+            @endif
+
+            @if (auth()->user()->role == 'superadmin')
+                <div class="admin_mannage">
+                    <p class="nav-item text-white text-bold mx-3 my-2 title">Admin</p>
+                    <hr class="sidebar-divider">
+
+                    <li class="nav-item @if ($active == 'manage_admins') active @endif">
+                        <a class="nav-link" href="{{ route('manageAdmins') }}">
+                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                            <span class="ml-1">Manajemen Admin</span>
                         </a>
                     </li>
                 </div>
@@ -205,7 +220,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                @if (auth()->user()->is_admin == 0)
+                                @if (auth()->user()->role == 'user')
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         <img src="{{ asset('assets/images/svg/undraw_account.svg') }}"
                                             class="mr-1">

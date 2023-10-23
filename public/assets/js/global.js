@@ -28,3 +28,39 @@ sidebarToogler.click(() => {
     $('#practicumTitle').toggle();
     $('#letterTitle').toggle();
 })
+
+// Swal
+const Confirm = (title, text) => {
+    return new Promise((resolve, reject) => {
+      Swal.fire({
+        title,
+        text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      })
+      .then(res => {
+        if (res.isConfirmed) {
+          resolve(res)
+        }
+      })
+      .catch(e => {
+        reject(e)
+      })
+    });
+}
+
+const DialogBox = (title, text, icon = "success") => {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            icon,
+            title,
+            text,
+            confirmButtonText: 'OK'
+        }).then(res => {
+            resolve(res)
+        });
+    });
+}

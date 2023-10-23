@@ -155,6 +155,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
 
+        Route::middleware('superadmin')->group(function () {
+            Route::get('/manage', [AdminDashboardController::class, 'showManageAdmins'])->name('manageAdmins');
+            Route::post('/createAdmin', [AdminDashboardController::class, 'createAdmin'])->name('createAdmin');
+            Route::delete('/deleteAdmin', [AdminDashboardController::class, 'deleteAdmin'])->name('deleteAdmin');
+            Route::put('/editAdmin', [AdminDashboardController::class, 'editAdmin'])->name('editAdmin');
+        });
+
         Route::get('/news', [NewsController::class, 'show'])->name('news');
         Route::get('/news/{id}', [NewsController::class, 'details'])->name('details_news');
         Route::post('/news', [NewsController::class, 'store'])->name('store_news');

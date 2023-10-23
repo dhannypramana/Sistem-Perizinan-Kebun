@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'student_number' => '118140183',
             'major' => 'JTPI',
-            'is_admin' => 0,
+            'role' => 'user',
 
             'address' => 'Jalan Nusa Indah No.2, RT.024/RW.000, Sumur Batu, Teluk Betung Utara, Bandar Lampung.',
             'phone_number' => '083191831403',
@@ -61,7 +61,18 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admindev'),
             'created_at' => now(),
             'updated_at' => now(),
-            'is_admin' => 1,
+            'role' => 'admin',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => Str::uuid(),
+            'name' => 'Admin Super',
+            'email' => 'super.admin@admin.ac.id',
+            'email_verified_at' => now(),
+            'password' => Hash::make('adminsuper'),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'role' => 'superadmin',
         ]);
     }
 }

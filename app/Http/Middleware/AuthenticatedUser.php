@@ -36,7 +36,7 @@ class AuthenticatedUser
         }
 
         if ($data) {
-            if (Auth::user()->is_admin == 0) {
+            if (Auth::user()->role == 'user') {
                 if ($data->user_id == Auth::user()->id) {
                     return $next($request);
                 } else {

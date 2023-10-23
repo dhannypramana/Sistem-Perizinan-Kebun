@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
 
         'user' => \App\Http\Middleware\UserMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'complete_profile' => \App\Http\Middleware\CompleteProfile::class,
         'authenticated_user' => \App\Http\Middleware\AuthenticatedUser::class,
         'ownership' => \App\Http\Middleware\OwnershipMiddleware::class,

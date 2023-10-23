@@ -31,10 +31,9 @@
                     <h2 class="fw-bold text-uppercase">About SISPERLAK</h2>
                 </div>
             </div>
-            <div class="row text-white justify-content-center mt-4">
+            <div class="row text-white justify-content-center mt-4 p-5" style="font-size: 19px">
                 <div class="col-md-5 mb-3">
                     <div class="icon" style="text-align: center">
-                        <i class="fa-solid fa-newspaper fa-6x"></i>
                         <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
                             illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
                             voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
@@ -42,7 +41,6 @@
                 </div>
                 <div class="col-md-5 mb-3">
                     <div class="icon" style="text-align: center">
-                        <i class="fa-solid fa-circle-check fa-6x"></i>
                         <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
                             illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
                             voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
@@ -50,7 +48,6 @@
                 </div>
                 <div class="col-md-5 mb-3">
                     <div class="icon" style="text-align: center">
-                        <i class="fa-solid fa-newspaper fa-6x"></i>
                         <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
                             illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
                             voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
@@ -58,7 +55,6 @@
                 </div>
                 <div class="col-md-5 mb-3">
                     <div class="icon" style="text-align: center">
-                        <i class="fa-solid fa-newspaper fa-6x"></i>
                         <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
                             illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
                             voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>

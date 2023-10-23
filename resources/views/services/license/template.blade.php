@@ -224,6 +224,7 @@
 
             <div class="license-footer d-flex flex-column align-items-end mt-4">
                 <div class="d-flex flex-column justify-content-center align-items-center">
+                    Kepala UPT Konservasi Flora Sumatera
                     <div class="signature mt-3">
                         @if (is_null($data->signature))
                             <div class="border rounded bg-white p-3">
