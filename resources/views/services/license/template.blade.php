@@ -104,11 +104,9 @@
                     <div class="font-weight-bold">
                         <span>Yth. Ketua
                             @if ($isPracticum)
-                                @foreach ($service_data as $sd_practicum)
-                                    <span class="text-capitalize">{{ $sd_practicum->agency }}</span>
-                                @endforeach
+                                <span class="text-capitalize">{{ $service_data[0]->user->major }}</span>
                             @else
-                                <span class="text-capitalize">{{ $service_data->agency }}</span>
+                                <span class="text-capitalize">{{ $service_data->user->major }}</span>
                             @endif
                         </span><br>
                         <span>Institut Teknologi Sumatera</span> <br>
