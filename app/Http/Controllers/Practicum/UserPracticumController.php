@@ -53,7 +53,7 @@ class UserPracticumController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:1025'],
+            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:500'],
         ]);
 
         if ($validator->fails()) {

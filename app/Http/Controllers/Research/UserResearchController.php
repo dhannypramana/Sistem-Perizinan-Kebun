@@ -55,7 +55,7 @@ class UserResearchController extends Controller
             'facility' => ['required'],
             'research_supervisor' => ['required', 'min:3'],
             'academic_supervisor' => ['required', 'min:3'],
-            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:1025'],
+            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:500'],
         ]);
 
         if ($validator->fails()) {

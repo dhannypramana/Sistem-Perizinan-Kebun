@@ -47,7 +47,7 @@ class UserDataRequestController extends Controller
             'title' => ['required', 'min:3'],
             'purpose' => ['required', 'min:3'],
             'agency' => ['required', 'min:3'],
-            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:1025'],
+            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:500'],
         ]);
 
         if ($validator->fails()) {

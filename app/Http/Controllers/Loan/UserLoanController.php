@@ -62,7 +62,7 @@ class UserLoanController extends Controller
             'purpose' => ['required'],
             'start_time' => ['required'],
             'end_time' => ['required', 'date', 'after_or_equal:waktu_mulai'],
-            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:1025'],
+            'agency_license' => ['required', 'file', 'mimes:pdf', 'max:500'],
         ]);
 
         if ($validator->fails()) {
