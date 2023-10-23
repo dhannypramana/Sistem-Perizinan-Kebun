@@ -121,7 +121,7 @@ use Carbon\Carbon;
                 </div>
             @empty
     @endforelse
-    @if (auth()->user()->is_admin == 1)
+    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
         <div class="btn-group mt-3">
             @if (!$practicum[0]->is_reviewed)
                 <form onsubmit="accept(event)" id="acceptForm" method="POST" action="{{ route('accept') }}">

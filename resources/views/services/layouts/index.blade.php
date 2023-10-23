@@ -166,28 +166,28 @@
                     </li>
                 </div>
 
-                <div class="news">
-                    <p class="nav-item text-white text-bold mx-3 my-2 title">News</p>
-                    <hr class="sidebar-divider">
-
-                    <li class="nav-item @if ($active == 'news') active @endif">
-                        <a class="nav-link" href="{{ route('news') }}">
-                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
-                            <span class="ml-1">Buat Berita</span>
-                        </a>
-                    </li>
-                </div>
-            @endif
-
-            @if (auth()->user()->role == 'superadmin')
                 <div class="admin_mannage">
                     <p class="nav-item text-white text-bold mx-3 my-2 title">Admin</p>
                     <hr class="sidebar-divider">
 
-                    <li class="nav-item @if ($active == 'manage_admins') active @endif">
-                        <a class="nav-link" href="{{ route('manageAdmins') }}">
+                    @if (auth()->user()->role == 'superadmin')
+                        <li class="nav-item @if ($active == 'manage_admins') active @endif">
+                            <a class="nav-link" href="{{ route('manageAdmins') }}">
+                                <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                                <span class="ml-1">Manajemen Admin</span>
+                            </a>
+                        </li>
+                    @endif
+                    <li class="nav-item @if ($active == 'location') active @endif">
+                        <a class="nav-link" href="{{ route('location') }}">
                             <img src="{{ asset('assets/images/svg/letter.svg') }}">
-                            <span class="ml-1">Manajemen Admin</span>
+                            <span class="ml-1">Manajemen Lokasi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if ($active == 'news') active @endif">
+                        <a class="nav-link" href="{{ route('news') }}">
+                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                            <span class="ml-1">Manajemen Berita</span>
                         </a>
                     </li>
                 </div>

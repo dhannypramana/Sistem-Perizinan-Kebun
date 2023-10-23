@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LicenseFormatSeeder::class,
             LicenseFormatServiceSeeder::class,
             LicenseFormatUserSeeder::class,
+            LocationSeeder::class,
         ]);
     }
 }

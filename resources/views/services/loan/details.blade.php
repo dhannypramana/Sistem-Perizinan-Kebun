@@ -132,7 +132,7 @@
                 </table>
             </div>
 
-            @if (auth()->user()->is_admin == 1)
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                 <div class="btn-group mt-3">
                     @if (!$loan->is_reviewed)
                         <button class="btn btn-primary rounded" onclick="accept()">Konfirmasi</button>

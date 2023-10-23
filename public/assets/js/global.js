@@ -64,3 +64,15 @@ const DialogBox = (title, text, icon = "success") => {
         });
     });
 }
+
+const Toast = (text, icon = 'success') => {
+    return Swal.fire({
+        toast: true,
+        position: 'top-right',
+        icon,
+        title: text,
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+}

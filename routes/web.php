@@ -14,6 +14,7 @@ use App\Http\Controllers\LicenseFormatUserController;
 use App\Http\Controllers\LicenseGenerator;
 use App\Http\Controllers\Loan\AdminLoanController;
 use App\Http\Controllers\Loan\UserLoanController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
@@ -95,6 +96,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'user', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('user_dashboard');
+    Route::get('/get-location', [LocationController::class, 'getLocation'])->name('getLocation');
 
     Route::prefix('/profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('profile');
@@ -161,6 +163,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::delete('/deleteAdmin', [AdminDashboardController::class, 'deleteAdmin'])->name('deleteAdmin');
             Route::put('/editAdmin', [AdminDashboardController::class, 'editAdmin'])->name('editAdmin');
         });
+
+        Route::get('/location', [LocationController::class, 'show'])->name('location');
+        Route::post('/location', [LocationController::class, 'addLocation'])->name('addLocation');
+        Route::delete('/location', [LocationController::class, 'deleteLocation'])->name('deleteLocation');
+        Route::put('/location', [LocationController::class, 'updateLocation'])->name('updateLocation');
 
         Route::get('/news', [NewsController::class, 'show'])->name('news');
         Route::get('/news/{id}', [NewsController::class, 'details'])->name('details_news');

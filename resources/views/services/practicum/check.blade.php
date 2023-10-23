@@ -17,7 +17,7 @@
                 @foreach ($practicum as $p)
                     <tr>
                         <td>
-                            @if (auth()->user()->is_admin == 1)
+                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                                 <a
                                     href="{{ route('admin_practicum_details', ['license_number' => $p->license_number]) }}">{{ $p->license_number }}</a>
                             @else

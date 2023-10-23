@@ -46,10 +46,6 @@
                 <div class="form-group">
                     <label for="location">Lokasi Penelitian<sup>*</sup></label>
                     <select name="location" id="location" class="form-control" required>
-                        <option value="" selected>Choose...</option>
-                        <option value="Kebun Raya">Kebun Raya</option>
-                        <option value="Arboretrum">Arboretrum</option>
-                        <option value="Hutan Serba Guna">Hutan Serba Guna</option>
                     </select>
                     <small class="form-text text-muted">example: Kebun Raya</small>
                 </div>
@@ -108,8 +104,7 @@
 
                 <div class="form-group">
                     <label for="agency_license">Surat Pengantar Instansi<sup>*</sup></label>
-                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license"
-                        required>
+                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license" required>
                 </div>
                 <span class="text-danger fst-italic fw-lighter error-text agency_license_error"></span>
             </div>
@@ -173,6 +168,25 @@
 
 @section('script')
     <script>
+        $(document).ready(() => {
+            $.ajax({
+                url: "{{ route('getLocation') }}",
+                type: 'GET',
+                dataType: 'json',
+                success: function(res) {
+                    $.each(res.locations, (index, option) => {
+                        const optionElement = $('<option></option>')
+                            .val(option.name)
+                            .text(option.name);
+                        $('#location').append(optionElement);
+                    })
+                },
+                error: function(err) {
+                    console.log('Error');
+                }
+            });
+        });
+
         const submitResearchForm = (e) => {
             e.preventDefault();
 

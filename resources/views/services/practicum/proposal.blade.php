@@ -59,9 +59,9 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            let formCount = 0;
+        let formCount = 1;
 
+        $(document).ready(function() {
             $('#addSubject').click(function() {
                 var form = `
                 <div class="border rounded p-4 mt-3" id="form-group-${formCount}">
@@ -71,10 +71,6 @@
                             <div class="form-group">
                                 <label for="location">Lokasi Penelitian<sup>*</sup></label>
                                 <select name="location${formCount}" id="location" class="form-control" required>
-                                    <option value="" selected>Choose...</option>
-                                    <option value="Kebun Raya">Kebun Raya</option>
-                                    <option value="Arboretrum">Arboretrum</option>
-                                    <option value="Hutan Serba Guna">Hutan Serba Guna</option>
                                 </select>
                                 <small class="form-text text-muted">example: Kebun Raya</small>
                             </div>
@@ -170,6 +166,27 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#form-container').append(form);
+                        const locationElement = $('#location');
+
+                        $.ajax({
+                            url: "{{ route('getLocation') }}",
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(res) {
+                                $.each(res.locations, (index, option) => {
+                                    const optionElement = $('<option></option>')
+                                        .val(option.name)
+                                        .text(option.name);
+
+                                    locationElement.append(optionElement);
+                                })
+                            },
+                            error: function(err) {
+                                console.log('Error');
+                            }
+                        });
+
+                        formCount = $('[id^="form-group-"]').length + 1;
                         updateCount();
                     }
                 });
@@ -200,27 +217,25 @@
         };
 
         const updateCount = () => {
-            let formCount = 1;
-
-            $('[id^="form-group-"]').each(function() {
-                $(this).attr('id', 'form-group-' + formCount);
-                $(this).find('h3').text(`Mata Kuliah #${formCount}`);
-                $(this).find('#location').attr('name', `location${formCount}`);
-                $(this).find('#personnel').attr('name', `personnel${formCount}`);
+            $('[id^="form-group-"]').each(function(index) {
+                $(this).attr('id', 'form-group-' + (index + 1));
+                $(this).find('h3').text(`Mata Kuliah #${index+1}`);
+                $(this).find('#location').attr('name', `location${index+1}`);
+                $(this).find('#location').attr('id', `location${index+1}`);
+                $(this).find('#personnel').attr('name', `personnel${index+1}`);
                 $(this).find('#personnel_error').attr('class',
-                    `text-danger fst-italic fw-lighter error-text personnel${formCount}_error`);
-                $(this).find('#practicum_supervisor').attr('name', `practicum_supervisor${formCount}`);
-                $(this).find('#assistant').attr('name', `assistant${formCount}`);
-                $(this).find('#subject').attr('name', `subject${formCount}`);
-                $(this).find('#class_supervisor').attr('name', `class_supervisor${formCount}`);
-                $(this).find('#facility').attr('name', `facility${formCount}`);
-                $(this).find('#start_time').attr('name', `start_time${formCount}`);
-                $(this).find('#end_time').attr('name', `end_time${formCount}`);
+                    `text-danger fst-italic fw-lighter error-text personnel${index+1}_error`);
+                $(this).find('#practicum_supervisor').attr('name', `practicum_supervisor${index+1}`);
+                $(this).find('#assistant').attr('name', `assistant${index+1}`);
+                $(this).find('#subject').attr('name', `subject${index+1}`);
+                $(this).find('#class_supervisor').attr('name', `class_supervisor${index+1}`);
+                $(this).find('#facility').attr('name', `facility${index+1}`);
+                $(this).find('#start_time').attr('name', `start_time${index+1}`);
+                $(this).find('#end_time').attr('name', `end_time${index+1}`);
                 $(this).find('#end_time_error').attr('class',
-                    `text-danger fst-italic fw-lighter error-text end_time${formCount}_error`);
-                $(this).find('#count').attr('value', `${formCount}`);
-                $(this).find('button').attr('onclick', 'deleteSubject(' + formCount + ')');
-                formCount++;
+                    `text-danger fst-italic fw-lighter error-text end_time${index+1}_error`);
+                $(this).find('#count').attr('value', `${index+1}`);
+                $(this).find('button').attr('onclick', 'deleteSubject(' + (index + 1) + ')');
             });
         };
 

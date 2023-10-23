@@ -3,7 +3,7 @@
 @section('container')
     <div class="px-3 d-flex justify-content-between">
         <div>
-            <h2>Data Berita</h2>
+            <h2>Manajemen Berita</h2>
         </div>
         <button class="btn" id="createNews">
             <img src="{{ asset('assets/images/svg/plus.svg') }}" alt="plus" style="width: 50px; height: 50px">

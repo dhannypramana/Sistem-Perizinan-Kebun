@@ -18,7 +18,7 @@
                     @foreach ($loan as $l)
                         <tr>
                             <td>
-                                @if (auth()->user()->is_admin == 1)
+                                @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                                     <a
                                         href="{{ route('admin_loan_details', ['license_number' => $l->license_number]) }}">{{ $l->license_number }}</a>
                                 @else

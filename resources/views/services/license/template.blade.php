@@ -575,7 +575,6 @@
                 confirmButtonColor: '#3085d6',
                 showCancelButton: true,
                 didOpen: () => {
-
                     let selectService = $('#selectService');
                     let url = "{{ route('get-license-service', ['type' => ':type']) }}";
                     url = url.replace(/:type/g, service);

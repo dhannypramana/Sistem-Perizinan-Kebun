@@ -18,7 +18,7 @@
                     @foreach ($research as $r)
                         <tr>
                             <td>
-                                @if (auth()->user()->is_admin == 1)
+                                @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
                                     <a
                                         href="{{ route('admin_research_details', ['license_number' => $r->license_number]) }}">{{ $r->license_number }}</a>
                                 @else
