@@ -76,6 +76,7 @@
                                     <option value="Arboretrum">Arboretrum</option>
                                     <option value="Hutan Serba Guna">Hutan Serba Guna</option>
                                 </select>
+                                <small class="form-text text-muted">example: Kebun Raya</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -83,6 +84,7 @@
                                 <label for="personnel">Jumlah Mahasiswa<sup>*</sup></label>
                                 <input type="number" name="personnel${formCount}" class="form-control" id="personnel"
                                     placeholder="Jumlah Mahasiswa" required>
+                                <small class="form-text text-muted">example: 12</small>
                                 <span id="personnel_error" class="text-danger fst-italic fw-lighter error-text personnel${formCount}_error"></span>
                             </div>
                         </div>
@@ -93,6 +95,7 @@
                                 <label for="practicum_supervisor">Dosen Penanggung Jawab Praktikum<sup>*</sup></label>
                                 <input type="text" class="form-control" id="practicum_supervisor"
                                     name="practicum_supervisor${formCount}" placeholder="Dosen Penanggung Jawab Praktikum" required>
+                                <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -100,6 +103,7 @@
                                 <label for="assistant">Nama Asisten<sup>*</sup></label>
                                 <input type="text" class="form-control" id="assistant" name="assistant${formCount}1"
                                     placeholder="Nama Asisten" required>
+                                <small class="form-text text-muted">example: Ahmad Agung</small>
                             </div>
                         </div>
                     </div>
@@ -109,6 +113,7 @@
                                 <label for="subject">Mata Kuliah<sup>*</sup></label>
                                 <input type="text" class="form-control" id="subject" name="subject${formCount}1"
                                     placeholder="Nama Mata Kuliah" required>
+                                <small class="form-text text-muted">example: Biologi Dasar</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -116,6 +121,7 @@
                                 <label for="class_supervisor">Penanggung Jawab Kelas</label>
                                 <input type="text" class="form-control" id="class_supervisor" name="class_supervisor${formCount}"
                                     placeholder="Nama Penanggung Jawab Kelas (Jika Ada)" required>
+                                <small class="form-text text-muted">example: Agung Muhammad</small>
                             </div>
                         </div>
                     </div>
@@ -125,6 +131,7 @@
                                 <label for="facility">Fasilitas yang Digunakan<sup>*</sup></label>
                                 <input type="text" class="form-control" id="facility" name="facility${formCount}"
                                     placeholder="Fasilitas" required>
+                                <small class="form-text text-muted">example: Rumah Kaca</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -133,11 +140,13 @@
                                     <label for="start_time">Waktu Mulai<sup>*</sup></label>
                                     <input type="date" name="start_time${formCount}" class="form-control" id="start_time"
                                         placeholder="Waktu Pelaksanaan" required>
+                                    <small class="form-text text-muted">example: 23/10/2023</small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="end_time">Waktu Berakhir<sup>*</sup></label>
                                     <input type="date" name="end_time${formCount}" class="form-control" id="end_time"
                                         placeholder="Waktu Pelaksanaan" required>
+                                    <small class="form-text text-muted">example: 25/12/2023</small>
                                     <span id="end_time_error" class="text-danger fst-italic fw-lighter error-text end_time${formCount}_error"></span>
                                 </div>
                             </div>

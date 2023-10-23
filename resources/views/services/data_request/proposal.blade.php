@@ -41,21 +41,25 @@
                     <label for="kategori">Kategori Data<sup>*</sup></label>
                     <input type="text" name="category" id="category" placeholder="Kategori Data" class="form-control"
                         required>
+                    <small class="form-text text-muted">example: Tanaman</small>
                 </div>
                 <div class="form-group">
-                    <label for="title">Data yang Diajukan<sup>*</sup></label>
+                    <label class="d-flex align-items-center" for="title">Data yang Diajukan<sup>*</sup></label>
                     <input type="text" name="title" class="form-control" id="title"
                         placeholder="Data yang Diajukan" required>
+                    <small class="form-text text-muted ml-2">example: Data Persebaran Kacang Kacangan</small>
                 </div>
                 <div class="form-group">
                     <label for="purpose">Keperluan Data <sup>*</sup></label>
                     <input type="text" name="purpose" class="form-control" id="purpose"
                         placeholder="Keperluan Data Tersebut" required>
+                    <small class="form-text text-muted">example: Penelitian</small>
                 </div>
                 <div class="form-group">
                     <label for="agency">Asal Instansi<sup>*</sup></label>
                     <input type="text" name="agency" class="form-control" id="agency" placeholder="Asal Instansi"
                         required>
+                    <small class="form-text text-muted">example: Institut Teknologi Sumatera</small>
                 </div>
                 <div class="form-group">
                     <label for="agency_license">Surat Pengantar Instansi<sup>*</sup></label>

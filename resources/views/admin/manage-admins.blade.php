@@ -62,7 +62,6 @@
 
         const handleEditAdmin = (data) => {
             const admin = JSON.parse(data);
-            console.log(admin.name);
 
             Swal.fire({
                 title: 'Edit Admin',

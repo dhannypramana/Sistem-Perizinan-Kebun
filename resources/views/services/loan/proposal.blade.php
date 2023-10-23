@@ -42,6 +42,7 @@
                             <option value="Alat">Alat</option>
                             <option value="other">Lain-Lain</option>
                         </select>
+                        <small class="form-text text-muted">example: Alat</small>
                     </div>
 
                     <div class="form-group col-md-6" id="ifYes" style="display: none">
@@ -55,6 +56,7 @@
                         <label for="title">Sarana<sup>*</sup></label>
                         <input type="text" name="title" class="form-control" id="title"
                             placeholder="Sarana Yang Dipinjam" required>
+                        <small class="form-text text-muted">example: Paranet Persemayan</small>
                     </div>
 
                     <div class="form-group col-md-6">
@@ -62,34 +64,40 @@
                         <input type="number" name="quantity" class="form-control" id="quantity"
                             placeholder="Jumlah Peminjaman" required>
                         <span class="text-danger fst-italic fw-lighter error-text quantity_error"></span>
+                        <small class="form-text text-muted">example: 1</small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="activity">Nama Kegiatan<sup>*</sup></label>
                     <input type="text" name="activity" class="form-control" id="activity" placeholder="Nama Kegiatan"
                         required>
+                    <small class="form-text text-muted">example: Penelitian</small>
                 </div>
                 <div class="form-group">
                     <label for="purpose">Tujuan Pemakaian<sup>*</sup></label>
                     <input type="text" name="purpose" class="form-control" id="purpose" placeholder="Tujuan Pemakaian"
                         required>
+                    <small class="form-text text-muted">example: Menguji Sample</small>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="start_time">Waktu Mulai<sup>*</sup></label>
                         <input type="date" name="start_time" class="form-control" id="start_time"
                             placeholder="Waktu Pelaksanaan" required>
+                        <small class="form-text text-muted">example: 23/10/2023</small>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="end_time">Waktu Berakhir<sup>*</sup></label>
                         <input type="date" name="end_time" class="form-control" id="end_time"
                             placeholder="Waktu Pelaksanaan" required>
+                        <small class="form-text text-muted">example: 25/11/2023</small>
                         <span class="text-danger fst-italic fw-lighter error-text end_time_error"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="agency_license">Surat Pengantar Instansi<sup>*</sup></label>
-                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license" required>
+                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license"
+                        required>
                     <span class="text-danger fst-italic fw-lighter error-text agency_license_error"></span>
                 </div>
             </div>
@@ -132,8 +140,6 @@
             </div>
         </div>
     </form>
-
-    <script></script>
 @endsection
 
 @section('script')

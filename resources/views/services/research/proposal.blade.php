@@ -51,6 +51,7 @@
                         <option value="Arboretrum">Arboretrum</option>
                         <option value="Hutan Serba Guna">Hutan Serba Guna</option>
                     </select>
+                    <small class="form-text text-muted">example: Kebun Raya</small>
                 </div>
 
                 <div class="form-group">
@@ -58,6 +59,7 @@
                     <input type="number" name="personnel" class="form-control" id="personnel" placeholder="Jumlah Personil"
                         required>
                     <span class="text-danger fst-italic fw-lighter error-text personnel_error"></span>
+                    <small class="form-text text-muted">example: 1</small>
                 </div>
 
                 <div class="form-group">
@@ -65,17 +67,21 @@
                     <input type="text" name="title" class="form-control" id="title" placeholder="Judul Penelitian"
                         required>
                     <span class="text-danger fst-italic fw-lighter error-text title_error"></span>
+                    <small class="form-text text-muted">example: Sistem Kajian arstitektur pohon dalam upaya konservasi air
+                        dan tanah: studi kasus Kebun Raya ITERA</small>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="form-row row">
+                    <div class="form-group col">
                         <label for="start_time">Waktu Mulai<sup>*</sup></label>
                         <input type="date" name="start_time" class="form-control" id="start_time" required>
+                        <small class="form-text text-muted">example: 23/10/2018</small>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col">
                         <label for="end_time">Waktu Berakhir<sup>*</sup></label>
                         <input type="date" name="end_time" class="form-control" id="end_time" required>
                         <span class="text-danger fst-italic fw-lighter error-text end_time_error"></span>
+                        <small class="form-text text-muted">example: 25/12/2018</small>
                     </div>
                 </div>
 
@@ -83,23 +89,27 @@
                     <label for="facility">Fasilitas Yang Digunakan<sup>*</sup></label>
                     <input type="text" name="facility" class="form-control" id="facility"
                         placeholder="Fasilitas yang Digunakan" required>
+                    <small class="form-text text-muted">example: Paranet Persemayan</small>
                 </div>
 
                 <div class="form-group">
                     <label for="research_supervisor">Nama Dosen Pembimbing Penelitian<sup>*</sup></label>
                     <input type="text" name="research_supervisor" class="form-control" id="research_supervisor"
                         placeholder="Nama Dosen Pembimbing Penelitian" required>
+                    <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
                 </div>
 
                 <div class="form-group">
                     <label for="academic_supervisor">Nama Dosen Pembimbing Akademik<sup>*</sup></label>
                     <input type="text" name="academic_supervisor" class="form-control" id="academic_supervisor"
                         placeholder="Nama Dosen Pembimbing Akademik" required>
+                    <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
                 </div>
 
                 <div class="form-group">
                     <label for="agency_license">Surat Pengantar Instansi<sup>*</sup></label>
-                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license" required>
+                    <input type="file" name="agency_license" class="form-control-file mt-1" id="agency_license"
+                        required>
                 </div>
                 <span class="text-danger fst-italic fw-lighter error-text agency_license_error"></span>
             </div>
