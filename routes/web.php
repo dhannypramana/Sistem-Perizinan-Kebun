@@ -174,6 +174,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::post('/createAdmin', [AdminDashboardController::class, 'createAdmin'])->name('createAdmin');
             Route::delete('/deleteAdmin', [AdminDashboardController::class, 'deleteAdmin'])->name('deleteAdmin');
             Route::put('/editAdmin', [AdminDashboardController::class, 'editAdmin'])->name('editAdmin');
+            Route::post('/changePassword', [AdminDashboardController::class, 'changePassword'])->name('changePassword');
         });
 
         Route::get('/location', [LocationController::class, 'show'])->name('location');

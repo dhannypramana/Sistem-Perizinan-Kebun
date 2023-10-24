@@ -24,6 +24,10 @@ body {
     background-color: #0d6efd;
 }
 
+.swal-height {
+    height: 100px;
+}
+
 
 /* .title {
     font-size: 36px;

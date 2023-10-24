@@ -45,6 +45,12 @@
                                         <span>Delete Admin</span>
                                     </div>
                                 </li>
+                                <li onclick="handleChangePassword('{{ $admin->id }}')"
+                                    style="cursor: pointer !important">
+                                    <div class="dropdown-item">
+                                        <span>Change Password</span>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </td>
@@ -59,6 +65,55 @@
         $(document).ready(() => {
             $('#admins_table').DataTable();
         });
+
+        const handleChangePassword = (id) => {
+            Swal.fire({
+                title: 'Masukkan Password Baru',
+                input: 'password',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonText: 'Submit',
+                preConfirm: (password) => {
+                    if (!password) {
+                        Swal.showValidationMessage(
+                            'Field is required'
+                        );
+                    } else {
+                        $.ajax({
+                            url: "{{ route('changePassword') }}",
+                            type: "POST",
+                            data: {
+                                id,
+                                password
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(() => {
+                                    window.location.reload()
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: xhr.responseJSON.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                        });
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+        }
 
         const handleEditAdmin = (data) => {
             const admin = JSON.parse(data);
@@ -128,11 +183,7 @@
                         },
                         success: function(res) {
                             if (res.status) {
-                                return DialogBox(
-                                    'Error!',
-                                    res.errors.email[0],
-                                    'error'
-                                )
+                                return Toast(res.message, 'error');
                             }
 
                             DialogBox(

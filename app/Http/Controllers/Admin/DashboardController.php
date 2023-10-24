@@ -142,7 +142,15 @@ class DashboardController extends Controller
 
     public function editAdmin(Request $request)
     {
+        $checkSuperAdmin = User::where('role', 'superadmin')->count();
         $admin = User::find($request->id);
+
+        if ($admin->role == 'superadmin' && $checkSuperAdmin == 1) {
+            return response()->json([
+                'status' => 1,
+                'message' => 'Minimal terdapat satu super admin'
+            ]);
+        }
 
         $admin->update([
             'name' => $request->name,
@@ -171,6 +179,20 @@ class DashboardController extends Controller
         return response()->json([
             'status' => 0,
             'message' => 'Berhasil Menghapus Admin'
+        ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = User::find($request->id);
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'status' => 0,
+            'message' => 'Sukses Mengubah Password',
         ]);
     }
 }
