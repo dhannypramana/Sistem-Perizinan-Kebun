@@ -134,16 +134,23 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="start_time">Waktu Mulai<sup>*</sup></label>
-                                    <input type="date" name="start_time${formCount}" class="form-control" id="start_time"
+                                    <input type="time" name="start_time${formCount}" class="form-control" id="start_time"
                                         placeholder="Waktu Pelaksanaan" required>
-                                    <small class="form-text text-muted">example: 23/10/2023</small>
+                                    <small class="form-text text-muted">example: 14:00</small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="end_time">Waktu Berakhir<sup>*</sup></label>
-                                    <input type="date" name="end_time${formCount}" class="form-control" id="end_time"
+                                    <input type="time" name="end_time${formCount}" class="form-control" id="end_time"
+                                        placeholder="Waktu Pelaksanaan" required>
+                                    <small class="form-text text-muted">example: 15:30</small>
+                                    <span id="end_time_error" class="text-danger fst-italic fw-lighter error-text end_time${formCount}_error"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="date">Tanggal Pelaksanaan<sup>*</sup></label>
+                                    <input type="date" name="date${formCount}" class="form-control" id="date"
                                         placeholder="Waktu Pelaksanaan" required>
                                     <small class="form-text text-muted">example: 25/12/2023</small>
-                                    <span id="end_time_error" class="text-danger fst-italic fw-lighter error-text end_time${formCount}_error"></span>
+                                    <span id="date_error" class="text-danger fst-italic fw-lighter error-text date${formCount}_error"></span>
                                 </div>
                             </div>
                         </div>

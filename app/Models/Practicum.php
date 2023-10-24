@@ -42,10 +42,12 @@ class Practicum extends Model
         'subject',
         'class_supervisor',
         'facility',
-        'start_time',
-        'end_time',
         'agency_license',
         'reply',
+
+        'date',
+        'start_time',
+        'end_time',
     ];
 
     public function user()

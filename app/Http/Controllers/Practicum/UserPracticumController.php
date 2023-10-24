@@ -72,8 +72,9 @@ class UserPracticumController extends Controller
                 'subject' . $i => ['required'],
                 'class_supervisor' . $i => ['min:3'],
                 'facility' . $i => ['required'],
-                'start_time' . $i => ['required', 'date'],
-                'end_time' . $i => ['required', 'date', 'after_or_equal:' . 'start_time' . $i],
+                'start_time' . $i => ['required'],
+                'end_time' . $i => ['required'],
+                'date' . $i => ['required', 'date'],
             ]);
 
             if ($validator->fails()) {
@@ -96,6 +97,7 @@ class UserPracticumController extends Controller
                 'facility' => $request['facility' . $i],
                 'start_time' => $request['start_time' . $i],
                 'end_time' => $request['end_time' . $i],
+                'date' => $request['date' . $i],
             ]);
 
             if ($i == 1) {

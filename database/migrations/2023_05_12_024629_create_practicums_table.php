@@ -29,9 +29,11 @@ return new class extends Migration
             $table->string('subject');
             $table->string('class_supervisor')->nullable();
             $table->string('facility');
-            $table->date('start_time');
-            $table->date('end_time');
             $table->string('agency_license')->default("");
+
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
 
             $table->string('reply')->nullable();
             $table->timestamps();

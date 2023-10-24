@@ -95,26 +95,15 @@ use Carbon\Carbon;
                             <td>{{ $p->facility }}</td>
                         </tr>
                         <tr>
-                            <th>Waktu praktikum</th>
-                            @php
-                                $toDate = Carbon::parse($p->start_time);
-                                $fromDate = Carbon::parse($p->end_time);
-
-                                $practicum_time = $toDate->diffInDays($fromDate);
-                            @endphp
-                            <td>{{ $practicum_time }} Hari<br> Terhitung Sejak
+                            <th>Jadwal Praktikum</th>
+                            <td>
                                 @php
-                                    $day = date('d', strtotime($p->start_time));
-                                    $month = date('M', strtotime($p->start_time));
-                                    $year = date('Y', strtotime($p->start_time));
+                                    $day = date('d', strtotime($p->date));
+                                    $month = date('M', strtotime($p->date));
+                                    $year = date('Y', strtotime($p->date));
                                 @endphp
-                                {{ $day }} {{ $month }} {{ $year }} sampai
-                                @php
-                                    $day = date('d', strtotime($p->end_time));
-                                    $month = date('M', strtotime($p->end_time));
-                                    $year = date('Y', strtotime($p->end_time));
-                                @endphp
-                                {{ $day }} {{ $month }} {{ $year }}
+                                {{ $day }} {{ $month }} {{ $year }}, {{ $p->start_time }} -
+                                {{ $p->end_time }}
                             </td>
                         </tr>
                     </table>
