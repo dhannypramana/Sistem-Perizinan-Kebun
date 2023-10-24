@@ -12,7 +12,8 @@
             margin: 0px;
             padding: 0px;
             font-size: 16px;
-            font-family: 'Times New Roman', Times, serif
+            font-family: 'Times New Roman', Times, serif;
+            line-height: normal;
         }
 
         .head-stock {
@@ -113,25 +114,17 @@
                 impedit
                 quis earum adipisci molestiae.</p>
         @endif
-        <table class="table table-borderless mt-2">
+
+        <table>
             @if ($user_info->isNotEmpty())
-                {{-- <h5 class="font-weight-bold m-0 mr-3">Informasi Pengaju</h5> --}}
                 @foreach ($user_info as $ui)
                     <tr>
-                        <td>
-                            {{ $ui->type_name }}
-                        </td>
-                        <td>
-                            {{ $user[$ui->type] }}
-                        </td>
+                        <td>{{ $ui->type_name }}</td>
+                        <td>&nbsp;:&nbsp;{{ $user[$ui->type] }}</td>
                     </tr>
                 @endforeach
             @endif
-        </table>
-
-        <table class="table table-borderless mt-2">
             @if ($service_info->isNotEmpty())
-                {{-- <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5> --}}
                 @if ($isPracticum)
                     @foreach ($service_info as $si)
                         <div class="col">
@@ -150,12 +143,8 @@
                 @else
                     @foreach ($service_info as $si)
                         <tr>
-                            <td>
-                                {{ $si->type_name }}
-                            </td>
-                            <td>
-                                {{ $service_data[$si->type] }}
-                            </td>
+                            <td>{{ $si->type_name }}</td>
+                            <td>&nbsp;:&nbsp;{{ $service_data[$si->type] }}</td>
                         </tr>
                     @endforeach
                 @endif

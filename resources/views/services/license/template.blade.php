@@ -479,7 +479,7 @@
                         )
                     } else {
                         Toast(
-                            data.success
+                            data.message
                         ).then(() => {
                             window.location.reload();
                         });
