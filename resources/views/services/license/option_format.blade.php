@@ -99,22 +99,17 @@
                                 title: title
                             },
                             success: function(response) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: response.message,
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
+                                Toast(
+                                    response.message
+                                ).then(() => {
                                     window.location.href = '/admin/template';
                                 });
                             },
                             error: function(xhr) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: xhr.responseJSON.message,
-                                    confirmButtonText: 'OK'
-                                });
+                                Toast(
+                                    xhr.responseJSON.message,
+                                    'error'
+                                )
                             },
                         });
                     }
@@ -148,22 +143,17 @@
                                 title: title
                             },
                             success: function(response) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: response.message,
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
+                                Toast(
+                                    response.message
+                                ).then(() => {
                                     window.location.href = '/admin/template';
                                 });
                             },
                             error: function(xhr) {
-                                Swal.fire({
-                                    icon: 'Error',
-                                    title: 'Error!',
-                                    text: xhr.responseJSON.message,
-                                    confirmButtonText: 'OK'
-                                });
+                                Toast(
+                                    xhr.responseJSON.message,
+                                    'error'
+                                )
                             },
                         });
                     }

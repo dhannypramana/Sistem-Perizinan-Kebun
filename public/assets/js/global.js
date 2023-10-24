@@ -65,14 +65,17 @@ const DialogBox = (title, text, icon = "success") => {
     });
 }
 
-const Toast = (text, icon = 'success') => {
-    return Swal.fire({
-        toast: true,
-        position: 'top-right',
-        icon,
-        title: text,
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
+const Toast = (title, icon = 'success') => {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            position: 'top-end',
+            icon,
+            title,
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+        }).then(res => {
+            resolve(res)
+        });
+    });
 }

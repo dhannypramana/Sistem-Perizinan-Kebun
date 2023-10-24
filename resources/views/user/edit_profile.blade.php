@@ -154,34 +154,30 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terdapat Kesalahan!',
-                                    text: 'Periksa Kembali Form Kamu!',
-                                }).then(() => {
+                                Toast(
+                                    'Periksa Kembali Form Kamu!',
+                                    'error'
+                                ).then(() => {
                                     $.each(data.errors, function(prefix, val) {
                                         $('span.' + prefix + '_error').text(val[0]);
                                     });
                                 });
                             } else {
                                 $('#profileForm')[0].reset();
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: data.success,
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
+
+                                Toast(
+                                    data.success
+                                ).then(() => {
                                     window.location.href = '/profile';
                                 });
                             }
                         },
                         error: function(data) {
                             if (data.status == 422) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terdapat Kesalahan!',
-                                    text: 'Periksa Kembali Form Kamu!',
-                                }).then(() => {
+                                Toast(
+                                    'Periksa Kembali Form Kamu!',
+                                    'error'
+                                ).then(() => {
                                     if (data.responseJSON.unique_field[2] ==
                                         'users_email_unique') {
                                         $('.email_error').text(data.responseJSON.errors)

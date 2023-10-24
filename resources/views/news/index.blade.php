@@ -112,16 +112,15 @@
                             dataType: 'json',
                             success: function(res) {
                                 if (res.status === 1) {
-                                    return Swal.fire({
-                                        icon: 'error',
-                                        text: res.errors.title[0],
-                                    })
+                                    return Toast(
+                                        res.errors.title[0],
+                                        'error'
+                                    );
                                 }
 
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Sukses Update Berita!',
-                                }).then(() => {
+                                Toast(
+                                    res.message
+                                ).then(() => {
                                     window.location.reload();
                                 });
                             },
@@ -149,11 +148,9 @@
                         },
                         dataType: 'json',
                         success: function(res) {
-                            console.log(res);
-                            Swal.fire({
-                                icon: 'success',
-                                text: res.success,
-                            }).then(() => {
+                            Toast(
+                                res.success
+                            ).then(() => {
                                 window.location.reload();
                             });
                         },
@@ -206,16 +203,15 @@
                             dataType: 'json',
                             success: function(res) {
                                 if (res.status === 1) {
-                                    return Swal.fire({
-                                        icon: 'error',
-                                        text: res.errors.title[0],
-                                    })
+                                    return Toast(
+                                        res.errors.title[0],
+                                        'error'
+                                    );
                                 }
 
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Sukses menambah berita baru!',
-                                }).then(() => {
+                                Toast(
+                                    res.message
+                                ).then(() => {
                                     window.location.reload();
                                 });
                             },

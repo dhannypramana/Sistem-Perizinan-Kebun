@@ -303,22 +303,17 @@
                         timeout: 600000,
                         dataType: 'json',
                         success: function(data) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil Logout',
-                                confirmButtonText: 'OK'
-                            }).then(() => {
+                            Toast(
+                                'Berhasil Logout!'
+                            ).then(() => {
                                 window.location.href = '/';
                             });
                         },
                         error: function(err) {
-                            console.log(err);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: err,
-                                confirmButtonText: 'OK'
-                            });
+                            Toast(
+                                err,
+                                'error'
+                            );
                         }
                     })
                 }

@@ -341,18 +341,19 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                )
                             } else {
                                 window.location.href =
                                     '/admin/template/details/{{ $data->id }}';
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message
+                            )
                         }
                     });
                 }
@@ -384,24 +385,24 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                );
                             } else {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: data.success,
-                                    icon: 'success',
-                                }).then(() => {
+                                Toast(
+                                    data.success
+                                ).then(() => {
                                     window.location.href =
                                         '/admin/template/details/{{ $data->id }}';
                                 });
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message,
+                                'error'
+                            );
                         }
                     });
                 }
@@ -469,18 +470,20 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                )
                             } else {
                                 window.location.href =
                                     '/admin/template/details/{{ $data->id }}';
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message,
+                                'error'
+                            );
                         }
                     });
                 }
@@ -532,24 +535,24 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                );
                             } else {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: data.success,
-                                    icon: 'success',
-                                }).then(() => {
+                                Toast(
+                                    data.success
+                                ).then(() => {
                                     window.location.href =
                                         '/admin/template/details/{{ $data->id }}';
                                 });
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message,
+                                'error'
+                            );
                         }
                     });
                 }
@@ -590,25 +593,23 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                )
                             } else {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: data.success,
-                                    icon: 'success',
-                                    showCancelButton: true,
-                                }).then(() => {
+                                Toast(
+                                    data.success
+                                ).then(() => {
                                     window.location.href =
                                         '/admin/template/details/{{ $data->id }}';
                                 });
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message
+                            )
                         }
                     });
                 }
@@ -642,8 +643,11 @@
                     window.location.href =
                         '/admin/template/details/{{ $data->id }}';
                 },
-                error: function(data) {
-                    console.log(data.responseJSON.message);
+                error: function(err) {
+                    Toast(
+                        err.responseJSON.message,
+                        'error'
+                    )
                 }
             });
         };
@@ -681,11 +685,10 @@
                         success: function(data) {
                             console.log(data);
                             if (data.status == 1) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terdapat Kesalahan!',
-                                    text: 'Periksa Kembali Form Kamu!',
-                                }).then(() => {
+                                Toast(
+                                    'Periksa Kembali Form Kamu!',
+                                    'error'
+                                ).then(() => {
                                     $.each(data.errors, function(prefix,
                                         val) {
                                         $('span.' + prefix +
@@ -694,19 +697,19 @@
                                     });
                                 });
                             } else {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: data.success,
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
+                                Toast(
+                                    data.success
+                                ).then(() => {
                                     window.location.href =
                                         '/admin/template/details/{{ $data->id }}';
                                 });
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message,
+                                'error'
+                            );
                         }
                     });
                 }

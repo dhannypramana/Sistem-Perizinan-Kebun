@@ -436,17 +436,18 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                );
                             } else {
-                                location.reload();
+                                window.location.reload();
                             }
                         },
-                        error: function(data) {
-                            console.log(data.responseJSON.message);
+                        error: function(err) {
+                            Toast(
+                                err.responseJSON.message
+                            );
                         }
                     });
                 }
@@ -472,29 +473,25 @@
                 },
                 success: function(data) {
                     if (data.status == 1) {
-                        Swal.fire({
-                            title: "Error!",
-                            text: data.err,
-                            icon: 'error',
-                        });
+                        Toast(
+                            data.err,
+                            'error'
+                        )
                     } else {
-                        Swal.fire({
-                            title: "Success!",
-                            text: data.success,
-                            icon: 'success',
-                        }).then(() => {
-                            location.reload();
+                        Toast(
+                            data.success
+                        ).then(() => {
+                            window.location.reload();
                         });
                     }
                 },
-                error: function(data) {
-                    console.log(data.responseJSON.message);
+                error: function(err) {
+                    Toast(
+                        err.responseJSON.message,
+                        'error'
+                    );
                 }
             });
-
-            console.log(body);
-            console.log(license_number);
-            console.log(license_format_id);
         }
 
         const deleteServiceInfo = (e, id) => {
@@ -522,19 +519,12 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                );
                             } else {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: data.success,
-                                    icon: 'success',
-                                }).then(() => {
-                                    location.reload();
-                                });
+                                window.location.reload();
                             }
                         },
                         error: function(data) {
@@ -757,19 +747,12 @@
                         },
                         success: function(data) {
                             if (data.status == 1) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: data.err,
-                                    icon: 'error',
-                                });
+                                Toast(
+                                    data.err,
+                                    'error'
+                                );
                             } else {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: data.success,
-                                    icon: 'success',
-                                }).then(() => {
-                                    location.reload();
-                                });
+                                window.location.reload();
                             }
                         },
                         error: function(data) {

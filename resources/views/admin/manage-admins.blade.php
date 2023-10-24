@@ -90,22 +90,18 @@
                                 password
                             },
                             success: function(response) {
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: response.message,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(() => {
+                                Toast(
+                                    response.message
+                                ).then(() => {
                                     window.location.reload()
                                 });
                             },
                             error: function(xhr) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: xhr.responseJSON.message,
-                                    confirmButtonText: 'OK'
+                                Toast(
+                                    xhr.responseJSON.message,
+                                    'error'
+                                ).then(() => {
+                                    window.location.reload()
                                 });
                             },
                         });
@@ -186,8 +182,7 @@
                                 return Toast(res.message, 'error');
                             }
 
-                            DialogBox(
-                                'Sukses!',
+                            Toast(
                                 res.message,
                             ).then(() => {
                                 window.location.reload();
@@ -217,15 +212,17 @@
                             return Toast(res.message, 'error');
                         }
 
-                        DialogBox(
-                            'Sukses!',
-                            res.message,
+                        Toast(
+                            res.message
                         ).then(() => {
                             window.location.reload();
                         });
                     },
                     error: function(e) {
-                        console.log(e.responseJSON.message);
+                        Toast(
+                            e.responseJSON.message,
+                            'error'
+                        );
                     }
                 });
             });
@@ -299,22 +296,23 @@
                         },
                         success: function(res) {
                             if (res.status) {
-                                return DialogBox(
-                                    'Error!',
+                                return Toast(
                                     res.errors.email[0],
                                     'error'
-                                )
+                                );
                             }
 
-                            DialogBox(
-                                'Sukses!',
-                                res.message,
+                            Toast(
+                                res.message
                             ).then(() => {
                                 window.location.reload();
                             });
                         },
                         error: function(e) {
-                            console.log(e.responseJSON.message);
+                            Toast(
+                                e.responseJSON.message,
+                                'error'
+                            );
                         }
                     });
                 }

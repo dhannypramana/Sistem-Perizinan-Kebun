@@ -47,7 +47,7 @@ class NewsController extends Controller
 
         return response()->json([
             'status' => 0,
-            'data' => $data,
+            'message' => 'Berhasil Menambah Berita Baru!',
         ]);
     }
 
@@ -84,7 +84,7 @@ class NewsController extends Controller
 
         return response()->json([
             'status' => 0,
-            'data' => $data,
+            'message' => 'Sukses Mengupdate Berita!',
         ]);
     }
 }

@@ -24,13 +24,14 @@
                 </div>
 
                 <p class="small mb-5 pb-lg-2 text-left">
-                    <a class="text-dark-50" href="#!">Forgot password?</a>
+                    <a class="text-dark-50" style="cursor: pointer" onclick="handleForgotPassword()">Forgot password?</a>
                 </p>
 
                 <button type="submit" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto">Login</button>
 
-                <a href="#!" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-3" type="submit">Login
-                    Menggunakan SSO</a>
+                <div onclick="handleLoginSSO()" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-3">
+                    Login
+                    Menggunakan SSO</div>
             </div>
 
             <div>
@@ -64,20 +65,15 @@
                 },
                 success: function(data) {
                     if (data.status == 1) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.error,
-                            confirmButtonText: 'OK'
-                        })
+                        Toast(
+                            data.error,
+                            'error'
+                        )
                     } else {
                         $('#loginForm')[0].reset();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Login Sukses!',
-                            text: data.success,
-                            confirmButtonText: 'OK'
-                        }).then(() => {
+                        Toast(
+                            data.success
+                        ).then(() => {
                             if (data.user == 1) {
                                 window.location.href = '/admin/dashboard';
                             } else {
@@ -87,6 +83,18 @@
                     }
                 },
             });
+        }
+
+        const handleLoginSSO = () => {
+            Toast(
+                'Login SSO!'
+            )
+        }
+
+        const handleForgotPassword = () => {
+            Toast(
+                'Forget Password'
+            )
         }
     </script>
 @endsection

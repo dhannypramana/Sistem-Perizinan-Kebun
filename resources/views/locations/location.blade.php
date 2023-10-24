@@ -80,17 +80,14 @@
                                 name,
                             },
                             success: function(res) {
-                                return DialogBox(
-                                    'Sukses!',
-                                    res.message,
-                                    'success'
+                                Toast(
+                                    res.message
                                 ).then(() => {
                                     window.location.reload();
                                 });
                             },
                             error: function(xhr) {
-                                return DialogBox(
-                                    'Error!',
+                                return Toast(
                                     xhr.responseJSON.message,
                                     'error'
                                 )
@@ -118,15 +115,19 @@
                             return Toast(res.message, 'error');
                         }
 
-                        DialogBox(
-                            'Sukses!',
+                        Toast(
                             res.message,
                         ).then(() => {
                             window.location.reload();
                         });
                     },
                     error: function(e) {
-                        console.log(e.responseJSON.message);
+                        Toast(
+                            e.responseJSON.message,
+                            'error'
+                        ).then(() => {
+                            window.location.reload();
+                        });
                     }
                 });
             });
@@ -159,17 +160,14 @@
                                 name,
                             },
                             success: function(res) {
-                                return DialogBox(
-                                    'Sukses!',
+                                Toast(
                                     res.message,
-                                    'success'
                                 ).then(() => {
                                     window.location.reload();
                                 });
                             },
                             error: function(xhr) {
-                                return DialogBox(
-                                    'Error!',
+                                return Toast(
                                     xhr.responseJSON.message,
                                     'error'
                                 )
