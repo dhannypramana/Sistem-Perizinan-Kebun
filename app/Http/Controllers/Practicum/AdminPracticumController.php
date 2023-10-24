@@ -15,7 +15,7 @@ class AdminPracticumController extends Controller
             'practicum' => Practicum::select('license_number', 'created_at', 'status',)
                 ->distinct()
                 ->latest()
-                ->get()
+                ->get(),
         ]);
     }
 

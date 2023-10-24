@@ -11,6 +11,8 @@
         html {
             margin: 0px;
             padding: 0px;
+            font-size: 16px;
+            font-family: 'Times New Roman', Times, serif
         }
 
         .head-stock {

@@ -19,6 +19,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
+use App\Http\Controllers\RecapController;
 use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
@@ -157,6 +158,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
 
+        /**
+         * Recap Route
+         */
+        Route::get('/export-research', [RecapController::class, 'exportResearch'])->name('exportResearch');
+        Route::get('/export-data-request', [RecapController::class, 'exportDataRequest'])->name('exportDataRequest');
+        Route::get('/export-loan', [RecapController::class, 'exportLoan'])->name('exportLoan');
+        Route::get('/export-practicum', [RecapController::class, 'exportPracticum'])->name('exportPracticum');
+
+        /**
+         * Super Admin Route
+         */
         Route::middleware('superadmin')->group(function () {
             Route::get('/manage', [AdminDashboardController::class, 'showManageAdmins'])->name('manageAdmins');
             Route::post('/createAdmin', [AdminDashboardController::class, 'createAdmin'])->name('createAdmin');
@@ -225,7 +237,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('/research')->group(function () {
             Route::prefix('/check')->group(function () {
                 Route::get('/', [AdminResearchController::class, 'check'])->name('admin_research_check');
-                route::get('/{license_number}', [AdminResearchController::class, 'details'])->name('admin_research_details');
+                Route::get('/{license_number}', [AdminResearchController::class, 'details'])->name('admin_research_details');
             });
         });
 

@@ -16,7 +16,7 @@ use Carbon\Carbon;
     @forelse ($practicum as $p)
         <div class="card mt-3">
             @if ($loop->iteration == 1)
-                <div class="card-header d-flex justify-content-between align-items-center p-4">
+                <div class="card-header pt-4 px-4">
                     <div class="items">
                         <h5>No. Izin</h5>
                         <p>{{ $p->license_number }}</p>

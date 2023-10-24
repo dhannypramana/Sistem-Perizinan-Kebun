@@ -28,7 +28,7 @@ class UserPracticumController extends Controller
                 ->select('license_number', 'created_at', 'status',)
                 ->distinct()
                 ->latest()
-                ->get()
+                ->get(),
         ]);
     }
 

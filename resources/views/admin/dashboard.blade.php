@@ -139,16 +139,24 @@
             <div class="col-lg-6 mb-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Rekapan</h6>
                     </div>
 
                     <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis reprehenderit aut consequatur cum
-                            iste optio maiores, eveniet, consectetur provident vel reiciendis tenetur asperiores, recusandae
-                            repellendus harum nemo dolore eligendi? Facere, a rerum natus, eius cumque facilis
-                            exercitationem aperiam minima quasi neque sit odio asperiores repudiandae nostrum numquam est
-                            excepturi accusamus.</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Find Details on Here &rarr;</a>
+                        <ul class="m-0">
+                            <li>
+                                <a href="{{ route('exportResearch') }}" class="mb-2">Penelitian</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('exportDataRequest') }}" class="mb-2">Permintaan Data</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('exportLoan') }}" class="mb-2">Peminjaman Sarana dan Prasarana</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('exportPracticum') }}" class="mb-2">Praktikum</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
