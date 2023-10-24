@@ -126,20 +126,16 @@
             @endif
             @if ($service_info->isNotEmpty())
                 @if ($isPracticum)
-                    @foreach ($service_info as $si)
-                        <div class="col">
-                            <div class="row">
-                                <h5>{{ $si->type_name }}</h5>
-                            </div>
-                            <div class="row">
-                                <ul>
-                                    @for ($i = 0; $i < $practicumCount; $i++)
-                                        <li>{{ $service_data[$i][$si->type] }}</li>
-                                    @endfor
-                                </ul>
-                            </div>
-                        </div>
-                    @endforeach
+                    <table>
+                        @foreach ($service_info as $si)
+                            <tr>
+                                <td>{{ $si->type_name }}</td>
+                                @for ($i = 0; $i < $practicumCount; $i++)
+                                    <td>&nbsp;&nbsp;&nbsp;{{ $service_data[$i][$si->type] }}</td>
+                                @endfor
+                            </tr>
+                        @endforeach
+                    </table>
                 @else
                     @foreach ($service_info as $si)
                         <tr>

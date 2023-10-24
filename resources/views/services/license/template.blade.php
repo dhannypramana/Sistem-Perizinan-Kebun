@@ -181,20 +181,22 @@
                 </div>
                 @if ($service_info->isNotEmpty())
                     @if ($isPracticum)
-                        @foreach ($service_info as $si)
-                            <div class="col">
-                                <div class="row">
-                                    <h5>{{ $si->type_name }}</h5>
-                                </div>
-                                <div class="row">
-                                    <ul>
-                                        @for ($i = 0; $i < $practicumCount; $i++)
-                                            <li>{{ $service_data[$i][$si->type] }}</li>
-                                        @endfor
-                                    </ul>
-                                </div>
-                            </div>
-                        @endforeach
+                        <table class="table table-bordered mt-3">
+                            @foreach ($service_info as $si)
+                                <tr>
+                                    <td>{{ $si->type_name }}</td>
+                                    @for ($i = 0; $i < $practicumCount; $i++)
+                                        <td>{{ $service_data[$i][$si->type] }}</td>
+                                    @endfor
+                                    <td style="text-align: center">
+                                        <button onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                            class="btn btn-facebook border" style="cursor: pointer !important;">
+                                            <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
                     @else
                         @foreach ($service_info as $si)
                             <div class="row my-2 align-items-center">
