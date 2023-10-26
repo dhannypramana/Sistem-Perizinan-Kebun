@@ -71,7 +71,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Jurusan</p>
+                                    <p class="mb-0">Jurusan / Fakultas</p>
                                 </div>
                                 <div class="col-sm-9">
                                     @if ($user->major == null)

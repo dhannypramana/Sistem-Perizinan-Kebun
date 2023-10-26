@@ -59,7 +59,7 @@
 
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label for="major">Jurusan</label>
+                                    <label for="major">Jurusan / Fakultas</label>
                                 </div>
                                 <div class="col-lg-6">
                                     <input type="text" name="major" id="major" value="{{ $user->major }}"

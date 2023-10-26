@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Models\LicenseFooterImage;
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatBody;
 use App\Models\LicenseFormatDetail;
@@ -61,9 +62,10 @@ class LicenseGenerator extends Controller
 
     public static function details($id)
     {
-        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature'])->first();
+        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature', 'footer_image'])->first();
         $letterheads = LicenseLetterhead::get()->sortBy('created_at');
         $signatures = LicenseSignature::get()->sortBy('created_at');
+        $footer_images = LicenseFooterImage::get()->sortBy('created_at');
         $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
 
@@ -74,12 +76,13 @@ class LicenseGenerator extends Controller
             'signatures' => $signatures,
             'service_info' => $service_info,
             'user_info' => $user_info,
+            'footer_images' => $footer_images,
         ]);
     }
 
     public static function detailsTemplate($id, $user_id, $license_number)
     {
-        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature'])->first();
+        $data = LicenseFormat::where('id', $id)->with(['letterhead', 'signature', 'footer_image'])->first();
         $service_info = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user_info = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user = User::where('id', $user_id)->first();
@@ -149,6 +152,19 @@ class LicenseGenerator extends Controller
         ]);
     }
 
+    public static function updateFooterImage(Request $request)
+    {
+        $data = LicenseFormat::find($request->license_format_id);
+
+        $data->update([
+            'license_footer_image_id' => $request->license_type_id
+        ]);
+
+        return response()->json([
+            'success' => 'Sukses mengganti Footer Image surat',
+        ]);
+    }
+
     public static function deleteKop(Request $request)
     {
         $license_format = LicenseFormat::where('license_letterhead_id', $request->license_type_id)->get();
@@ -202,11 +218,39 @@ class LicenseGenerator extends Controller
         ]);
     }
 
+    public static function deleteFooterImage(Request $request)
+    {
+        $license_format = LicenseFormat::where('license_footer_image_id', $request->license_type_id)->get();
+        $footerImage = LicenseFooterImage::find($request->license_type_id);
+
+        foreach ($license_format as $ls) {
+            $ls->update([
+                'license_footer_image_id' => null
+            ]);
+        }
+
+        $isDeleted = Storage::disk('public')->delete('image/' . $footerImage->footer_image);
+
+        if ($isDeleted) {
+            $footerImage->delete();
+        } else {
+            return response()->json([
+                'status' => 1,
+                'err' => 'Gagal menghapus Footer Image surat',
+            ]);
+        }
+
+        return response()->json([
+            'success' => 'Sukses menghapus Footer Image surat',
+        ]);
+    }
+
     public function saveTemplate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'letterhead' => ['file', 'mimes:jpg,jpeg,png', 'max:1025'],
-            'signature' => ['file', 'mimes:jpg,jpeg,png', 'max:1025'],
+            'letterhead' => ['file', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'signature' => ['file', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'footer_image' => ['file', 'mimes:jpg,jpeg,png', 'max:1024'],
         ]);
 
         if ($validator->fails()) {
@@ -247,6 +291,22 @@ class LicenseGenerator extends Controller
 
             $data->update([
                 'license_signature_id' => $ls->id,
+            ]);
+        }
+
+        if ($request->hasFile('footer_image')) {
+            $extension      = $request->file('footer_image')->extension();
+            $fileName        = 'footer_image_' . time() . date('dmyHis') . rand() . '.'  . $extension;
+
+            Storage::putFileAs('public/image', $request->file('footer_image'), $fileName);
+
+            $lfi = LicenseFooterImage::create([
+                'id' => Str::uuid(),
+                'footer_image' => $fileName
+            ]);
+
+            $data->update([
+                'license_footer_image_id' => $lfi->id,
             ]);
         }
 

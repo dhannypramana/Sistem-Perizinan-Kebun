@@ -2,6 +2,14 @@
     <thead>
         <tr>
             <th>Nomor</th>
+
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Alamat</th>
+            <th>No. Telepon</th>
+            <th>Jurusan</th>
+            <th>Prodi</th>
+
             <th>Tanggal Pengajuan</th>
             <th>No. Izin</th>
             <th>Kategori Peminjaman</th>
@@ -16,6 +24,14 @@
         @foreach ($loan as $l)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+
+                <td>{{ $l->user->name }}</td>
+                <td>{{ $l->user->student_number }}</td>
+                <td>{{ $l->user->address }}</td>
+                <td>{{ $l->user->phone_number }}</td>
+                <td>{{ $l->user->major }}</td>
+                <td>{{ $l->user->academic_program }}</td>
+
                 <td>{{ $l->created_at->format('j F Y, H:i a') }}</td>
                 <td>{{ $l->license_number }}</td>
                 <td>{{ $l->category }}</td>
@@ -41,6 +57,13 @@
         @endforeach
         <tr></tr>
         <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
             <td></td>
             <td></td>
             <td></td>

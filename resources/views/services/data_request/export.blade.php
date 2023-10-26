@@ -2,6 +2,14 @@
     <thead>
         <tr>
             <th>Nomor</th>
+
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Alamat</th>
+            <th>No. Telepon</th>
+            <th>Jurusan</th>
+            <th>Prodi</th>
+
             <th>Tanggal Pengajuan</th>
             <th>No. Izin</th>
             <th>Kategori Data</th>
@@ -14,6 +22,14 @@
         @foreach ($dataRequest as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+
+                <td>{{ $d->user->name }}</td>
+                <td>{{ $d->user->student_number }}</td>
+                <td>{{ $d->user->address }}</td>
+                <td>{{ $d->user->phone_number }}</td>
+                <td>{{ $d->user->major }}</td>
+                <td>{{ $d->user->academic_program }}</td>
+
                 <td>{{ $d->created_at->format('j F Y, H:i a') }}</td>
                 <td>{{ $d->license_number }}</td>
                 <td>{{ $d->category }}</td>
@@ -24,6 +40,12 @@
         @endforeach
         <tr></tr>
         <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

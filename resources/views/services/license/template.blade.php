@@ -30,6 +30,12 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="footer-image-null">
+        Belum Terdapat Footer Image
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="signed-null">
         Belum Terdapat Nama Tertanda
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -251,6 +257,16 @@
                     </div>
                 </div>
             </div>
+            <div class="footer-image mt-3">
+                @if (is_null($data->footer_image))
+                    <div class="border py-3 text-center bg-white">
+                        Belum ada Footer Image
+                    </div>
+                @else
+                    <img src="{{ asset('/storage/image/' . $data->footer_image->footer_image) }}" alt="footer_image"
+                        class="w-100">
+                @endif
+            </div>
         </div>
     </div>
     <div class="container mb-5 p-0">
@@ -358,6 +374,10 @@
             if (data.signature === null) {
                 $('#submit-btn').prop('disabled', true);
                 $('#signature-null').removeClass('d-none');
+            }
+            if (data.footer_image === null) {
+                $('#submit-btn').prop('disabled', true);
+                $('#footer-image-null').removeClass('d-none');
             }
             if (data.signed === null) {
                 $('#submit-btn').prop('disabled', true);

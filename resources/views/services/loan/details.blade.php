@@ -45,11 +45,11 @@
                         <td>{{ $loan->user->address }}</td>
                     </tr>
                     <tr>
-                        <th>No. Telefon</th>
+                        <th>No. Telepon</th>
                         <td>{{ $loan->user->phone_number }}</td>
                     </tr>
                     <tr>
-                        <th>Jurusan</th>
+                        <th>Jurusan / Fakultas</th>
                         <td>{{ $loan->user->major }}</td>
                     </tr>
                     <tr>

@@ -37,6 +37,15 @@
         .page-break {
             page-break-after: always;
         }
+
+        .footer_image {
+            width: 100%;
+            height: 40px;
+            object-fit: cover;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 </head>
 
@@ -176,6 +185,16 @@
                     <div>NIP. {{ $data->nip }}</div>
                 @endif
             </div>
+        </div>
+        <div>
+            @if ($footer_images->isEmpty())
+                <div class="py-3 text-center bg-white">
+                    Belum ada Footer Image
+                </div>
+            @else
+                <img src="{{ asset('/storage/image/' . $data->footer_image->footer_image) }}" alt="footer-image"
+                    class="footer_image">
+            @endif
         </div>
     </div>
 </body>

@@ -23,6 +23,7 @@ class LicenseFormat extends Model
         'footer',
         'license_letterhead_id',
         'license_signature_id',
+        'license_footer_image_id',
     ];
 
     public function letterhead()
@@ -33,6 +34,11 @@ class LicenseFormat extends Model
     public function signature()
     {
         return $this->belongsTo(LicenseSignature::class, "license_signature_id");
+    }
+
+    public function footer_image()
+    {
+        return $this->belongsTo(LicenseFooterImage::class, "license_footer_image_id");
     }
 
     public function license_format_details()

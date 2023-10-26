@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Mail\UserNotificationMail;
 use App\Models\DataRequest;
+use App\Models\LicenseFooterImage;
 use App\Models\LicenseFormat;
 use App\Models\LicenseFormatBody;
 use App\Models\LicenseFormatDetail;
@@ -43,9 +44,10 @@ class ConfirmationController extends Controller
 
     public static function generateReply($id, $user_id, $license_number, $status)
     {
-        $data           = LicenseFormat::where('id', $id)->with(['letterhead'])->first();
+        $data           = LicenseFormat::where('id', $id)->with(['letterhead', 'footer_image'])->first();
         $letterheads    = LicenseLetterhead::get()->sortBy('created_at');
         $signatures     = LicenseSignature::get()->sortBy('created_at');
+        $footer_images  = LicenseFooterImage::get()->sortBy('created_at');
         $service_info   = LicenseFormatDetail::whereNot('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user_info      = LicenseFormatDetail::where('info_type', 'user')->where('license_format_id', $id)->get()->sortBy('created_at');
         $user           = User::where('id', $user_id)->first();
@@ -66,6 +68,7 @@ class ConfirmationController extends Controller
             'data' => $data,
             'letterheads' => $letterheads,
             'signatures' => $signatures,
+            'footer_images' => $footer_images,
             'service_info' => $service_info,
             'user_info' => $user_info,
             'user' => $user,

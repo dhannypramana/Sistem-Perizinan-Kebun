@@ -23,12 +23,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Jurusan / Fakultas</label>
+                    <input value="{{ $user->major }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
                     <label>NIM</label>
                     <input value="{{ $user->student_number }}" type="text" class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
-                    <label>No. Telfon</label>
+                    <label>No. Telepon</label>
                     <input value="{{ $user->phone_number }}" class="form-control" disabled>
                 </div>
             </div>

@@ -27,12 +27,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Jurusan / Fakultas</label>
+                    <input value="{{ $user->major }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
                     <label>NIM</label>
                     <input value="{{ $user->student_number }}" class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
-                    <label>No. Telfon</label>
+                    <label>No. Telepon</label>
                     <input value="{{ $user->phone_number }}" class="form-control" disabled>
                 </div>
             </div>
@@ -73,6 +78,16 @@
                         <input class="form-check-input" type="checkbox" id="fixedCheck" required>
                         <label class="form-check-label" for="fixedCheck">
                             Data yang saya masukkan sudah benar
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group mt-2 mb-0">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="fixedCheck" required>
+                        <label class="form-check-label" for="fixedCheck">
+                            Saya bersedia menggunakan data sesuai dengan kebutuhan dan tidak menyebarluaskan data tanpa
+                            seizin
+                            UPA Konservasi Flora Sumatera
                         </label>
                     </div>
                 </div>

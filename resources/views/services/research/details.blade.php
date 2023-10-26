@@ -45,11 +45,11 @@
                         <td>{{ $research->user->address }}</td>
                     </tr>
                     <tr>
-                        <th>No. Telefon</th>
+                        <th>No. Telepon</th>
                         <td>{{ $research->user->phone_number }}</td>
                     </tr>
                     <tr>
-                        <th>Jurusan</th>
+                        <th>Jurusan / Fakultas</th>
                         <td>{{ $research->user->major }}</td>
                     </tr>
                     <tr>

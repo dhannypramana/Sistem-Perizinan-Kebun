@@ -116,6 +116,57 @@
 
             <hr>
 
+            {{-- Footer Image --}}
+            <h4>Footer Image</h4>
+            <hr class="divider rounded">
+            @if ($data->footer_image)
+                <img src="{{ asset('/storage/image/' . $data->footer_image->footer_image) }}" alt="footer_image"
+                    class="kop">
+            @else
+                <div class="nokop">Belum Ada Footer Image</div>
+            @endif
+            <div class="form-row mt-4 d-flex justify-content-between align-items-center">
+                @if ($footer_images->isNotEmpty())
+                    <div class="form-group col-md-5">
+                        <label>Pilih Footer Image</label>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary btn-custom dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach ($footer_images as $fi)
+                                    <a class="dropdown-item dropdown-item-license"
+                                        onclick="updateImages(event, '{{ $data->id }}', '{{ $fi->id }}', 'footer_image')">
+                                        <div class="image-wrapper">
+                                            <img src="{{ asset('/storage/image/' . $fi->footer_image) }}"
+                                                alt="footer_image" class="select-kop border">
+                                            <a onclick="deleteImages(event, '{{ $fi->id }}', 'footer_image')"
+                                                class="btn-select btn btn-danger">
+                                                <img src="{{ asset('assets/images/svg/delete.svg') }}" alt="delete">
+                                            </a>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="fst-italic fw-lighter">Atau</span>
+                    </div>
+                @endif
+                <div class="form-group col-md-5">
+                    <label for="signature" class="form-label">Upload Footer Image Baru</label>
+                    <div class="custom-file">
+                        <input type="file" name="footer_image" class="custom-file-input" id="footer_image">
+                        <label class="custom-file-label" for="footer_image">Choose file</label>
+                    </div>
+                    <span class="text-danger fst-italic fw-lighter error-text footer_image_error"></span>
+                </div>
+            </div>
+
+            <hr>
+
             <div class="body mt-3">
                 <h4>Isi Surat</h4>
                 <hr class="divider rounded">
@@ -568,6 +619,8 @@
                 url = "{{ route('delete_kop') }}"
             } else if (type == 'signature') {
                 url = "{{ route('delete_signature') }}"
+            } else if (type == 'footer_image') {
+                url = "{{ route('delete_footer_image') }}"
             }
 
             Swal.fire({
@@ -625,6 +678,8 @@
                 url = "{{ route('update_kop') }}"
             } else if (type == 'signature') {
                 url = "{{ route('update_signature') }}"
+            } else if (type == 'footer_image') {
+                url = "{{ route('update_footer_image') }}"
             }
 
             $.ajax({

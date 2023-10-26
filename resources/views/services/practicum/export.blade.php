@@ -11,7 +11,7 @@
             <th>Mata Kuliah</th>
             <th>Penanggung Jawab Kelas</th>
             <th>Fasilitas yang Digunakan</th>
-            <th>Waktu praktikum</th>
+            <th>Jadwal Praktikum</th>
         </tr>
     </thead>
     <tbody>
@@ -29,17 +29,12 @@
                 <td>{{ $p->facility }}</td>
                 <td>
                     @php
-                        $day = date('d', strtotime($p->start_time));
-                        $month = date('M', strtotime($p->start_time));
-                        $year = date('Y', strtotime($p->start_time));
+                        $day = date('d', strtotime($p->date));
+                        $month = date('M', strtotime($p->date));
+                        $year = date('Y', strtotime($p->date));
                     @endphp
-                    {{ $day }} {{ $month }} {{ $year }} -
-                    @php
-                        $day = date('d', strtotime($p->end_time));
-                        $month = date('M', strtotime($p->end_time));
-                        $year = date('Y', strtotime($p->end_time));
-                    @endphp
-                    {{ $day }} {{ $month }} {{ $year }}
+                    {{ $day }} {{ $month }} {{ $year }}, {{ $p->start_time }} -
+                    {{ $p->end_time }}
                 </td>
             </tr>
         @endforeach

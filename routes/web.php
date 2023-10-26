@@ -52,6 +52,9 @@ use Illuminate\Http\Request;
  */
 
 Route::get('/test', function () {
+    $pdf = PDF::loadView('test');
+
+    return $pdf->stream();
 })->name('test');
 
 /**
@@ -210,6 +213,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
              */
             Route::post('/update-signature', [LicenseGenerator::class, 'updateSignature'])->name('update_signature');
             Route::post('/delete-signature', [LicenseGenerator::class, 'deleteSignature'])->name('delete_signature');
+
+            /**
+             * Signature Control
+             */
+            Route::post('/update-footer-image', [LicenseGenerator::class, 'updateFooterImage'])->name('update_footer_image');
+            Route::post('/delete-footer-image', [LicenseGenerator::class, 'deleteFooterImage'])->name('delete_footer_image');
 
             /**
              * License User Control

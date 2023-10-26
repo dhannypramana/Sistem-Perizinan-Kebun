@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LicenseFooterImage;
 use App\Models\LicenseLetterhead;
 use App\Models\LicenseSignature;
 use Illuminate\Database\Migrations\Migration;
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->longText('footer')->nullable();
             $table->foreignIdFor(LicenseLetterhead::class)->nullable();
             $table->foreignIdFor(LicenseSignature::class)->nullable();
+            $table->foreignIdFor(LicenseFooterImage::class)->nullable();
             $table->timestamps();
         });
     }

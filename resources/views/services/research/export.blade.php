@@ -2,6 +2,14 @@
     <thead>
         <tr>
             <th>Nomor</th>
+
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Alamat</th>
+            <th>No. Telepon</th>
+            <th>Jurusan</th>
+            <th>Prodi</th>
+
             <th>Tanggal Pengajuan</th>
             <th>No. Izin</th>
             <th>Lokasi Penelitian</th>
@@ -17,6 +25,14 @@
         @foreach ($research as $r)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+
+                <td>{{ $r->user->name }}</td>
+                <td>{{ $r->user->student_number }}</td>
+                <td>{{ $r->user->address }}</td>
+                <td>{{ $r->user->phone_number }}</td>
+                <td>{{ $r->user->major }}</td>
+                <td>{{ $r->user->academic_program }}</td>
+
                 <td>{{ $r->created_at->format('j F Y, H:i a') }}</td>
                 <td>{{ $r->license_number }}</td>
                 <td>{{ $r->location }}</td>
@@ -43,6 +59,13 @@
         @endforeach
         <tr></tr>
         <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
             <td></td>
             <td></td>
             <td></td>

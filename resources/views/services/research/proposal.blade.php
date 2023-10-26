@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>No. Telfon</label>
+                    <label>No. Telepon</label>
                     <input value="{{ $user->phone_number }}" class="form-control" disabled>
                 </div>
 
