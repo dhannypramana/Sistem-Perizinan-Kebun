@@ -66,167 +66,109 @@ use Carbon\Carbon;
                 <img src="{{ asset('/storage/image/' . $data->letterhead->letterhead) }}" alt="letterhead" class="w-100">
             @endif
         </div>
-
-        <div class="license-wrapper p-4">
-            <div class="license-head d-flex justify-content-between ml-auto mr-auto">
-                <div class="meta">
-                    <table>
-                        <tr>
-                            <td>
-                                <span>Nomor</span>
-                            </td>
-                            <td>
-                                <span class="ml-2 ">: </span>
-                                <span class="ml-2">006/IT9.4.5/LL/2023</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>Lampiran</span>
-                            </td>
-                            <td>
-                                <span class="ml-2">: </span>
-                                <span class="ml-2">-</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Perihal</td>
-                            <td>
-                                <span class="ml-2">: </span>
-                                <span class="ml-2">
-                                    @if ($data->title)
-                                        {{ $data->title }} - <span class="font-italic">( Status Pengajuan )</span>
-                                    @else
-                                        <span class="text-danger">Belum Ada Perihal</span>
-                                    @endif
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="date">
-                    <p>{{ $data->updated_at->format('j F Y') }}</p>
-                </div>
-            </div>
-
-            <div class="license-receiver my-4">
-                <div class="form-group">
-                    <div class="font-weight-bold">
-                        <span>Yth. Ketua
-                            @if ($isPracticum)
-                                <span class="text-capitalize">{{ $service_data[0]->user->major }}</span>
-                            @else
-                                <span class="text-capitalize">{{ $service_data->user->major }}</span>
-                            @endif
-                        </span><br>
-                        <span>Institut Teknologi Sumatera</span> <br>
-                        <span>di</span> <br>
-                        <span>Kampus ITERA</span>
+        <form action="{{ route('accept') }}" method="POST">
+            <div class="license-wrapper p-4">
+                <div class="license-head d-flex justify-content-between ml-auto mr-auto">
+                    <div class="meta">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span>Nomor</span>
+                                </td>
+                                <td class="d-flex">
+                                    <span class="ml-2">: </span>
+                                    {{-- <span class="ml-2">006/IT9.4.5/LL/2023</span> --}}
+                                    <input type="text" name="letter_number" id="letter_number"
+                                        class="w-50 form-control form-control-sm ml-3" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Lampiran</span>
+                                </td>
+                                <td>
+                                    <span class="ml-2">: </span>
+                                    <span class="ml-2">-</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Perihal</td>
+                                <td>
+                                    <span class="ml-2">: </span>
+                                    <span class="ml-2">
+                                        @if ($data->title)
+                                            {{ $data->title }} - <span class="font-italic">( Status Pengajuan )</span>
+                                        @else
+                                            <span class="text-danger">Belum Ada Perihal</span>
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="date">
+                        <p>{{ $data->updated_at->format('j F Y') }}</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="license-body">
-                @if ($body === null)
-                    <textarea name="body" id="body" rows="5" class="form-control"></textarea>
-                    <button type="button" class="btn btn-sm btn-info ml-auto d-flex my-3"
-                        onclick="submitBody()">Submit</button>
-                @else
-                    <div class="row">
-                        <div class="col">
-                            <p class="text-justify">{{ $body->body }}</p>
+                <div class="license-receiver my-4">
+                    <div class="form-group">
+                        <div class="font-weight-bold">
+                            <span>Yth. Ketua
+                                @if ($isPracticum)
+                                    <span class="text-capitalize">{{ $service_data[0]->user->major }}</span>
+                                @else
+                                    <span class="text-capitalize">{{ $service_data->user->major }}</span>
+                                @endif
+                            </span><br>
+                            <span>Institut Teknologi Sumatera</span> <br>
+                            <span>di</span> <br>
+                            <span>Kampus ITERA</span>
                         </div>
-                        <div class="col-auto">
-                            <button class="btn btn-facebook border" onclick="editModeBody()">
-                                <img src="{{ asset('/assets/images/svg/edit.svg') }}" alt="editIcon">
+                    </div>
+                </div>
+
+                <div class="license-body">
+                    @if ($body === null)
+                        <textarea name="body" id="body" rows="5" class="form-control"></textarea>
+                        <button type="button" class="btn btn-sm btn-info ml-auto d-flex my-3"
+                            onclick="submitBody()">Submit</button>
+                    @else
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-justify">{{ $body->body }}</p>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-facebook border" onclick="editModeBody()">
+                                    <img src="{{ asset('/assets/images/svg/edit.svg') }}" alt="editIcon">
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="row mt-5">
+                        <div class="col-md-3">
+                            <h5 class="font-weight-bold m-0 mr-3">Informasi Pengaju</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <button id="addUserInfo" type="button" class="btn btn-sm btn-info">
+                                <img src="{{ asset('assets/images/svg/plus.svg') }}" style="height: 16px;">
+                                <span>Tambah Informasi Pengaju</span>
                             </button>
                         </div>
                     </div>
-                @endif
 
-                <div class="row mt-5">
-                    <div class="col-md-3">
-                        <h5 class="font-weight-bold m-0 mr-3">Informasi Pengaju</h5>
-                    </div>
-                    <div class="col-md-9">
-                        <button id="addUserInfo" type="button" class="btn btn-sm btn-info">
-                            <img src="{{ asset('assets/images/svg/plus.svg') }}" style="height: 16px;">
-                            <span>Tambah Informasi Pengaju</span>
-                        </button>
-                    </div>
-                </div>
-
-                @if ($user_info->isNotEmpty())
-                    @foreach ($user_info as $ui)
-                        <div class="row my-2 align-items-center">
-                            <div class="col-md-4">
-                                <p class="text-capitalize m-0">{{ $ui->type_name }}</p>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="text-capitalize m-0">{{ $user[$ui->type] }}</p>
-                                    <button class="btn btn-facebook border ml-5"
-                                        onclick="deleteUserInfo(event, '{{ $ui->id }}')"
-                                        style="cursor: pointer !important;">
-                                        <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p class="mb-5">Belum ada Informasi Pengaju</p>
-                @endif
-
-                <div class="row mt-4">
-                    <div class="col-md-3">
-                        <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
-                    </div>
-                    <div class="col-md-9">
-                        <button id="addServiceInfo" type="button" class="btn btn-sm btn-info">
-                            <img src="{{ asset('assets/images/svg/plus.svg') }}" style="height: 16px;">
-                            <span>Tambah Informasi Pengajuan</span>
-                        </button>
-                    </div>
-                </div>
-                @if ($service_info->isNotEmpty())
-                    @if ($isPracticum)
-                        <table class="table table-bordered mt-3">
-                            @foreach ($service_info as $si)
-                                <tr>
-                                    <td>{{ $si->type_name }}</td>
-                                    @for ($i = 0; $i < $practicumCount; $i++)
-                                        <td>
-                                            @if ($si->type == 'start_date')
-                                                @php
-                                                    $startDate = Carbon::parse($service_data[$i][$si->type]);
-                                                    $dayName = $startDate->format('l');
-                                                @endphp
-                                                {{ $dayName }},
-                                            @endif
-                                            {{ $service_data[$i][$si->type] }}
-                                        </td>
-                                    @endfor
-                                    <td style="text-align: center">
-                                        <button onclick="deleteServiceInfo(event, '{{ $si->id }}')"
-                                            class="btn btn-facebook border" style="cursor: pointer !important;">
-                                            <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
-                    @else
-                        @foreach ($service_info as $si)
+                    @if ($user_info->isNotEmpty())
+                        @foreach ($user_info as $ui)
                             <div class="row my-2 align-items-center">
                                 <div class="col-md-4">
-                                    <p class="text-capitalize m-0">{{ $si->type_name }}</p>
+                                    <p class="text-capitalize m-0">{{ $ui->type_name }}</p>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <p class="text-capitalize m-0">{{ $service_data[$si->type] }}</p>
+                                        <p class="text-capitalize m-0">{{ $user[$ui->type] }}</p>
                                         <button class="btn btn-facebook border ml-5"
-                                            onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                            onclick="deleteUserInfo(event, '{{ $ui->id }}')"
                                             style="cursor: pointer !important;">
                                             <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
                                         </button>
@@ -234,92 +176,150 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                         @endforeach
+                    @else
+                        <p class="mb-5">Belum ada Informasi Pengaju</p>
                     @endif
-                @else
-                    <p>Belum ada Informasi Pengajuan</p>
-                @endif
-                <p class="mt-4">{{ $data->footer }}</p>
-            </div>
 
-            <div class="license-footer d-flex flex-column align-items-end mt-4">
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    Kepala UPT Konservasi Flora Sumatera
-                    <div class="signature mt-3">
-                        @if (is_null($data->signature))
-                            <div class="border rounded bg-white p-3">
-                                Belum ada TTD
-                            </div>
-                        @else
-                            <img src="{{ asset('/storage/image/' . $data->signature->signature) }}" alt="letterhead"
-                                width="100">
-                        @endif
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <h5 class="font-weight-bold m-0 mr-3">Informasi Pengajuan</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <button id="addServiceInfo" type="button" class="btn btn-sm btn-info">
+                                <img src="{{ asset('assets/images/svg/plus.svg') }}" style="height: 16px;">
+                                <span>Tambah Informasi Pengajuan</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="mt-3">
-                        @if (!$data->signed)
-                            Belum Ada Tertanda
+                    @if ($service_info->isNotEmpty())
+                        @if ($isPracticum)
+                            <table class="table table-bordered mt-3">
+                                @foreach ($service_info as $si)
+                                    <tr>
+                                        <td>{{ $si->type_name }}</td>
+                                        @for ($i = 0; $i < $practicumCount; $i++)
+                                            <td>
+                                                @if ($si->type == 'start_date')
+                                                    @php
+                                                        $startDate = Carbon::parse($service_data[$i][$si->type]);
+                                                        $dayName = $startDate->format('l');
+                                                    @endphp
+                                                    {{ $dayName }},
+                                                @endif
+                                                {{ $service_data[$i][$si->type] }}
+                                            </td>
+                                        @endfor
+                                        <td style="text-align: center">
+                                            <button onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                                class="btn btn-facebook border" style="cursor: pointer !important;">
+                                                <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
                         @else
-                            <div>{{ $data->signed }}</div>
+                            @foreach ($service_info as $si)
+                                <div class="row my-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <p class="text-capitalize m-0">{{ $si->type_name }}</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="text-capitalize m-0">{{ $service_data[$si->type] }}</p>
+                                            <button class="btn btn-facebook border ml-5"
+                                                onclick="deleteServiceInfo(event, '{{ $si->id }}')"
+                                                style="cursor: pointer !important;">
+                                                <img src="{{ asset('/assets/images/svg/delete.svg') }}" alt="deleteIcon">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @endif
-                        @if (!$data->nip)
-                            <div>
-                                Belum Ada NIP Tertanda
-                            </div>
-                        @else
-                            <div>NIP. {{ $data->nip }}</div>
-                        @endif
+                    @else
+                        <p>Belum ada Informasi Pengajuan</p>
+                    @endif
+                    <p class="mt-4">{{ $data->footer }}</p>
+                </div>
+
+                <div class="license-footer d-flex flex-column align-items-end mt-4">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        Kepala UPT Konservasi Flora Sumatera
+                        <div class="signature mt-3">
+                            @if (is_null($data->signature))
+                                <div class="border rounded bg-white p-3">
+                                    Belum ada TTD
+                                </div>
+                            @else
+                                <img src="{{ asset('/storage/image/' . $data->signature->signature) }}" alt="letterhead"
+                                    width="100">
+                            @endif
+                        </div>
+                        <div class="mt-3">
+                            @if (!$data->signed)
+                                Belum Ada Tertanda
+                            @else
+                                <div>{{ $data->signed }}</div>
+                            @endif
+                            @if (!$data->nip)
+                                <div>
+                                    Belum Ada NIP Tertanda
+                                </div>
+                            @else
+                                <div>NIP. {{ $data->nip }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
+                <div class="footer-image mt-3">
+                    @if (is_null($data->footer_image))
+                        <div class="border py-3 text-center bg-white">
+                            Belum ada Footer Image
+                        </div>
+                    @else
+                        <img src="{{ asset('/storage/image/' . $data->footer_image->footer_image) }}" alt="footer_image"
+                            class="w-100">
+                    @endif
+                </div>
             </div>
-            <div class="footer-image mt-3">
-                @if (is_null($data->footer_image))
-                    <div class="border py-3 text-center bg-white">
-                        Belum ada Footer Image
-                    </div>
-                @else
-                    <img src="{{ asset('/storage/image/' . $data->footer_image->footer_image) }}" alt="footer_image"
-                        class="w-100">
-                @endif
-            </div>
-        </div>
     </div>
     <div class="container mb-5 p-0">
-
-        <form action="{{ route('accept') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-lg-6">
-                    <label for="status" class="h4">Status Pengajuan</label>
-                    <select name="status" id="status" class="form-control" aria-label="Form Status"
-                        onchange="yesNoCheck(this);">
-                        <option value="1">Setujui</option>
-                        <option value="2">Tolak</option>
-                    </select>
-                </div>
-                <div class="col-lg-6" id="ifYes" style="display: none">
-                    <label for="admin_message" class="h4">Masukkan Pesan</label>
-                    <input type="text" name="admin_message" id="admin_message" class="form-control">
-                </div>
+        @csrf
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="status" class="h4">Status Pengajuan</label>
+                <select name="status" id="status" class="form-control" aria-label="Form Status"
+                    onchange="yesNoCheck(this);">
+                    <option value="1">Setujui</option>
+                    <option value="2">Tolak</option>
+                </select>
             </div>
-
-            {{-- General --}}
-            <input type="hidden" name="id" value="{{ $data->id }}">
-            @if ($isPracticum)
-                <input type="hidden" name="user_id" value="{{ $service_data[0]->user_id }}">
-            @else
-                <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
-            @endif
-            <input type="hidden" name="license_number" value="{{ $license_number }}">
-            <div class="d-flex align-items-baseline mt-3">
-                <button type="submit" class="btn btn-primary" id="submit-btn">
-                    <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
-                    <span>Finalisasi Persetujuan</span>
-                </button>
-                <p class="ml-2 d-none" id="disabled-alert">
-                    <sup>*</sup> <a class="text-danger" href="{{ route('details_template', ['id' => $data->id]) }}">
-                        Silahkan lengkapi informasi terlebih dahulu!
-                    </a>
-                </p>
+            <div class="col-lg-6" id="ifYes" style="display: none">
+                <label for="admin_message" class="h4">Masukkan Pesan</label>
+                <input type="text" name="admin_message" id="admin_message" class="form-control">
             </div>
+        </div>
+
+        {{-- General --}}
+        <input type="hidden" name="id" value="{{ $data->id }}">
+        @if ($isPracticum)
+            <input type="hidden" name="user_id" value="{{ $service_data[0]->user_id }}">
+        @else
+            <input type="hidden" name="user_id" value="{{ $service_data->user_id }}">
+        @endif
+        <input type="hidden" name="license_number" value="{{ $license_number }}">
+        <div class="d-flex align-items-baseline mt-3">
+            <button type="submit" class="btn btn-primary" id="submit-btn">
+                <img src="{{ asset('/assets/images/svg/document.svg') }}" alt="documentIcon">
+                <span>Finalisasi Persetujuan</span>
+            </button>
+            <p class="ml-2 d-none" id="disabled-alert">
+                <sup>*</sup> <a class="text-danger" href="{{ route('details_template', ['id' => $data->id]) }}">
+                    Silahkan lengkapi informasi terlebih dahulu!
+                </a>
+            </p>
+        </div>
         </form>
     </div>
     {{-- <div class="signature">

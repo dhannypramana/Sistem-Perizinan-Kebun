@@ -42,7 +42,7 @@ class ConfirmationController extends Controller
         }
     }
 
-    public static function generateReply($id, $user_id, $license_number, $status)
+    public static function generateReply($id, $user_id, $license_number, $status, $letterNumber)
     {
         $data           = LicenseFormat::where('id', $id)->with(['letterhead', 'footer_image'])->first();
         $letterheads    = LicenseLetterhead::get()->sortBy('created_at');
@@ -78,6 +78,7 @@ class ConfirmationController extends Controller
             'status' => $status,
             'isPracticum' => $isPracticum,
             'practicumCount' => $practicumCount,
+            'letterNumber' => $letterNumber
         ];
 
         $fileName =  'reply_' . $license_number . '.pdf';
@@ -114,7 +115,7 @@ class ConfirmationController extends Controller
     public static function accept(Request $request)
     {
         try {
-            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number, $request->status);
+            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number, $request->status, $request->letter_number);
         } catch (\Throwable $th) {
             throw $th;
         }

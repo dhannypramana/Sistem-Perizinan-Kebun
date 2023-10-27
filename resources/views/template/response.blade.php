@@ -80,7 +80,7 @@ use Carbon\Carbon;
                 <td>
                     <span>Nomor</span>
                     <span class="space-lethead">: </span>
-                    <span>006/IT9.4.5/LL/2023</span>
+                    <span>{{ $letterNumber }}</span>
                 </td>
                 <td class="text-right">
                     {{ $data->updated_at->format('j F Y') }}

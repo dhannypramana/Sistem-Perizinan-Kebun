@@ -179,9 +179,6 @@
                 <div class="form-group">
                     <label for="title">Footer Surat</label>
                     <textarea name="footer" cols="30" rows="10" class="form-control" required>{{ $data->footer }}</textarea>
-                    {{-- <input type="text" name="title" class="form-control" id="title"
-                        placeholder="Masukkan Judul Surat" placeholder="Masukkan Judul Surat" required
-                        value="{{ $data->title }}"> --}}
                 </div>
 
                 <div class="form-group mt-3">
