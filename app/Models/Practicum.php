@@ -45,7 +45,8 @@ class Practicum extends Model
         'agency_license',
         'reply',
 
-        'date',
+        'start_date',
+        'end_date',
         'start_time',
         'end_time',
     ];

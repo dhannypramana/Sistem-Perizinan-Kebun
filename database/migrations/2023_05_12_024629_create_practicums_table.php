@@ -31,7 +31,8 @@ return new class extends Migration
             $table->string('facility');
             $table->string('agency_license')->default("");
 
-            $table->date('date');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->time('start_time');
             $table->time('end_time');
 

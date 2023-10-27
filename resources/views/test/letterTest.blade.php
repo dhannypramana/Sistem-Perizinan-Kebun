@@ -46,6 +46,16 @@
             bottom: 0;
             left: 0;
         }
+
+        .tr-si,
+        .th-si,
+        .td-si {
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding: 8px;
+        }
     </style>
 </head>
 
@@ -98,6 +108,22 @@
             accusantium. Hic quisquam molestias, sequi fugit et aspernatur! A modi amet cumque consequuntur
             impedit
             quis earum adipisci molestiae. </p>
+
+        <table>
+            <tr class="tr-si">
+                <td class="td-si">Mata Kuliah</td>
+                <td class="td-si">ABC</td>
+                <td class="td-si">ABC</td>
+            </tr>
+            <tr class="tr-si">
+                <td class="td-si">Waktu Mulai</td>
+                <td class="td-si">ABC</td>
+            </tr>
+            <tr class="tr-si">
+                <td class="td-si">Tanggal Mulai</td>
+                <td class="td-si">ABC</td>
+            </tr>
+        </table>
 
         <p class="text-justify mt-2">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur repellendus

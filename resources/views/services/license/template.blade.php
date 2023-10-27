@@ -1,5 +1,9 @@
 @extends('services.layouts.index')
 
+<?php
+use Carbon\Carbon;
+?>
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/css/template.css') }}">
 @endsection
@@ -192,7 +196,16 @@
                                 <tr>
                                     <td>{{ $si->type_name }}</td>
                                     @for ($i = 0; $i < $practicumCount; $i++)
-                                        <td>{{ $service_data[$i][$si->type] }}</td>
+                                        <td>
+                                            @if ($si->type == 'start_date')
+                                                @php
+                                                    $startDate = Carbon::parse($service_data[$i][$si->type]);
+                                                    $dayName = $startDate->format('l');
+                                                @endphp
+                                                {{ $dayName }},
+                                            @endif
+                                            {{ $service_data[$i][$si->type] }}
+                                        </td>
                                     @endfor
                                     <td style="text-align: center">
                                         <button onclick="deleteServiceInfo(event, '{{ $si->id }}')"

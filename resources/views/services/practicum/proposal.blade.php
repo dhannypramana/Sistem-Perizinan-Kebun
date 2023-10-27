@@ -146,11 +146,17 @@
                                     <span id="end_time_error" class="text-danger fst-italic fw-lighter error-text end_time${formCount}_error"></span>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="date">Tanggal Pelaksanaan<sup>*</sup></label>
-                                    <input type="date" name="date${formCount}" class="form-control" id="date"
-                                        placeholder="Waktu Pelaksanaan" required>
+                                    <label for="date">Tanggal Mulai<sup>*</sup></label>
+                                    <input type="date" name="start_date${formCount}" class="form-control" id="start_date"
+                                        placeholder="Tanggal Mulai" required>
                                     <small class="form-text text-muted">example: 25/12/2023</small>
-                                    <span id="date_error" class="text-danger fst-italic fw-lighter error-text date${formCount}_error"></span>
+                                    <span id="date_error" class="text-danger fst-italic fw-lighter error-text start_date${formCount}_error"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="date">Tanggal Berakhir</label>
+                                    <input type="date" name="end_date${formCount}" class="form-control" id="end_date"
+                                        placeholder="Tanggal Berakhir">
+                                    <small class="form-text text-muted text-small">Kosongkan jika pelaksanaan praktikum hanya 1x</small>
                                 </div>
                             </div>
                         </div>

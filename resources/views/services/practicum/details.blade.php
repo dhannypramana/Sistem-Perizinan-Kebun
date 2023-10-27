@@ -98,12 +98,28 @@ use Carbon\Carbon;
                             <th>Jadwal Praktikum</th>
                             <td>
                                 @php
-                                    $day = date('d', strtotime($p->date));
-                                    $month = date('M', strtotime($p->date));
-                                    $year = date('Y', strtotime($p->date));
+                                    $day = date('d', strtotime($p->start_date));
+                                    $month = date('M', strtotime($p->start_date));
+                                    $year = date('Y', strtotime($p->start_date));
                                 @endphp
-                                {{ $day }} {{ $month }} {{ $year }}, {{ $p->start_time }} -
-                                {{ $p->end_time }}
+                                @if ($p->end_date)
+                                    @php
+                                        $dayEnd = date('d', strtotime($p->end_date));
+                                        $monthEnd = date('M', strtotime($p->end_date));
+                                        $yearEnd = date('Y', strtotime($p->end_date));
+
+                                        $endDate = Carbon::parse($p->end_date);
+                                        $dayName = $endDate->format('l');
+                                    @endphp
+                                    {{ $day }} {{ $month }} {{ $year }}
+                                    sampai {{ $dayEnd }} {{ $monthEnd }} {{ $yearEnd }} <br>
+
+                                    Setiap {{ $dayName }}, {{ $p->start_time }} -
+                                    {{ $p->end_time }}
+                                @else
+                                    {{ $day }} {{ $month }} {{ $year }}, {{ $p->start_time }} -
+                                    {{ $p->end_time }}
+                                @endif
                             </td>
                         </tr>
                     </table>

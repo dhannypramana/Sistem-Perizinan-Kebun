@@ -52,9 +52,11 @@ use Illuminate\Http\Request;
  */
 
 Route::get('/test', function () {
-    $pdf = PDF::loadView('test');
+    // letterTest
 
-    return $pdf->stream();
+    return view('test.letterTest', [
+        'active' => 'Test AJA'
+    ]);
 })->name('test');
 
 /**

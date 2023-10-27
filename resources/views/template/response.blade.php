@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+use Carbon\Carbon;
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +49,17 @@
             position: fixed;
             bottom: 0;
             left: 0;
+        }
+
+        .tr-si,
+        .th-si,
+        .td-si {
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding-left: 8px;
+            padding-right: 8px;
         }
     </style>
 </head>
@@ -135,16 +150,23 @@
             @endif
             @if ($service_info->isNotEmpty())
                 @if ($isPracticum)
-                    <table>
-                        @foreach ($service_info as $si)
-                            <tr>
-                                <td>{{ $si->type_name }}</td>
-                                @for ($i = 0; $i < $practicumCount; $i++)
-                                    <td>&nbsp;&nbsp;&nbsp;{{ $service_data[$i][$si->type] }}</td>
-                                @endfor
-                            </tr>
-                        @endforeach
-                    </table>
+                    @foreach ($service_info as $si)
+                        <tr class="tr-si">
+                            <td class="td-si">{{ $si->type_name }}</td>
+                            @for ($i = 0; $i < $practicumCount; $i++)
+                                <td class="td-si">
+                                    @if ($si->type == 'start_date')
+                                        @php
+                                            $startDate = Carbon::parse($service_data[$i][$si->type]);
+                                            $dayName = $startDate->format('l');
+                                        @endphp
+                                        {{ $dayName }},
+                                    @endif
+                                    {{ $service_data[$i][$si->type] }}
+                                </td>
+                            @endfor
+                        </tr>
+                    @endforeach
                 @else
                     @foreach ($service_info as $si)
                         <tr>

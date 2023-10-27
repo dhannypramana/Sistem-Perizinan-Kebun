@@ -236,8 +236,15 @@ class LicenseFormatServiceSeeder extends Seeder
             'id' => Str::uuid(),
             'service' => 'practicum',
 
-            'type' => 'date',
-            'type_name' => 'Tanggal Pelaksanaan',
+            'type' => 'start_date',
+            'type_name' => 'Tanggal Mulai',
+        ]);
+        LicenseFormatService::create([
+            'id' => Str::uuid(),
+            'service' => 'practicum',
+
+            'type' => 'end_date',
+            'type_name' => 'Tanggal Berakhir',
         ]);
     }
 }
