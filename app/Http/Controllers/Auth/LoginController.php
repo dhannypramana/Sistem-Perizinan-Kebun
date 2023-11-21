@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -16,14 +17,22 @@ class LoginController extends Controller
 
     public static function login(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => [
                 'required',
                 'email',
-                'student_itera_email'
+                // 'student_itera_email'
             ],
             'password' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 1,
+                'errors' => $validator->errors(),
+                'err' => 'Terjadi Kesalahan! Periksa Kembali Form Kamu!',
+            ]);
+        }
 
         $credentials = request([
             'email',
@@ -33,7 +42,7 @@ class LoginController extends Controller
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'status' => 1,
-                'error' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
+                'err' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
             ]);
         }
 

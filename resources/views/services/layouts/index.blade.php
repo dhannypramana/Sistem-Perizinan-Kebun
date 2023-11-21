@@ -177,11 +177,23 @@
                                 <span class="ml-1">Manajemen Admin</span>
                             </a>
                         </li>
+                        <li class="nav-item @if ($active == 'faculty') active @endif">
+                            <a class="nav-link" href="{{ route('manageFaculty') }}">
+                                <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                                <span class="ml-1">Manajemen Fakultas dan Prodi</span>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item @if ($active == 'location') active @endif">
                         <a class="nav-link" href="{{ route('location') }}">
                             <img src="{{ asset('assets/images/svg/letter.svg') }}">
                             <span class="ml-1">Manajemen Lokasi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if ($active == 'reports') active @endif">
+                        <a class="nav-link" href="{{ route('showReports') }}">
+                            <img src="{{ asset('assets/images/svg/letter.svg') }}">
+                            <span class="ml-1">Manajemen Pelaporan</span>
                         </a>
                     </li>
                     {{-- <li class="nav-item @if ($active == 'news') active @endif">

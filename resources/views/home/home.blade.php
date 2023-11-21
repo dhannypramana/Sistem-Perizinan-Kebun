@@ -89,8 +89,6 @@
         <div class="container">
             <div class="row text-center justify-content-center">
                 <div class="col-md-4">
-                    <img src="https://diskominfotik.lampungprov.go.id/uploads/photos/1/logo.png" style="width: 200px"
-                        alt="">
                     <img src="{{ asset('assets/images/itera.png') }}" alt="ITERA" style="width: 75px">
                     <h5 style="text-align: left" class="mt-3">Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Et quasi

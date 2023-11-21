@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             LicenseFormatServiceSeeder::class,
             LicenseFormatUserSeeder::class,
             LocationSeeder::class,
+            FacultySeeder::class
             // DataRequestSeeder::class
         ]);
     }

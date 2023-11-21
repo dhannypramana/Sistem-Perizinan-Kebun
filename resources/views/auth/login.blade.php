@@ -16,6 +16,7 @@
                     <label class="form-label text-dark" for="email">Email</label>
                     <input name="email" type="email" id="email" class="form-control form-control-lg" autofocus
                         required />
+                    <span class="text-danger fst-italic fw-lighter error-text email_error"></span>
                 </div>
 
                 <div class="form-outline form-white mb-4">
@@ -61,14 +62,19 @@
                 timeout: 600000,
                 dataType: 'json',
                 beforeSend: function() {
+                    $(document).find('span.error-text').text('');
                     onLoading();
                 },
                 success: function(data) {
                     if (data.status == 1) {
                         Toast(
-                            data.error,
+                            data.err,
                             'error'
-                        )
+                        ).then(() => {
+                            $.each(data.errors, function(prefix, val) {
+                                $('span.' + prefix + '_error').text(val[0]);
+                            });
+                        });
                     } else {
                         $('#loginForm')[0].reset();
                         Toast(
@@ -78,6 +84,22 @@
                                 window.location.href = '/admin/dashboard';
                             } else {
                                 window.location.href = '/dashboard';
+                            }
+                        });
+                    }
+                },
+                error: function(data) {
+                    if (data.status == 422) {
+                        Toast(
+                            'Periksa Kembali Form Kamu!',
+                            'error'
+                        ).then(() => {
+                            if (data.responseJSON.unique_field[2] ==
+                                'users_name_unique') {
+                                $('.name_error').text(data.responseJSON.errors)
+                            } else if (data.responseJSON.unique_field[2] ==
+                                'users_email_unique') {
+                                $('.email_error').text(data.responseJSON.errors)
                             }
                         });
                     }

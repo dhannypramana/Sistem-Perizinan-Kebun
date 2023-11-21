@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DataRequest\AdminDataRequestController;
 use App\Http\Controllers\DataRequest\UserDataRequestController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LicenseFormatBodyController;
 use App\Http\Controllers\LicenseFormatServiceController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
 use App\Http\Controllers\RecapController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
 use App\Http\Controllers\User\DashboardController;
@@ -171,6 +173,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/export-loan', [RecapController::class, 'exportLoan'])->name('exportLoan');
         Route::get('/export-practicum', [RecapController::class, 'exportPracticum'])->name('exportPracticum');
 
+        Route::get('/reports', [ReportController::class, 'show'])->name('showReports');
+
         /**
          * Super Admin Route
          */
@@ -180,6 +184,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::delete('/deleteAdmin', [AdminDashboardController::class, 'deleteAdmin'])->name('deleteAdmin');
             Route::put('/editAdmin', [AdminDashboardController::class, 'editAdmin'])->name('editAdmin');
             Route::post('/changePassword', [AdminDashboardController::class, 'changePassword'])->name('changePassword');
+
+            Route::get('/faculty', [FacultyController::class, 'show'])->name('manageFaculty');
+            Route::get('/getFaculties', [FacultyController::class, 'getFaculties'])->name('getFaculties');
+            Route::post('/addFaculty', [FacultyController::class, 'addFaculty'])->name('addFaculty');
+            Route::put('/editFaculty', [FacultyController::class, 'editFaculty'])->name('editFaculty');
+            Route::delete('/deleteFaculty', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');
+
+            Route::post('/addAcademicProgram', [FacultyController::class, 'addAcademicProgram'])->name('addAcademicProgram');
+            Route::put('/editAcademicProgram', [FacultyController::class, 'editAcademicProgram'])->name('editAcademicProgram');
+            Route::delete('/deleteAcademicProgram', [FacultyController::class, 'deleteAcademicProgram'])->name('deleteAcademicProgram');
         });
 
         Route::get('/location', [LocationController::class, 'show'])->name('location');
