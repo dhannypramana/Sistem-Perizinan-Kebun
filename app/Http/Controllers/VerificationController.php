@@ -12,7 +12,9 @@ class VerificationController extends Controller
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect('/dashboard')
-            : view('auth.verify-email');
+            : view('auth.verify-email', [
+                'active' => 'verify'
+            ]);
     }
 
     public function verify(EmailVerificationRequest $request)

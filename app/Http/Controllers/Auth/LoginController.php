@@ -17,7 +17,11 @@ class LoginController extends Controller
     public static function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => [
+                'required',
+                'email',
+                'student_itera_email'
+            ],
             'password' => 'required'
         ]);
 

@@ -76,7 +76,7 @@
             let format_title = $(`#title-${id}`).text();
 
             Swal.fire({
-                title: 'Masukkan Judul Template',
+                title: 'Ubah Judul Template',
                 input: 'text',
                 inputValue: format_title,
                 inputAttributes: {

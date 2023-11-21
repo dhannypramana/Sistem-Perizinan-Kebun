@@ -184,18 +184,17 @@
                             <span class="ml-1">Manajemen Lokasi</span>
                         </a>
                     </li>
-                    <li class="nav-item @if ($active == 'news') active @endif">
+                    {{-- <li class="nav-item @if ($active == 'news') active @endif">
                         <a class="nav-link" href="{{ route('news') }}">
                             <img src="{{ asset('assets/images/svg/letter.svg') }}">
                             <span class="ml-1">Manajemen Berita</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </div>
             @endif
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
-
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     {{-- <button class="btn" id="sidebarToggle"> --}}

@@ -7,7 +7,7 @@
             <th>NIM</th>
             <th>Alamat</th>
             <th>No. Telepon</th>
-            <th>Jurusan</th>
+            <th>Jurusan / Fakultas</th>
             <th>Prodi</th>
 
             <th>Tanggal Pengajuan</th>

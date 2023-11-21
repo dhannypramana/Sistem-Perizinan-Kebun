@@ -29,9 +29,9 @@
 
                 <button type="submit" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto">Login</button>
 
-                <div onclick="handleLoginSSO()" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-3">
+                {{-- <div onclick="handleLoginSSO()" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-3">
                     Login
-                    Menggunakan SSO</div>
+                    Menggunakan SSO</div> --}}
             </div>
 
             <div>

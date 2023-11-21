@@ -1,7 +1,7 @@
 @extends('services.layouts.index')
 
 @section('container')
-    <h3 class="fw-bolder text-dark">Daftar Pengajuan Permintaan Data</h3>
+    <h3 class="fw-bolder text-dark">Daftar Pengajuan Peminjaman Sarana Prasarana</h3>
     <hr class="divider rounded">
 
     @if ($loan->isNotEmpty())

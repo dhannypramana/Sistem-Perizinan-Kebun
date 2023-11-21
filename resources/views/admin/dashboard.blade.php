@@ -160,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="card shadow mb-4">
+                {{-- <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
                     </div>
@@ -172,7 +172,7 @@
                         <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et quas nulla vel,
                             consectetur quo rem?</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

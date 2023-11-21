@@ -28,37 +28,38 @@
         <div class="container">
             <div class="row text-center text-white mb-3">
                 <div class="col">
-                    <h2 class="fw-bold text-uppercase">About SISPERLAK</h2>
+                    <h2 class="fw-bold text-uppercase">Layanan Perizinan Sisperlak</h2>
                 </div>
             </div>
-            <div class="row text-white justify-content-center mt-4 p-5" style="font-size: 19px">
-                <div class="col-md-5 mb-3">
-                    <div class="icon" style="text-align: center">
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-                            illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
-                            voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
-                    </div>
+            <div class="row text-white" style="margin-top: 80px">
+                <div class="col text-center border py-3 me-2 rounded">
+                    <img src="https://silabor.itera.ac.id//assets/fitrah/assets/pendidikan.png" alt="pendidikan"
+                        class="bg-white rounded-circle align-content-center" style="width: 100px">
+                    <h4 class="mt-3">Penelitian</h4>
+                    <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit aperiam
+                        quo ex eius veritatis molestiae.
+                    </p>
                 </div>
-                <div class="col-md-5 mb-3">
-                    <div class="icon" style="text-align: center">
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-                            illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
-                            voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
-                    </div>
+                <div class="col text-center border py-3 me-2 rounded">
+                    <img src="https://silabor.itera.ac.id//assets/fitrah/assets/pendidikan.png" alt="pendidikan"
+                        class="bg-white rounded-circle align-content-center" style="width: 100px">
+                    <h4 class="mt-3">Permintaan Data</h4>
+                    <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam minus
+                        deserunt temporibus, qui ad nam!</p>
                 </div>
-                <div class="col-md-5 mb-3">
-                    <div class="icon" style="text-align: center">
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-                            illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
-                            voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
-                    </div>
+                <div class="col text-center border py-3 me-2 rounded">
+                    <img src="https://silabor.itera.ac.id//assets/fitrah/assets/pendidikan.png" alt="pendidikan"
+                        class="bg-white rounded-circle align-content-center" style="width: 100px">
+                    <h4 class="mt-3">Peminjaman</h4>
+                    <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam minus
+                        deserunt temporibus, qui ad nam!</p>
                 </div>
-                <div class="col-md-5 mb-3">
-                    <div class="icon" style="text-align: center">
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-                            illum consequatur expedita error porro et dolorum nisi voluptate architecto autem! Dolore quae
-                            voluptatum odit eius incidunt, qui voluptate consequatur. Doloribus?</p>
-                    </div>
+                <div class="col text-center border py-3 rounded">
+                    <img src="https://silabor.itera.ac.id//assets/fitrah/assets/pendidikan.png" alt="pendidikan"
+                        class="bg-white rounded-circle align-content-center" style="width: 100px">
+                    <h4 class="mt-3">Praktikum</h4>
+                    <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam minus
+                        deserunt temporibus, qui ad nam!</p>
                 </div>
             </div>
         </div>

@@ -77,7 +77,6 @@ use Carbon\Carbon;
                                 </td>
                                 <td class="d-flex">
                                     <span class="ml-2">: </span>
-                                    {{-- <span class="ml-2">006/IT9.4.5/LL/2023</span> --}}
                                     <input type="text" name="letter_number" id="letter_number"
                                         class="w-50 form-control form-control-sm ml-3" required>
                                 </td>
@@ -86,9 +85,10 @@ use Carbon\Carbon;
                                 <td>
                                     <span>Lampiran</span>
                                 </td>
-                                <td>
+                                <td class="d-flex">
                                     <span class="ml-2">: </span>
-                                    <span class="ml-2">-</span>
+                                    <input type="text" name="letter_attachment" id="letter_attachment"
+                                        class="w-50 form-control form-control-sm ml-3" required>
                                 </td>
                             </tr>
                             <tr>
@@ -97,7 +97,7 @@ use Carbon\Carbon;
                                     <span class="ml-2">: </span>
                                     <span class="ml-2">
                                         @if ($data->title)
-                                            {{ $data->title }} - <span class="font-italic">( Status Pengajuan )</span>
+                                            {{ $data->title }}
                                         @else
                                             <span class="text-danger">Belum Ada Perihal</span>
                                         @endif

@@ -310,7 +310,7 @@
                         },
                         error: function(e) {
                             Toast(
-                                e.responseJSON.message,
+                                e.responseJSON.errors,
                                 'error'
                             );
                         }

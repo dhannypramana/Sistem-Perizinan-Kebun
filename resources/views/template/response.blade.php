@@ -90,7 +90,7 @@ use Carbon\Carbon;
                 <td>
                     <span>Lampiran</span>
                     <span class="ml-2">: </span>
-                    <span>-</span>
+                    <span>{{ $letterAttachment }}</span>
                 </td>
             </tr>
             <tr>
@@ -99,13 +99,7 @@ use Carbon\Carbon;
                     <span class="space-lethead">: </span>
                     <span>
                         @if ($data->title)
-                            {{ $data->format_title }} - @if ($status == 0)
-                                Menunggu Konfirmasi
-                            @elseif ($status == 1)
-                                Disetujui
-                            @elseif ($status == 2)
-                                Ditolak
-                            @endif
+                            {{ $data->format_title }}
                         @else
                             <span class="text-danger">Belum Ada Perihal</span>
                         @endif
