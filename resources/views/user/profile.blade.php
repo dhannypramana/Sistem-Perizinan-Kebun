@@ -71,7 +71,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Jurusan / Fakultas</p>
+                                    <p class="mb-0">Fakultas</p>
                                 </div>
                                 <div class="col-sm-9">
                                     @if ($user->major == null)
@@ -116,7 +116,7 @@
                                     @if ($user->phone_number == null)
                                         <p class="text-danger mb-0">Belum ada Nomor Telefon</p>
                                     @else
-                                        <p class="text-muted mb-0">+62 {{ $user->phone_number }}</p>
+                                        <p class="text-muted mb-0">{{ $user->phone_number }}</p>
                                     @endif
                                 </div>
                             </div>

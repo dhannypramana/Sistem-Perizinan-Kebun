@@ -73,7 +73,11 @@
             @foreach ($academic_programs as $ap)
                 <tr>
                     <td>{{ $ap->name }}</td>
-                    <td>{{ $ap->faculty->faculty }}</td>
+                    <td>
+                        @if ($ap->faculty !== null)
+                            {{ $ap->faculty->faculty }}
+                        @endif
+                    </td>
                     <td>
                         <div class="dropdown">
                             <img class="btn dropdown-toggle"data-toggle="dropdown"

@@ -28,7 +28,9 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VerificationController;
 use App\Mail\DemoMail;
+use App\Models\DataRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -54,10 +56,8 @@ use Illuminate\Http\Request;
  */
 
 Route::get('/test', function () {
-    // letterTest
-
-    return view('test.letterTest', [
-        'active' => 'Test AJA'
+    return view('test.testDate', [
+        'active' => 'test'
     ]);
 })->name('test');
 
@@ -98,13 +98,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
+Route::get('/getFaculties', [FacultyController::class, 'getFaculties'])->name('getFaculties');
+Route::get('/getAcademicPrograms', [FacultyController::class, 'getAcademicPrograms'])->name('getAcademicPrograms');
+Route::get('/get-location', [LocationController::class, 'getLocation'])->name('getLocation');
+
 /**
  * User Routes
  */
 
 Route::middleware(['auth', 'user', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('user_dashboard');
-    Route::get('/get-location', [LocationController::class, 'getLocation'])->name('getLocation');
 
     Route::prefix('/profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('profile');
@@ -164,6 +167,7 @@ Route::middleware(['auth', 'user', 'verified'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'show'])->name('admin_dashboard');
+        Route::get('/filter', [ReportController::class, 'getFilters'])->name('getFilters');
 
         /**
          * Recap Route
@@ -186,7 +190,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::post('/changePassword', [AdminDashboardController::class, 'changePassword'])->name('changePassword');
 
             Route::get('/faculty', [FacultyController::class, 'show'])->name('manageFaculty');
-            Route::get('/getFaculties', [FacultyController::class, 'getFaculties'])->name('getFaculties');
             Route::post('/addFaculty', [FacultyController::class, 'addFaculty'])->name('addFaculty');
             Route::put('/editFaculty', [FacultyController::class, 'editFaculty'])->name('editFaculty');
             Route::delete('/deleteFaculty', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');

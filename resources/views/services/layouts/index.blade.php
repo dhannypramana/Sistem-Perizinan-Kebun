@@ -279,6 +279,7 @@
 
     <script src="{{ asset('assets/js/global.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 
     @include('sweetalert::alert')
 

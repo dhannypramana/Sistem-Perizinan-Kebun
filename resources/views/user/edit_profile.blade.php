@@ -59,11 +59,10 @@
 
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label for="major">Jurusan / Fakultas</label>
+                                    <label for="major">Fakultas</label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="major" id="major" value="{{ $user->major }}"
-                                        class="form-control" placeholder="Masukkan Jurusan">
+                                    <select name="major" id="major" class="form-control"></select>
                                     <span class="text-danger fst-italic fw-lighter error-text major_error"></span>
                                 </div>
                             </div>
@@ -74,9 +73,7 @@
                                     <label for="academic_program">Program Studi</label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="academic_program" id="academic_program"
-                                        value="{{ $user->academic_program }}" class="form-control"
-                                        placeholder="Masukkan Prodi">
+                                    <select name="academic_program" id="academic_program" class="form-control"></select>
                                     <span
                                         class="text-danger fst-italic fw-lighter error-text academic_program_error"></span>
                                 </div>
@@ -122,6 +119,44 @@
 
 @section('script')
     <script>
+        $(document).ready(() => {
+            handleUserFaculty()
+            handleUserAcademicProgram()
+        })
+
+        const handleUserFaculty = () => {
+            const selectFaculty = $('#major')
+            const url = "{{ route('getFaculties') }}"
+            $.get(url).done(response => {
+                $.each(response.data, (index, option) => {
+                    const optionElement = $('<option></option')
+                        .val(option.faculty)
+                        .text(option.faculty)
+                    if (option.faculty == '{{ $user->major }}') {
+                        optionElement.attr('selected', 'selected');
+                    }
+                    selectFaculty.append(optionElement)
+                })
+            })
+        }
+
+        const handleUserAcademicProgram = (selectFaculty) => {
+            const selectAcademicProgram = $('#academic_program')
+            const url = "{{ route('getAcademicPrograms') }}"
+
+            $.get(url).done(response => {
+                $.each(response.data, (index, option) => {
+                    const optionElement = $('<option></option')
+                        .val(option.name)
+                        .text(option.name)
+                    if (option.name == '{{ $user->academic_program }}') {
+                        optionElement.attr('selected', 'selected');
+                    }
+                    selectAcademicProgram.append(optionElement)
+                })
+            })
+        }
+
         const submitProfileForm = (e) => {
             e.preventDefault();
 
@@ -146,7 +181,6 @@
                         processData: false,
                         contentType: false,
                         cache: false,
-                        timeout: 600000,
                         dataType: 'json',
                         beforeSend: function() {
                             $(document).find('span.error-text').text('');

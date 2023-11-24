@@ -79,3 +79,31 @@ const Toast = (title, icon = 'success') => {
         });
     });
 }
+
+const formatDate = (dateString) => {
+    const options = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    };
+
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+}
+
+const convertDateToTimestamp = (dateString)=>  {
+    const dateObject = new Date(dateString);
+
+    const formattedDate =
+        dateObject.getFullYear() + '-' +
+        ('0' + (dateObject.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + dateObject.getDate()).slice(-2) + ' ' +
+        ('0' + dateObject.getHours()).slice(-2) + ':' +
+        ('0' + dateObject.getMinutes()).slice(-2) + ':' +
+        ('0' + dateObject.getSeconds()).slice(-2);
+
+    return formattedDate
+}
