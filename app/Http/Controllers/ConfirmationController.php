@@ -132,7 +132,7 @@ class ConfirmationController extends Controller
                 ]);
 
                 if ($request->status == '2') {
-                    $service->update([
+                    $s->update([
                         'admin_message' => $request->admin_message
                     ]);
                 }
