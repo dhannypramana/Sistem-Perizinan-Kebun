@@ -120,4 +120,13 @@ class FacultyController extends Controller
             'data' => $academic_programs
         ]);
     }
+
+    function getAcademicProgram(Request $request)
+    {
+        $academic_programs = AcademicProgram::all();
+
+        return response()->json([
+            'data' => $academic_programs
+        ]);
+    }
 }

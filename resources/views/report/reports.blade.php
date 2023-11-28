@@ -92,42 +92,6 @@
                     $('#end_date').val('')
                 }
             })
-
-            $('#dari_tanggal').on('change', () => {
-                if ($('#dari_tanggal').is(':checked')) {
-                    $('#dari_tanggal_input').removeClass('d-none')
-                } else {
-                    $('#dari_tanggal_input').addClass('d-none')
-                    $('#start_date').val('')
-                }
-            })
-
-            $('#sampai_tanggal').on('change', () => {
-                if ($('#sampai_tanggal').is(':checked')) {
-                    $('#sampai_tanggal_input').removeClass('d-none')
-                } else {
-                    $('#sampai_tanggal_input').addClass('d-none')
-                    $('#end_date').val('')
-                }
-            })
-
-            $('#fakultas').on('change', () => {
-                if ($('#fakultas').is(':checked')) {
-                    $('#fakultas_input').removeClass('d-none')
-                } else {
-                    $('#fakultas_input').addClass('d-none')
-                    $('#faculty').val('')
-                }
-            })
-
-            $('#prodi').on('change', () => {
-                if ($('#prodi').is(':checked')) {
-                    $('#prodi_input').removeClass('d-none')
-                } else {
-                    $('#prodi_input').addClass('d-none')
-                    $('#academic_program').val('')
-                }
-            })
         })
 
         const handleSubmitFilter = () => {
@@ -201,9 +165,11 @@
                             break;
                     }
 
-                    const button =
-                        `<button class="btn btn-info" onclick="unduhLaporan('${serviceID}')" id="buttonUnduh">Unduh Laporan</button`
-                    $('#button-group').append(button)
+                    if (!res.data.length < 1) {
+                        const button =
+                            `<button class="btn btn-info" onclick="unduhLaporan('${serviceID}')" id="buttonUnduh">Unduh Laporan</button`
+                        $('#button-group').append(button)
+                    }
                 },
                 error: function(e) {
                     Toast(
@@ -360,7 +326,7 @@
             })
         }
 
-        const handleAcademicProgramChange = (selectFaculty) => {
+        const handleAcademicProgramChange = () => {
             const selectAcademicProgram = $('#academic_program')
             const url = "{{ route('getAcademicPrograms') }}"
 
