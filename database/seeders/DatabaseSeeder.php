@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            // ResearchSeeder::class,
+            // DataRequestSeeder::class,
+            // LoanSeeder::class,
             LicenseFormatSeeder::class,
             LicenseFormatServiceSeeder::class,
             LicenseFormatUserSeeder::class,
             LocationSeeder::class,
             FacultySeeder::class
-            // DataRequestSeeder::class
         ]);
     }
 }

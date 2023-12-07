@@ -17,37 +17,42 @@ class DataRequestSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::where('email', 'example.popo@.gmail.com')->first();
-        $userID = 'f5f21e04-3512-4628-b33c-86b0b9b5ae91';
-
         DataRequest::create([
-            'id' => Str::uuid(),
-            'user_id' => $userID,
-            'license_number' => 'KFSPD202310252',
-            'data_number' => 2,
+            'id' => 1,
+            'user_id' => 1,
+            'license_number' => 'KFSPD202311291',
+            'data_number' => 1,
             'status' => 0,
             'is_reviewed' => 0,
-            'admin_message' => '',
+            'category' => 'Tanaman',
+            'title' => 'Data Persebaran Kacang Kacangan',
+            'purpose' => 'Penelitian',
+            'agency' => 'Institut Teknologi Sumatera',
             'category' => 'Tanaman',
             'title' => 'Data Persebaran',
             'purpose' => 'Kacang Kacangan',
             'agency' => 'Institut Teknologi Sumatera',
+            'agency_license' => 'KFSPD202311291.pdf',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DataRequest::create([
-            'id' => Str::uuid(),
-            'user_id' => $userID,
-            'license_number' => 'KFSPD202310253',
-            'data_number' => 3,
+            'id' => 2,
+            'user_id' => 2,
+            'license_number' => 'KFSPD202311292',
+            'data_number' => 2,
             'status' => 0,
             'is_reviewed' => 0,
-            'admin_message' => '',
-            'category' => 'Tanaman OKE',
-            'title' => 'Data Persebaran OKE',
-            'purpose' => 'Kacang Kacangan OKE',
-            'agency' => 'Institut Teknologi Sumatera OKE',
+            'category' => 'Tanaman',
+            'title' => 'Data Persebaran Kacang Kacangan',
+            'purpose' => 'Penelitian',
+            'agency' => 'Institut Teknologi Sumatera',
+            'category' => 'Tanaman',
+            'title' => 'Data Persebaran',
+            'purpose' => 'Kacang Kacangan',
+            'agency' => 'Institut Teknologi Sumatera',
+            'agency_license' => 'KFSPD202311292.pdf',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
