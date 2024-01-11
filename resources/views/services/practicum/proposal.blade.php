@@ -302,6 +302,7 @@
                                         'Periksa Kembali Form Kamu!',
                                         'error'
                                     ).then(() => {
+                                        console.log(data.errors)
                                         $.each(data.errors, function(prefix, val) {
                                             $('span.' + prefix + '_error').text(val[
                                                 0]);

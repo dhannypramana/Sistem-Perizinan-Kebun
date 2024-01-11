@@ -120,6 +120,8 @@
 @section('script')
     <script>
         $(document).ready(() => {
+            $("#major").select2();
+            $("#academic_program").select2();
             handleUserFaculty()
             handleUserAcademicProgram()
         })

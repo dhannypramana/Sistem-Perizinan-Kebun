@@ -24,11 +24,11 @@
                     <input name="password" type="password" id="password" class="form-control form-control-lg" required />
                 </div>
 
-                <p class="small mb-5 pb-lg-2 text-left">
+                {{-- <p class="small mb-5 pb-lg-2 text-left">
                     <a class="text-dark-50" style="cursor: pointer" onclick="handleForgotPassword()">Forgot password?</a>
-                </p>
+                </p> --}}
 
-                <button type="submit" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto">Login</button>
+                <button type="submit" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-5">Login</button>
 
                 {{-- <div onclick="handleLoginSSO()" class="btn btn-outline-dark px-5 d-grid col-12 mx-auto mt-3">
                     Login

@@ -75,7 +75,7 @@ Route::get('/{license_number}/reply', [PdfController::class, 'reply'])->name('re
  * Verification Routes
  */
 Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth'])->name('verification.verify');
 Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /**

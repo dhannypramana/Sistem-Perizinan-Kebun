@@ -158,7 +158,6 @@ class ConfirmationController extends Controller
                     'admin_message' => $request->admin_message
                 ]);
             }
-
             /**
              * Send Email Confirmation to User
              */
