@@ -176,7 +176,10 @@ use Carbon\Carbon;
             {{ $data->footer }}
         </p>
         <div class="license-footer">
-            <img src="https://quickchart.io/qr?text=http://sisperlak.test/perizinan/verif/{{ $license_number }}" alt="qr">
+            {{-- {{!! base64_encode(QrCode::format('png')->size(256)->generate(route('verifQR', ['license_number' => $license_number]))) !!}} --}}
+
+
+            {{-- {{ $qr }} --}}
             {{-- Kepala UPT Konservasi Flora Sumatera
             <div class="signature mt-3">
                 @if ($signatures->isEmpty())

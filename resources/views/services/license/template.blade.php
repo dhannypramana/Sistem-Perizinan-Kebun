@@ -244,7 +244,12 @@ use Carbon\Carbon;
                 </div>
 
                 <div class="license-footer d-flex flex-column align-items-end mt-4">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center border p-2 w-25 text-center">
+                        {{-- {!! QrCode::size(256)->generate(route('verifQR', ['license_number' => $license_number])) !!} --}}
+                        {{-- <img src="https://quickchart.io/qr?text=http://sisperlak.test/perizinan/verif/KFSPD202401191" alt="qr"> --}}
+                        Tanda Tangan akan di generate QR secara otomatis
+                    </div>
+                    {{-- <div class="d-flex flex-column justify-content-center align-items-center">
                         Kepala UPT Konservasi Flora Sumatera
                         <div class="signature mt-3">
                             @if (is_null($data->signature))
@@ -270,7 +275,7 @@ use Carbon\Carbon;
                                 <div>NIP. {{ $data->nip }}</div>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="footer-image mt-3">
                     @if (is_null($data->footer_image))

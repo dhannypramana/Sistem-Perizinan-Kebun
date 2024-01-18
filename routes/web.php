@@ -20,10 +20,12 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Practicum\AdminPracticumController;
 use App\Http\Controllers\Practicum\UserPracticumController;
+use App\Http\Controllers\QrController;
 use App\Http\Controllers\RecapController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Research\AdminResearchController;
 use App\Http\Controllers\Research\UserResearchController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VerificationController;
@@ -35,6 +37,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 // use NotificationChannels\WhatsApp\Component;
 // use NotificationChannels\WhatsApp\WhatsAppChannel;
@@ -55,11 +58,13 @@ use Illuminate\Http\Request;
  * Test Routes
  */
 
-Route::get('/test', function () {
-    return view('test.testDate', [
-        'active' => 'test'
-    ]);
-})->name('test');
+Route::get('/test', [TestingController::class, 'test'])->name('test');
+
+/**
+ * QR Routes
+ */
+
+Route::get('/perizinan/verif/{license_number}', [QrController::class, 'show'])->name('verifQR');
 
 /**
  * Main Routes
