@@ -29,13 +29,14 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="block_logo">
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
-                    <div class="sidebar-brand-text mx-3">
-                        <img class="nav_img" src="{{ asset('assets/images/itera.png') }}" alt="logo_itera">
+                    <div class="sidebar-brand-text" style="margin-top: 100px">
+                        <img class="nav_img" src="https://kebunraya.itera.ac.id/wp-content/uploads/2022/11/cropped-kebunnn-1.png" alt="logo_kebun">
+                        <p class="mt-2">Sistem informasi perizinan kebun raya itera</p>
                     </div>
                 </a>
             </div>
 
-            <div class="dashboard">
+            <div class="dashboard" style="margin-top: 80px">
                 <li class="nav-item @if ($active == 'dashboard') active @endif">
                     <a class="nav-link" href="{{ route('user_dashboard') }}">
                         <img src="{{ asset('assets/images/svg/undraw_dashboard.svg') }}">
