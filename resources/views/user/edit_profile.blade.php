@@ -82,11 +82,11 @@
 
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label for="student_number">NIM</label>
+                                    <label for="student_number">{{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}</label>
                                 </div>
                                 <div class="col-lg-6">
                                     <input type="number" name="student_number" id="student_number"
-                                        value="{{ $user->student_number }}" class="form-control" placeholder="Masukkan NIM"
+                                        value="{{ $user->student_number }}" class="form-control" placeholder="Masukkan {{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}"
                                         required>
                                     <span class="text-danger fst-italic fw-lighter error-text student_number_error"></span>
                                 </div>

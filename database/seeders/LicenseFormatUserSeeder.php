@@ -28,13 +28,23 @@ class LicenseFormatUserSeeder extends Seeder
         ]);
         LicenseFormatUser::create([
             'id' => Str::uuid(),
+            'type' => 'email',
+            'type_name' => 'Email'
+        ]);
+        LicenseFormatUser::create([
+            'id' => Str::uuid(),
             'type' => 'academic_program',
             'type_name' => 'Program Studi'
         ]);
         LicenseFormatUser::create([
             'id' => Str::uuid(),
+            'type' => 'major',
+            'type_name' => 'Fakultas'
+        ]);
+        LicenseFormatUser::create([
+            'id' => Str::uuid(),
             'type' => 'student_number',
-            'type_name' => 'NIM'
+            'type_name' => 'NIM/NIP'
         ]);
         LicenseFormatUser::create([
             'id' => Str::uuid(),

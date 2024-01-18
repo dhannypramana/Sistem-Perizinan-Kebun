@@ -37,24 +37,32 @@
                         <td>{{ $research->user->name }}</td>
                     </tr>
                     <tr>
-                        <th>NIM</th>
-                        <td>{{ $research->user->student_number }}</td>
-                    </tr>
-                    <tr>
                         <th>Alamat</th>
                         <td>{{ $research->user->address }}</td>
                     </tr>
                     <tr>
-                        <th>No. Telepon</th>
-                        <td>{{ $research->user->phone_number }}</td>
+                        <th>Email</th>
+                        <td>{{ $research->user->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>{{ \App\Helpers\Helpers::isStudent($research->user->email) ? 'Mahasiswa' : 'Dosen' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prodi</th>
+                        <td>{{ $research->user->academic_program }}</td>
                     </tr>
                     <tr>
                         <th>Jurusan / Fakultas</th>
                         <td>{{ $research->user->major }}</td>
                     </tr>
                     <tr>
-                        <th>Prodi</th>
-                        <td>{{ $research->user->academic_program }}</td>
+                        <th>{{ \App\Helpers\Helpers::isStudent($research->user->email) ? 'NIM' : 'NIP' }}</th>
+                        <td>{{ $research->user->student_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>No. Telepon</th>
+                        <td>{{ $research->user->phone_number }}</td>
                     </tr>
                 </table>
             </div>
@@ -106,14 +114,16 @@
                         <th>Fasilitas yang Digunakan</th>
                         <td>{{ $research->facility }}</td>
                     </tr>
-                    <tr>
-                        <th>Nama Dosen Pembimbing Penelitian</th>
-                        <td>{{ $research->research_supervisor }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nama Dosen Pembimbing akademik</th>
-                        <td>{{ $research->academic_supervisor }}</td>
-                    </tr>
+                    @if (\App\Helpers\Helpers::isStudent($research->user->email))
+                        <tr>
+                            <th>Nama Dosen Pembimbing Penelitian</th>
+                            <td>{{ $research->research_supervisor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nama Dosen Pembimbing akademik</th>
+                            <td>{{ $research->academic_supervisor }}</td>
+                        </tr>
+                    @endif
                     <tr>
                         <th>Surat Pengantar Instansi</th>
                         <td>

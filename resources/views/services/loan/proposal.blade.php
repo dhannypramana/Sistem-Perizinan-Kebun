@@ -9,12 +9,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nama</label>
-                    <input value="{{ $user->name }}" class="form-control" disabled>
+                    <input value="{{ $user->name }}"class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
                     <label>Alamat</label>
                     <input value="{{ $user->address }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input value="{{ $user->email }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <input value="{{ \App\Helpers\Helpers::isStudent($user->email) ? 'Mahasiswa' : 'Dosen' }}" class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
@@ -28,8 +38,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>NIM</label>
-                    <input value="{{ $user->student_number }}" type="text" class="form-control" disabled>
+                    <label>{{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}</label>
+                    <input value="{{ $user->student_number }}" class="form-control" disabled>
                 </div>
 
                 <div class="form-group">

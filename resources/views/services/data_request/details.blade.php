@@ -37,24 +37,32 @@
                         <td>{{ $data_request->user->name }}</td>
                     </tr>
                     <tr>
-                        <th>NIM</th>
-                        <td>{{ $data_request->user->student_number }}</td>
-                    </tr>
-                    <tr>
                         <th>Alamat</th>
                         <td>{{ $data_request->user->address }}</td>
                     </tr>
                     <tr>
-                        <th>No. Telepon</th>
-                        <td>{{ $data_request->user->phone_number }}</td>
+                        <th>Email</th>
+                        <td>{{ $data_request->user->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>{{ \App\Helpers\Helpers::isStudent($data_request->user->email) ? 'Mahasiswa' : 'Dosen' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prodi</th>
+                        <td>{{ $data_request->user->academic_program }}</td>
                     </tr>
                     <tr>
                         <th>Jurusan / Fakultas</th>
                         <td>{{ $data_request->user->major }}</td>
                     </tr>
                     <tr>
-                        <th>Prodi</th>
-                        <td>{{ $data_request->user->academic_program }}</td>
+                        <th>{{ \App\Helpers\Helpers::isStudent($data_request->user->email) ? 'NIM' : 'NIP' }}</th>
+                        <td>{{ $data_request->user->student_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>No. Telepon</th>
+                        <td>{{ $data_request->user->phone_number }}</td>
                     </tr>
                 </table>
             </div>

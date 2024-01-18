@@ -23,6 +23,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Email</label>
+                    <input value="{{ $user->email }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <input value="{{ \App\Helpers\Helpers::isStudent($user->email) ? 'Mahasiswa' : 'Dosen' }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
                     <label>Prodi</label>
                     <input value="{{ $user->academic_program }}" class="form-control" disabled>
                 </div>
@@ -32,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>NIM</label>
+                    <label>{{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}</label>
                     <input value="{{ $user->student_number }}" class="form-control" disabled>
                 </div>
 
@@ -88,19 +98,22 @@
                     <small class="form-text text-muted">example: Paranet Persemayan</small>
                 </div>
 
-                <div class="form-group">
-                    <label for="research_supervisor">Nama Dosen Pembimbing Penelitian<sup>*</sup></label>
-                    <input type="text" name="research_supervisor" class="form-control" id="research_supervisor"
-                        placeholder="Nama Dosen Pembimbing Penelitian" required>
-                    <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
-                </div>
+                @if (\App\Helpers\Helpers::isStudent($user->email))
+                    <div class="form-group">
+                        <label for="research_supervisor">Nama Dosen Pembimbing Penelitian<sup>*</sup></label>
+                        <input type="text" name="research_supervisor" class="form-control" id="research_supervisor"
+                            placeholder="Nama Dosen Pembimbing Penelitian">
+                        <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
+                    </div>
 
-                <div class="form-group">
-                    <label for="academic_supervisor">Nama Dosen Pembimbing Akademik<sup>*</sup></label>
-                    <input type="text" name="academic_supervisor" class="form-control" id="academic_supervisor"
-                        placeholder="Nama Dosen Pembimbing Akademik" required>
-                    <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
-                </div>
+                    <div class="form-group">
+                        <label for="academic_supervisor">Nama Dosen Pembimbing Akademik<sup>*</sup></label>
+                        <input type="text" name="academic_supervisor" class="form-control" id="academic_supervisor"
+                            placeholder="Nama Dosen Pembimbing Akademik">
+                        <small class="form-text text-muted">example: Andre Febrianto, S.Kom., M.Eng.</small>
+                    </div>
+                @endif
+
 
                 <div class="form-group">
                     <label for="agency_license">Surat Pengantar Instansi<sup>*</sup></label>

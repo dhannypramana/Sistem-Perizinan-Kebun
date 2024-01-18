@@ -28,12 +28,12 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
 
-        Validator::extend('student_itera_email', function ($attribute, $value, $parameter, $validator) {
-            return str_ends_with($value, '@student.itera.ac.id');
+        Validator::extend('itera_email', function ($attribute, $value, $parameter, $validator) {
+            return str_ends_with($value, '.itera.ac.id');
         });
 
-        Validator::replacer('student_itera_email', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':attribute', $attribute, 'Alamat :attribute harus berakhir dengan @student.itera.ac.id.');
+        Validator::replacer('itera_email', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':attribute', $attribute, 'Alamat :attribute harus berakhir dengan .itera.ac.id. (Hanya berlaku bagi sivitas akademi itera)');
         });
     }
 }

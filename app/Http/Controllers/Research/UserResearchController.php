@@ -53,8 +53,8 @@ class UserResearchController extends Controller
             'start_time' => ['required', 'date'],
             'end_time' => ['required', 'date', 'after_or_equal:start_time'],
             'facility' => ['required'],
-            'research_supervisor' => ['required', 'min:3'],
-            'academic_supervisor' => ['required', 'min:3'],
+            'research_supervisor' => ['min:3'],
+            'academic_supervisor' => ['min:3'],
             'agency_license' => ['required', 'file', 'mimes:pdf', 'max:500'],
         ]);
 

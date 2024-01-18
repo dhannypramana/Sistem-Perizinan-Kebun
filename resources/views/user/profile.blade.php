@@ -71,6 +71,15 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <p class="mb-0">Role</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ \App\Helpers\Helpers::isStudent($user->email) ? 'Mahasiswa' : 'Dosen' }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <p class="mb-0">Fakultas</p>
                                 </div>
                                 <div class="col-sm-9">
@@ -97,7 +106,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">NIM</p>
+                                    <p class="mb-0">{{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}</p>
                                 </div>
                                 <div class="col-sm-9">
                                     @if ($user->student_number == null)

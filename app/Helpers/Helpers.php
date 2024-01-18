@@ -79,4 +79,8 @@ class Helpers
 
         return $url;
     }
+
+    public static function isStudent($email) {
+        return str_ends_with($email, '@student.itera.ac.id');
+    }
 }

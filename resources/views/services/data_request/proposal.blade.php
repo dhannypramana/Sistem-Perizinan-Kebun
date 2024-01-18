@@ -22,6 +22,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Email</label>
+                    <input value="{{ $user->email }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <input value="{{ \App\Helpers\Helpers::isStudent($user->email) ? 'Mahasiswa' : 'Dosen' }}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
                     <label>Prodi</label>
                     <input value="{{ $user->academic_program }}" class="form-control" disabled>
                 </div>
@@ -32,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>NIM</label>
+                    <label>{{ \App\Helpers\Helpers::isStudent($user->email) ? 'NIM' : 'NIP' }}</label>
                     <input value="{{ $user->student_number }}" class="form-control" disabled>
                 </div>
 
@@ -83,8 +93,8 @@
                 </div>
                 <div class="form-group mt-2 mb-0">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="fixedCheck" required>
-                        <label class="form-check-label" for="fixedCheck">
+                        <input class="form-check-input" type="checkbox" id="aggrementCheck" required>
+                        <label class="form-check-label" for="aggrementCheck">
                             Saya bersedia menggunakan data sesuai dengan kebutuhan dan tidak menyebarluaskan data tanpa
                             seizin
                             UPA Konservasi Flora Sumatera

@@ -25,7 +25,7 @@ class RegisterController extends Controller
             'email' => [
                 'required',
                 'email',
-                'student_itera_email'
+                'itera_email'
             ],
             'password' => ['required'],
             'confirmation_password' => ['required', 'same:password'],

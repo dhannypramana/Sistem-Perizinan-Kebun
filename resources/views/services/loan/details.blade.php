@@ -37,24 +37,32 @@
                         <td>{{ $loan->user->name }}</td>
                     </tr>
                     <tr>
-                        <th>NIM</th>
-                        <td>{{ $loan->user->student_number }}</td>
-                    </tr>
-                    <tr>
                         <th>Alamat</th>
                         <td>{{ $loan->user->address }}</td>
                     </tr>
                     <tr>
-                        <th>No. Telepon</th>
-                        <td>{{ $loan->user->phone_number }}</td>
+                        <th>Email</th>
+                        <td>{{ $loan->user->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>{{ \App\Helpers\Helpers::isStudent($loan->user->email) ? 'Mahasiswa' : 'Dosen' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prodi</th>
+                        <td>{{ $loan->user->academic_program }}</td>
                     </tr>
                     <tr>
                         <th>Jurusan / Fakultas</th>
                         <td>{{ $loan->user->major }}</td>
                     </tr>
                     <tr>
-                        <th>Prodi</th>
-                        <td>{{ $loan->user->academic_program }}</td>
+                        <th>{{ \App\Helpers\Helpers::isStudent($loan->user->email) ? 'NIM' : 'NIP' }}</th>
+                        <td>{{ $loan->user->student_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>No. Telepon</th>
+                        <td>{{ $loan->user->phone_number }}</td>
                     </tr>
                 </table>
             </div>

@@ -28,8 +28,8 @@ return new class extends Migration
             $table->date('start_time');
             $table->date('end_time');
             $table->string('facility');
-            $table->string('research_supervisor');
-            $table->string('academic_supervisor');
+            $table->string('research_supervisor')->nullable();
+            $table->string('academic_supervisor')->nullable();
             $table->string('agency_license')->default("");
 
             $table->string('reply')->nullable();
