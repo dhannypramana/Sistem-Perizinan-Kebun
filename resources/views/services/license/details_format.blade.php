@@ -61,18 +61,17 @@
                     </div>
                 </div>
 
-                <hr>
-
-                <h4>Tanda Tangan Surat</h4>
+                {{-- <hr> --}}
+                {{-- <h4>Tanda Tangan Surat</h4>
                 <hr class="divider rounded">
                 @if ($data->signature)
                     <img src="{{ asset('/storage/image/' . $data->signature->signature) }}" alt="Tanda Tangan Surat"
                         class="ttd">
                 @else
                     <div class="nokop">Belum Ada Tanda Tangan Surat</div>
-                @endif
+                @endif --}}
 
-                <div class="form-row mt-4 d-flex justify-content-between align-items-center">
+                {{-- <div class="form-row mt-4 d-flex justify-content-between align-items-center">
                     @if ($signatures->isNotEmpty())
                         <div class="form-group col-md-5">
                             <label>Pilih Tanda Tangan</label>
@@ -111,7 +110,7 @@
                         </div>
                         <span class="text-danger fst-italic fw-lighter error-text signature_error"></span>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <hr>
