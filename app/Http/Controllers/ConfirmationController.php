@@ -116,7 +116,8 @@ class ConfirmationController extends Controller
     public static function accept(Request $request)
     {
         try {
-            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number, $request->status, $request->letter_number, $request->letter_attachment);
+            ConfirmationController::generateReply($request->id, $request->user_id, $request->license_number, $request->status,
+             $request->letter_number, $request->letter_attachment);
         } catch (\Throwable $th) {
             throw $th;
         }

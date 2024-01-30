@@ -389,10 +389,10 @@ use Carbon\Carbon;
                 $('#submit-btn').prop('disabled', true);
                 $('#body-null').removeClass('d-none');
             }
-            if (data.signature === null) {
-                $('#submit-btn').prop('disabled', true);
-                $('#signature-null').removeClass('d-none');
-            }
+            // if (data.signature === null) {
+            //     $('#submit-btn').prop('disabled', true);
+            //     $('#signature-null').removeClass('d-none');
+            // }
             if (data.footer_image === null) {
                 $('#submit-btn').prop('disabled', true);
                 $('#footer-image-null').removeClass('d-none');
